@@ -24,9 +24,6 @@
 
 package pw.stamina.minecraftapi.network;
 
-import pw.stamina.minecraftapi.network.Packet;
-import pw.stamina.minecraftapi.network.PacketCreationException;
-
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
