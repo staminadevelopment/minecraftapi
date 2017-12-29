@@ -22,8 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.service;
+package pw.stamina.minecraftapi;
 
-public interface MinecraftApiService {
+import pw.stamina.minecraftapi.client.Minecraft;
+import pw.stamina.minecraftapi.util.BoundingBox;
 
+public interface MinecraftApiAdapter {
+
+    Minecraft getMinecraft();
+
+    BoundingBox.Factory getBoundingBoxFactory();
 }
