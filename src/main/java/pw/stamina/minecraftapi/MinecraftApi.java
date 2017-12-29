@@ -24,18 +24,14 @@
 
 package pw.stamina.minecraftapi;
 
-import pw.stamina.minecraftapi.service.MinecraftApiService;
-import pw.stamina.minecraftapi.service.MinecraftApiServiceRegistry;
-
-//Services:
-// - PacketCreationService
-// - BoundingBoxCreationService
-// - MinecraftLocatorService
-
-//TODO: Check if standard services are available
 public final class MinecraftApi {
+    private static MinecraftApiAdapter adapter;
 
-    public static void bootstrap() {
+    public static void bootstrap(MinecraftApiAdapter adapter) {
+        //TODO: Prevent bootstrapping multiple times
+        //TODO: Check that the provided adapter is not null
+
+        MinecraftApi.adapter = adapter;
         //TODO: Bootstrap project(s) dependent using this API
     }
 
@@ -43,7 +39,7 @@ public final class MinecraftApi {
         //TODO: Delegate events
     }
 
-    public static <T extends MinecraftApiService> T getService(Class<T> serviceClass) {
-        return MinecraftApiServiceRegistry.getService(serviceClass);
+    public static MinecraftApiAdapter getAdapter() {
+        return adapter;
     }
 }
