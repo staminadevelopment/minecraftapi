@@ -22,10 +22,21 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
-final class IncomingPacketAdaptersImpl implements IncomingPacketAdapters {
+final class PositionLookPacketPacketAdapter
+        extends AbstractPacketAdapter<PositionLookPacket> implements PositionLookPacket.Adapter {
 
+    PositionLookPacketPacketAdapter() {
+        super(PositionLookPacket.class);
+    }
+
+    @Override
+    public PositionLookPacket create(double x, double y, double z, float yaw, float pitch, boolean onGround) {
+        return (PositionLookPacket) new C03PacketPlayer.C06PacketPlayerPosLook(x, y, z, yaw, pitch, onGround);
+    }
 }

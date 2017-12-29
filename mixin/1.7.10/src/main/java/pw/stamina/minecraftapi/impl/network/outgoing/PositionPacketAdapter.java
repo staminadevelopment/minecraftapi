@@ -22,10 +22,33 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.PositionPacket;
 
-final class OutgoingPacketAdaptersImpl implements OutgoingPacketAdapters {
+final class PositionPacketAdapter extends AbstractPacketAdapter<PositionPacket> implements PositionPacket.Adapter {
+    private static final double DEFAULT_STANCE = 1.62;
 
+    PositionPacketAdapter() {
+        super(PositionPacket.class);
+    }
+
+    @Override
+    public PositionPacket create(double x, double y, double z, boolean onGround) {
+        return (PositionPacket) new C03PacketPlayer.C04PacketPlayerPosition(x, y, y + getStance(), z, onGround);
+    }
+
+    static double getStance() {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+
+        if (player != null) {
+            return player.posY - player.boundingBox.minY;
+        } else {
+            return DEFAULT_STANCE;
+        }
+    }
 }
