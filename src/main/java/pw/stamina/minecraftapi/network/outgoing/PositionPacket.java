@@ -22,25 +22,18 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.network.outgoing;
 
-import net.minecraft.network.play.client.C01PacketChatMessage;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import pw.stamina.minecraftapi.network.outgoing.PacketChat;
+public interface PositionPacket extends OnGroundPacket {
 
-@Mixin(C01PacketChatMessage.class)
-public class MixinPacketChat implements PacketChat {
+    double x();
+    void x(double x);
 
-    @Shadow private String message;
+    double y();
+    void y(double y);
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
+    double z();
+    void z(double z);
 
-    @Override
-    public String setMessage(String message) {
-        return this.message = message;
-    }
+    boolean isMoving();
 }

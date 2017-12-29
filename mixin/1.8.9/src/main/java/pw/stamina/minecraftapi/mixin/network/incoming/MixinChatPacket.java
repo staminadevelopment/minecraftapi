@@ -22,13 +22,21 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.mixin.network.incoming;
 
-import pw.stamina.minecraftapi.network.Packet;
+import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 
-public interface PacketChat extends Packet {
+@Mixin(S02PacketChat.class)
+public class MixinChatPacket implements ChatPacket {
 
-    String getMessage();
+    @Shadow private IChatComponent chatComponent;
 
-    String setMessage(String message);
+    @Override
+    public String getTextMessage() {
+        return chatComponent.getFormattedText();
+    }
 }

@@ -24,16 +24,11 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
-public interface PacketPlayerPosition extends PacketPlayer {
+import pw.stamina.minecraftapi.network.Packet;
 
-    double x();
-    void x(double x);
+public interface ChatPacket extends Packet {
 
-    double y();
-    void y(double y);
+    String getMessage();
 
-    double z();
-    void z(double z);
-
-    boolean isMoving();
+    String setMessage(String message);
 }

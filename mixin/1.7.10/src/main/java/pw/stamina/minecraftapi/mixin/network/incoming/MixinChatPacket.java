@@ -22,8 +22,21 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.mixin.network.incoming;
 
-public interface PacketPlayerPositionLook extends PacketPlayerPosition, PacketPlayerLook {
+import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 
+@Mixin(S02PacketChat.class)
+public class MixinChatPacket implements ChatPacket {
+
+    @Shadow private IChatComponent chatComponent;
+
+    @Override
+    public String getTextMessage() {
+        return chatComponent.getFormattedText();
+    }
 }

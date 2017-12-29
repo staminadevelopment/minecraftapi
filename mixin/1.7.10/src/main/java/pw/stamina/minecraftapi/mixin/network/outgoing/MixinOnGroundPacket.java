@@ -27,19 +27,19 @@ package pw.stamina.minecraftapi.mixin.network.outgoing;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import pw.stamina.minecraftapi.network.outgoing.PacketPlayer;
+import pw.stamina.minecraftapi.network.outgoing.OnGroundPacket;
 
 @Mixin(C03PacketPlayer.class)
-public class MixinPacketPlayer implements PacketPlayer {
+public class MixinOnGroundPacket implements OnGroundPacket {
 
     @Shadow protected double x;
     @Shadow protected double y;
     @Shadow protected double z;
     @Shadow protected float yaw;
     @Shadow protected float pitch;
-    @Shadow protected boolean moving;
+    @Shadow protected boolean field_149480_h;
     @Shadow protected boolean rotating;
-    @Shadow protected boolean onGround;
+    @Shadow protected boolean field_149474_g;
 
     public double x() {
         return x;
@@ -66,7 +66,7 @@ public class MixinPacketPlayer implements PacketPlayer {
     }
 
     public boolean isMoving() {
-        return moving;
+        return field_149480_h;
     }
 
     public float yaw() {
@@ -91,11 +91,11 @@ public class MixinPacketPlayer implements PacketPlayer {
 
     @Override
     public boolean onGround() {
-        return onGround;
+        return field_149474_g;
     }
 
     @Override
     public void onGround(boolean onGround) {
-        this.onGround = onGround;
+        this.field_149474_g = onGround;
     }
 }
