@@ -34,7 +34,7 @@ import pw.stamina.minecraftapi.world.World;
 public interface Minecraft {
 
     static Minecraft getMinecraft() {
-        return MinecraftApi.getService(MinecraftLocatorService.class).findMinecraft();
+        return MinecraftApi.getAdapter().getMinecraft();
     }
 
     FontRenderer getFontRenderer();

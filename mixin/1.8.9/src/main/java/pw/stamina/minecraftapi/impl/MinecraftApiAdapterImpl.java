@@ -22,11 +22,22 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.client;
+package pw.stamina.minecraftapi.impl;
 
-import pw.stamina.minecraftapi.service.MinecraftApiService;
+import net.minecraft.util.AxisAlignedBB;
+import pw.stamina.minecraftapi.MinecraftApiAdapter;
+import pw.stamina.minecraftapi.client.Minecraft;
+import pw.stamina.minecraftapi.util.BoundingBox;
 
-public interface MinecraftLocatorService extends MinecraftApiService {
+public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
 
-    Minecraft findMinecraft();
+    @Override
+    public Minecraft getMinecraft() {
+        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
+    }
+
+    @Override
+    public BoundingBox.Factory getBoundingBoxFactory() {
+        return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) AxisAlignedBB.fromBounds(x1, y1, z1, x2, y2, z2);
+    }
 }
