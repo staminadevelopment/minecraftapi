@@ -24,6 +24,13 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
+import pw.stamina.minecraftapi.network.PacketAdapter;
+
 public interface PositionLookPacket extends PositionPacket, LookPacket {
 
+    interface Adapter extends PacketAdapter<PositionLookPacket> {
+
+        PositionLookPacket create(double x, double y, double z,
+                                  float yaw, float pitch, boolean onGround);
+    }
 }

@@ -25,10 +25,16 @@
 package pw.stamina.minecraftapi.network.outgoing;
 
 import pw.stamina.minecraftapi.network.Packet;
+import pw.stamina.minecraftapi.network.PacketAdapter;
 
 public interface ChatPacket extends Packet {
 
     String getMessage();
 
     String setMessage(String message);
+
+    interface Adapter extends PacketAdapter<ChatPacket> {
+
+        ChatPacket create(String message);
+    }
 }
