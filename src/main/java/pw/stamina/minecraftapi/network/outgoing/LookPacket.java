@@ -22,25 +22,26 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.network.outgoing;
 
-import net.minecraft.network.play.client.C01PacketChatMessage;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import pw.stamina.minecraftapi.network.outgoing.PacketChat;
+import pw.stamina.minecraftapi.util.Rotation;
 
-@Mixin(C01PacketChatMessage.class)
-public class MixinPacketChat implements PacketChat {
+public interface LookPacket extends OnGroundPacket {
 
-    @Shadow private String message;
+    float yaw();
+    void yaw(float yaw);
 
-    @Override
-    public String getMessage() {
-        return message;
+    float pitch();
+    void pitch(float pitch);
+
+    default Rotation getRotation() {
+        return Rotation.from(yaw(), pitch());
     }
 
-    @Override
-    public String setMessage(String message) {
-        return this.message = message;
+    default void setRotation(Rotation rotation) {
+        yaw(rotation.getYaw());
+        pitch(rotation.getPitch());
     }
+
+    boolean isRotating();
 }

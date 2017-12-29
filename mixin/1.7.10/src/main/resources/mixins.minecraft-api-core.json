@@ -30,10 +30,11 @@
     "network.MixinNetHandlerPlayClient",
     "network.MixinNetworkManager",
     "network.MixinPacket",
-    "network.outgoing.MixinPacketChat",
-    "network.outgoing.MixinPacketPlayer",
-    "network.outgoing.MixinPacketPlayerLook",
-    "network.outgoing.MixinPacketPlayerPosition",
-    "network.outgoing.MixinPacketPlayerPositionLook"
+    "network.outgoing.MixinChatPacket",
+    "network.outgoing.MixinOnGroundPacket",
+    "network.outgoing.MixinLookPacket",
+    "network.outgoing.MixinPositionPacket",
+    "network.outgoing.MixinPositionLookPacket",
+    "network.incoming.MixinChatPacket"
   ]
 }

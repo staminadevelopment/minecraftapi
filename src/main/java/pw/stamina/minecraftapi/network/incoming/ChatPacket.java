@@ -22,26 +22,12 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.network.incoming;
 
-import pw.stamina.minecraftapi.util.Rotation;
+import pw.stamina.minecraftapi.network.Packet;
 
-public interface PacketPlayerLook extends PacketPlayer {
+//TODO: Add getMessage when a ChatComponent API has been implemented
+public interface ChatPacket extends Packet {
 
-    float yaw();
-    void yaw(float yaw);
-
-    float pitch();
-    void pitch(float pitch);
-
-    default Rotation getRotation() {
-        return Rotation.from(yaw(), pitch());
-    }
-
-    default void setRotation(Rotation rotation) {
-        yaw(rotation.getYaw());
-        pitch(rotation.getPitch());
-    }
-
-    boolean isRotating();
+    String getTextMessage();
 }
