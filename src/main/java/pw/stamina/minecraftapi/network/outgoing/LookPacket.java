@@ -22,35 +22,32 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.network.outgoing;
 
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
+import pw.stamina.minecraftapi.network.PacketAdapter;
+import pw.stamina.minecraftapi.util.Rotation;
 
-public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
+public interface LookPacket extends OnGroundPacket {
 
-    @Override
-    public Minecraft getMinecraft() {
-        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
+    float yaw();
+    void yaw(float yaw);
+
+    float pitch();
+    void pitch(float pitch);
+
+    default Rotation getRotation() {
+        return Rotation.from(yaw(), pitch());
     }
 
-    @Override
-    public BoundingBox.Factory getBoundingBoxFactory() {
-        return new BoundingBoxFactory();
+    default void setRotation(Rotation rotation) {
+        yaw(rotation.getYaw());
+        pitch(rotation.getPitch());
     }
 
-    @Override
-    public IncomingPacketAdapters getIncomingPacketAdapters() {
-        return new IncomingPacketAdaptersImpl();
-    }
+    boolean isRotating();
 
-    @Override
-    public OutgoingPacketAdapters getOutingPacketAdapters() {
-        return new OutgoingPacketAdaptersImpl();
+    interface Adapter extends PacketAdapter<LookPacket> {
+
+        LookPacket create(float yaw, float pitch, boolean onGround);
     }
 }

@@ -22,13 +22,33 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.network;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import pw.stamina.minecraftapi.network.outgoing.PacketPlayerPosition;
+import pw.stamina.minecraftapi.MinecraftApi;
+import pw.stamina.minecraftapi.MinecraftApiAdapter;
+import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
+import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 
-@Mixin(C03PacketPlayer.C04PacketPlayerPosition.class)
-public abstract class MixinPacketPlayerPosition implements PacketPlayerPosition {
+public final class PacketAdapters {
+    private static final IncomingPacketAdapters INCOMING_ADAPTERS;
+    private static final OutgoingPacketAdapters OUTGOING_ADAPTERS;
 
+    static {
+        MinecraftApiAdapter apiAdapter = MinecraftApi.getAdapter();
+
+        INCOMING_ADAPTERS = apiAdapter.getIncomingPacketAdapters();
+        OUTGOING_ADAPTERS = apiAdapter.getOutingPacketAdapters();
+    }
+
+    private PacketAdapters() {
+        throw new Error();
+    }
+
+    public static IncomingPacketAdapters incoming() {
+        return INCOMING_ADAPTERS;
+    }
+
+    public static OutgoingPacketAdapters outgoing() {
+        return OUTGOING_ADAPTERS;
+    }
 }

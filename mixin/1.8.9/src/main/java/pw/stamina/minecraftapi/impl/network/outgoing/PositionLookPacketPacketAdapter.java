@@ -22,13 +22,21 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import pw.stamina.minecraftapi.network.Packet;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
-public interface PacketChat extends Packet {
+final class PositionLookPacketPacketAdapter
+        extends AbstractPacketAdapter<PositionLookPacket> implements PositionLookPacket.Adapter {
 
-    String getMessage();
+    PositionLookPacketPacketAdapter() {
+        super(PositionLookPacket.class);
+    }
 
-    String setMessage(String message);
+    @Override
+    public PositionLookPacket create(double x, double y, double z, float yaw, float pitch, boolean onGround) {
+        return (PositionLookPacket) new C03PacketPlayer.C06PacketPlayerPosLook(x, y, z, yaw, pitch, onGround);
+    }
 }

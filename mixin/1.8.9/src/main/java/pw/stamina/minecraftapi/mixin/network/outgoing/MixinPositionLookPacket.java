@@ -22,26 +22,13 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.mixin.network.outgoing;
 
-import pw.stamina.minecraftapi.network.Packet;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import org.spongepowered.asm.mixin.Mixin;
+import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
-public interface PacketPlayerPositionLook extends PacketPlayerPosition, PacketPlayerLook {
+@Mixin(C03PacketPlayer.C06PacketPlayerPosLook.class)
+public abstract class MixinPositionLookPacket implements PositionLookPacket {
 
-    static PacketPlayerPositionLook newInstance(double x, double y, double z,
-                                                float yaw, float pitch,
-                                                boolean onGround) {
-        PacketPlayerPositionLook packet = Packet.newPacket(PacketPlayerPositionLook.class);
-
-        packet.x(x);
-        packet.y(y);
-        packet.z(z);
-
-        packet.yaw(yaw);
-        packet.pitch(pitch);
-
-        packet.onGround(onGround);
-
-        return packet;
-    }
 }

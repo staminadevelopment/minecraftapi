@@ -24,18 +24,13 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
-import pw.stamina.minecraftapi.network.Packet;
+import pw.stamina.minecraftapi.network.PacketAdapter;
 
-public interface PacketPlayer extends Packet {
+public interface PositionLookPacket extends PositionPacket, LookPacket {
 
-    boolean onGround();
-    void onGround(boolean onGround);
+    interface Adapter extends PacketAdapter<PositionLookPacket> {
 
-    static PacketPlayer newInstance(boolean onGround) {
-        PacketPlayer packet = Packet.newPacket(PacketPlayer.class);
-
-        packet.onGround(onGround);
-
-        return packet;
+        PositionLookPacket create(double x, double y, double z,
+                                  float yaw, float pitch, boolean onGround);
     }
 }

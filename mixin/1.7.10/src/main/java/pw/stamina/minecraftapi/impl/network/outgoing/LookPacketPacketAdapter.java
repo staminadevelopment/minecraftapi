@@ -22,20 +22,20 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import pw.stamina.minecraftapi.network.Packet;
-import pw.stamina.minecraftapi.network.PacketCreationException;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.LookPacket;
 
-public interface PacketFactory {
+final class LookPacketPacketAdapter extends AbstractPacketAdapter<LookPacket> implements LookPacket.Adapter {
 
-    /**
-     * Returns a new instance of the specified <tt>packetClass</tt>.
-     *
-     * @param packetClass class of the packet to create
-     * @param <T> the type of the packet
-     * @return a new packet of type <tt>T</tt>
-     * @throws PacketCreationException if a packet could not be created
-     */
-    <T extends Packet> T create(Class<T> packetClass) throws PacketCreationException;
+    LookPacketPacketAdapter() {
+        super(LookPacket.class);
+    }
+
+    @Override
+    public LookPacket create(float yaw, float pitch, boolean onGround) {
+        return (LookPacket) new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, onGround);
+    }
 }

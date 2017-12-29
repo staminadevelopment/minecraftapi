@@ -22,35 +22,9 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.network.incoming;
 
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
+public interface IncomingPacketAdapters {
 
-public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
-
-    @Override
-    public Minecraft getMinecraft() {
-        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
-    }
-
-    @Override
-    public BoundingBox.Factory getBoundingBoxFactory() {
-        return new BoundingBoxFactory();
-    }
-
-    @Override
-    public IncomingPacketAdapters getIncomingPacketAdapters() {
-        return new IncomingPacketAdaptersImpl();
-    }
-
-    @Override
-    public OutgoingPacketAdapters getOutingPacketAdapters() {
-        return new OutgoingPacketAdaptersImpl();
-    }
+    ChatPacket.Adapter chat();
 }

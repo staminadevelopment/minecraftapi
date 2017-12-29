@@ -25,6 +25,8 @@
 package pw.stamina.minecraftapi;
 
 import pw.stamina.minecraftapi.client.Minecraft;
+import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
+import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
 public interface MinecraftApiAdapter {
@@ -32,4 +34,7 @@ public interface MinecraftApiAdapter {
     Minecraft getMinecraft();
 
     BoundingBox.Factory getBoundingBoxFactory();
+
+    IncomingPacketAdapters getIncomingPacketAdapters();
+    OutgoingPacketAdapters getOutingPacketAdapters();
 }

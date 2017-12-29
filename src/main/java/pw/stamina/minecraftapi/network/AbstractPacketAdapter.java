@@ -22,36 +22,22 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.network;
 
-import net.minecraft.util.AxisAlignedBB;
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
+public abstract class AbstractPacketAdapter<T extends Packet> implements PacketAdapter<T> {
+    private final Class<T> packetType;
 
-public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
-
-    @Override
-    public Minecraft getMinecraft() {
-        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
+    protected AbstractPacketAdapter(Class<T> packetType) {
+        this.packetType = packetType;
     }
 
     @Override
-    public BoundingBox.Factory getBoundingBoxFactory() {
-        return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
+    public boolean is(Packet packet) {
+        return packetType.isInstance(packet);
     }
 
     @Override
-    public IncomingPacketAdapters getIncomingPacketAdapters() {
-        return new IncomingPacketAdaptersImpl();
-    }
-
-    @Override
-    public OutgoingPacketAdapters getOutingPacketAdapters() {
-        return new OutgoingPacketAdaptersImpl();
+    public T cast(Packet packet) {
+        return packetType.cast(packet);
     }
 }
