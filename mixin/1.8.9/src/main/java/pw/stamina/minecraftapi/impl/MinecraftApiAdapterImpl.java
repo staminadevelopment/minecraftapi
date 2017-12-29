@@ -38,6 +38,6 @@ public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
 
     @Override
     public BoundingBox.Factory getBoundingBoxFactory() {
-        return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) AxisAlignedBB.fromBounds(x1, y1, z1, x2, y2, z2);
+        return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
     }
 }

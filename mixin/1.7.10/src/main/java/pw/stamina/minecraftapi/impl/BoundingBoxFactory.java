@@ -24,19 +24,21 @@
 
 package pw.stamina.minecraftapi.impl;
 
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.client.Minecraft;
+import net.minecraft.util.AxisAlignedBB;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
-public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
+final class BoundingBoxFactory implements BoundingBox.Factory {
 
     @Override
-    public Minecraft getMinecraft() {
-        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
-    }
+    public BoundingBox create(double x1, double y1, double z1,
+                              double x2, double y2, double z2) {
+        double minX = Math.min(x1, x2);
+        double minY = Math.min(y1, y2);
+        double minZ = Math.min(z1, z2);
+        double maxX = Math.max(x1, x2);
+        double maxY = Math.max(y1, y2);
+        double maxZ = Math.max(z1, z2);
 
-    @Override
-    public BoundingBox.Factory getBoundingBoxFactory() {
-        return new BoundingBoxFactory();
+        return (BoundingBox) AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 }
