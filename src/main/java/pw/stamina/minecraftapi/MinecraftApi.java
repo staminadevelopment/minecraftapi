@@ -25,8 +25,13 @@
 package pw.stamina.minecraftapi;
 
 public final class MinecraftApi {
+    private static MinecraftApiAdapter adapter;
 
-    public static void bootstrap() {
+    public static void bootstrap(MinecraftApiAdapter adapter) {
+        //TODO: Prevent bootstrapping multiple times
+        //TODO: Check that the provided adapter is not null
+
+        MinecraftApi.adapter = adapter;
         //TODO: Bootstrap project(s) dependent using this API
     }
 
@@ -35,6 +40,6 @@ public final class MinecraftApi {
     }
 
     public static MinecraftApiAdapter getAdapter() {
-        return null; //TODO Provide adapter implementation
+        return adapter;
     }
 }
