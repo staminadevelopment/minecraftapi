@@ -22,33 +22,10 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network;
+package pw.stamina.minecraftapi.impl;
 
-import pw.stamina.minecraftapi.MinecraftApi;
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
 import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 
-public final class PacketAdapters {
-    private static final IncomingPacketAdapters INCOMING_ADAPTERS;
-    private static final OutgoingPacketAdapters OUTGOING_ADAPTERS;
+final class OutgoingPacketAdaptersImpl implements OutgoingPacketAdapters {
 
-    static {
-        MinecraftApiAdapter apiAdapter = MinecraftApi.getAdapter();
-
-        INCOMING_ADAPTERS = apiAdapter.getIncomingPacketAdapters();
-        OUTGOING_ADAPTERS = apiAdapter.getOutingPacketAdapters();
-    }
-
-    private PacketAdapters() {
-        throw new Error();
-    }
-
-    public static IncomingPacketAdapters incoming() {
-        return INCOMING_ADAPTERS;
-    }
-
-    public static OutgoingPacketAdapters outgoing() {
-        return OUTGOING_ADAPTERS;
-    }
 }

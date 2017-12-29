@@ -27,6 +27,8 @@ package pw.stamina.minecraftapi.impl;
 import net.minecraft.util.AxisAlignedBB;
 import pw.stamina.minecraftapi.MinecraftApiAdapter;
 import pw.stamina.minecraftapi.client.Minecraft;
+import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
+import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
 public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
@@ -39,5 +41,15 @@ public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
     @Override
     public BoundingBox.Factory getBoundingBoxFactory() {
         return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
+    }
+
+    @Override
+    public IncomingPacketAdapters getIncomingPacketAdapters() {
+        return new IncomingPacketAdaptersImpl();
+    }
+
+    @Override
+    public OutgoingPacketAdapters getOutingPacketAdapters() {
+        return new OutgoingPacketAdaptersImpl();
     }
 }
