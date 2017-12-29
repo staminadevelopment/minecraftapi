@@ -25,9 +25,15 @@
 package pw.stamina.minecraftapi.network.outgoing;
 
 import pw.stamina.minecraftapi.network.Packet;
+import pw.stamina.minecraftapi.network.PacketAdapter;
 
 public interface OnGroundPacket extends Packet {
 
     boolean onGround();
     void onGround(boolean onGround);
+
+    interface Adapter extends PacketAdapter<OnGroundPacket> {
+
+        OnGroundPacket create(boolean onGround);
+    }
 }

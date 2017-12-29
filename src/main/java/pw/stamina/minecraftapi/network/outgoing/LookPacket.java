@@ -24,6 +24,7 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
+import pw.stamina.minecraftapi.network.PacketAdapter;
 import pw.stamina.minecraftapi.util.Rotation;
 
 public interface LookPacket extends OnGroundPacket {
@@ -44,4 +45,9 @@ public interface LookPacket extends OnGroundPacket {
     }
 
     boolean isRotating();
+
+    interface Adapter extends PacketAdapter<LookPacket> {
+
+        LookPacket create(float yaw, float pitch, boolean onGround);
+    }
 }

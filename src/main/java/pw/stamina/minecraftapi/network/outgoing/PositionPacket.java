@@ -24,6 +24,8 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
+import pw.stamina.minecraftapi.network.PacketAdapter;
+
 public interface PositionPacket extends OnGroundPacket {
 
     double x();
@@ -36,4 +38,9 @@ public interface PositionPacket extends OnGroundPacket {
     void z(double z);
 
     boolean isMoving();
+
+    interface Adapter extends PacketAdapter<PositionPacket> {
+
+        PositionPacket create(double x, double y, double z, boolean onGround);
+    }
 }
