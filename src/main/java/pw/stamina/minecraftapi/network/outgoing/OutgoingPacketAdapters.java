@@ -26,4 +26,13 @@ package pw.stamina.minecraftapi.network.outgoing;
 
 public interface OutgoingPacketAdapters {
 
+    ChatPacket.Adapter chat();
+
+    OnGroundPacket.Adapter onGround();
+
+    PositionPacket.Adapter position();
+
+    LookPacket.Adapter look();
+
+    PositionLookPacket.Adapter positionLook();
 }

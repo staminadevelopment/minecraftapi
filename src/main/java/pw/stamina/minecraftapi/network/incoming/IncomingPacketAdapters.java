@@ -26,4 +26,5 @@ package pw.stamina.minecraftapi.network.incoming;
 
 public interface IncomingPacketAdapters {
 
+    ChatPacket.Adapter chat();
 }
