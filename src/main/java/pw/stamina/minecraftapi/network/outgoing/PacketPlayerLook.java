@@ -24,7 +24,6 @@
 
 package pw.stamina.minecraftapi.network.outgoing;
 
-import pw.stamina.minecraftapi.network.Packet;
 import pw.stamina.minecraftapi.util.Rotation;
 
 public interface PacketPlayerLook extends PacketPlayer {
@@ -45,14 +44,4 @@ public interface PacketPlayerLook extends PacketPlayer {
     }
 
     boolean isRotating();
-
-    static PacketPlayerLook newInstance(float yaw, float pitch, boolean onGround) {
-        PacketPlayerLook packet = Packet.newPacket(PacketPlayerLook.class);
-
-        packet.yaw(yaw);
-        packet.pitch(pitch);
-        packet.onGround(onGround);
-
-        return packet;
-    }
 }

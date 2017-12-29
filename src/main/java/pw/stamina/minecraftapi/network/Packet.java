@@ -26,8 +26,4 @@ package pw.stamina.minecraftapi.network;
 
 public interface Packet {
 
-    static <T extends Packet> T newPacket(Class<T> packetType) {
-        //TODO: Don't provide implementation. This API is planned to be refined regardless
-        return null;
-    }
 }
