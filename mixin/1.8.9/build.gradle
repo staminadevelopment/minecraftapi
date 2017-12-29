@@ -1,0 +1,15 @@
+task deploy(type: Copy, dependsOn: build) {
+    String appdata = System.env.APPDATA
+    def libraryDir = new File(appdata, ".minecraft/libraries")
+    def shadowOutput = shadowJar.outputs.files[0]
+
+    from shadowOutput
+    into new File(libraryDir, sprintf('%1$s%4$s%2$s%4$s%3$s',
+            project.group.replace('.', File.separator),
+            archivesBaseName,
+            version,
+            File.separatorChar))
+
+    println shadowOutput.absolutePath
+    rename shadowOutput.name, sprintf("%s-%s.jar", archivesBaseName, version)
+}

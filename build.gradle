@@ -1,0 +1,39 @@
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'maven'
+
+allprojects {
+    group = 'pw.stamina.minecraftapi'
+
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+subprojects {
+    dependencies {
+        compile rootProject
+    }
+}
+
+// Mixins
+project(':mixin:1.7.10') {
+    version = '1.0.0-SNAPSHOT'
+
+    ext {
+        minecraftVersion = '1.7.10'
+        minecraftMappings = 'stable_12'
+    }
+}
+
+project(':mixin:1.8.9') {
+    version = '1.0.0-SNAPSHOT'
+
+    ext {
+        minecraftVersion = '1.8.9'
+        minecraftMappings = 'stable_22'
+    }
+}

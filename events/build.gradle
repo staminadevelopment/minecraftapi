@@ -1,0 +1,8 @@
+version = rootProject.version
+archivesBaseName = 'minecraft-api-events'
+
+apply plugin: 'maven'
+
+dependencies {
+    compile 'pw.stamina.causam:causam-core:1.0.0-SNAPSHOT'
+}
