@@ -36,6 +36,7 @@ import pw.stamina.minecraftapi.MinecraftApi;
 import pw.stamina.minecraftapi.client.Minecraft;
 import pw.stamina.minecraftapi.client.PlayerController;
 import pw.stamina.minecraftapi.entity.living.ClientPlayer;
+import pw.stamina.minecraftapi.impl.MinecraftApiAdapterImpl;
 import pw.stamina.minecraftapi.render.EntityRenderer;
 import pw.stamina.minecraftapi.render.FontRenderer;
 import pw.stamina.minecraftapi.render.RenderManager;
@@ -95,6 +96,6 @@ public class MixinMinecraft implements Minecraft {
 
     @Inject(method = "startGame", at = @At("RETURN"))
     private void startGame(CallbackInfo cbi) {
-        MinecraftApi.bootstrap();
+        MinecraftApi.bootstrap(new MinecraftApiAdapterImpl());
     }
 }
