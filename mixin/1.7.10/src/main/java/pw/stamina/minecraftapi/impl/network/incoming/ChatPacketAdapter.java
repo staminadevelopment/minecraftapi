@@ -22,15 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network;
+package pw.stamina.minecraftapi.impl.network.incoming;
 
-public final class PacketCreationException extends RuntimeException {
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 
-    public PacketCreationException(String message) {
-        super(message);
-    }
+final class ChatPacketAdapter extends AbstractPacketAdapter<ChatPacket> implements ChatPacket.Adapter {
 
-    public PacketCreationException(Throwable cause) {
-        super(cause);
+    ChatPacketAdapter() {
+        super(ChatPacket.class);
     }
 }

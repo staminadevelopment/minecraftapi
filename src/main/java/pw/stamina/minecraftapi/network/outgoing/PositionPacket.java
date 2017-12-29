@@ -22,13 +22,25 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import pw.stamina.minecraftapi.network.outgoing.PacketPlayerPosition;
+import pw.stamina.minecraftapi.network.PacketAdapter;
 
-@Mixin(C03PacketPlayer.C04PacketPlayerPosition.class)
-public abstract class MixinPacketPlayerPosition implements PacketPlayerPosition {
+public interface PositionPacket extends OnGroundPacket {
 
+    double x();
+    void x(double x);
+
+    double y();
+    void y(double y);
+
+    double z();
+    void z(double z);
+
+    boolean isMoving();
+
+    interface Adapter extends PacketAdapter<PositionPacket> {
+
+        PositionPacket create(double x, double y, double z, boolean onGround);
+    }
 }

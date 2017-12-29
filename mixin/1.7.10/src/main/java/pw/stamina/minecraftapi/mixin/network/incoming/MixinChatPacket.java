@@ -22,37 +22,21 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.outgoing;
+package pw.stamina.minecraftapi.mixin.network.incoming;
 
-import pw.stamina.minecraftapi.network.Packet;
-import pw.stamina.minecraftapi.util.Rotation;
+import net.minecraft.network.play.server.S02PacketChat;
+import net.minecraft.util.IChatComponent;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 
-public interface PacketPlayerLook extends PacketPlayer {
+@Mixin(S02PacketChat.class)
+public class MixinChatPacket implements ChatPacket {
 
-    float yaw();
-    void yaw(float yaw);
+    @Shadow private IChatComponent chatComponent;
 
-    float pitch();
-    void pitch(float pitch);
-
-    default Rotation getRotation() {
-        return Rotation.from(yaw(), pitch());
-    }
-
-    default void setRotation(Rotation rotation) {
-        yaw(rotation.getYaw());
-        pitch(rotation.getPitch());
-    }
-
-    boolean isRotating();
-
-    static PacketPlayerLook newInstance(float yaw, float pitch, boolean onGround) {
-        PacketPlayerLook packet = Packet.newPacket(PacketPlayerLook.class);
-
-        packet.yaw(yaw);
-        packet.pitch(pitch);
-        packet.onGround(onGround);
-
-        return packet;
+    @Override
+    public String getTextMessage() {
+        return chatComponent.getFormattedText();
     }
 }

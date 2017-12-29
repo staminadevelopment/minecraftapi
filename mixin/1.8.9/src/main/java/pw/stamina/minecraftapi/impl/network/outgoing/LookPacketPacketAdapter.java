@@ -22,25 +22,20 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C01PacketChatMessage;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import pw.stamina.minecraftapi.network.outgoing.PacketChat;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.LookPacket;
 
-@Mixin(C01PacketChatMessage.class)
-public class MixinPacketChat implements PacketChat {
+final class LookPacketPacketAdapter extends AbstractPacketAdapter<LookPacket> implements LookPacket.Adapter {
 
-    @Shadow private String message;
-
-    @Override
-    public String getMessage() {
-        return message;
+    LookPacketPacketAdapter() {
+        super(LookPacket.class);
     }
 
     @Override
-    public String setMessage(String message) {
-        return this.message = message;
+    public LookPacket create(float yaw, float pitch, boolean onGround) {
+        return (LookPacket) new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, onGround);
     }
 }

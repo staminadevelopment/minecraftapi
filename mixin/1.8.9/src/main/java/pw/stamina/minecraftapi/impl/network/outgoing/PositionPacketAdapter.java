@@ -22,36 +22,20 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.impl;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.util.AxisAlignedBB;
-import pw.stamina.minecraftapi.MinecraftApiAdapter;
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.PositionPacket;
 
-public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
+final class PositionPacketAdapter extends AbstractPacketAdapter<PositionPacket> implements PositionPacket.Adapter {
 
-    @Override
-    public Minecraft getMinecraft() {
-        return (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
+    PositionPacketAdapter() {
+        super(PositionPacket.class);
     }
 
     @Override
-    public BoundingBox.Factory getBoundingBoxFactory() {
-        return (x1, y1, z1, x2, y2, z2) -> (BoundingBox) new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
-    }
-
-    @Override
-    public IncomingPacketAdapters getIncomingPacketAdapters() {
-        return new IncomingPacketAdaptersImpl();
-    }
-
-    @Override
-    public OutgoingPacketAdapters getOutingPacketAdapters() {
-        return new OutgoingPacketAdaptersImpl();
+    public PositionPacket create(double x, double y, double z, boolean onGround) {
+        return (PositionPacket) new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, onGround);
     }
 }

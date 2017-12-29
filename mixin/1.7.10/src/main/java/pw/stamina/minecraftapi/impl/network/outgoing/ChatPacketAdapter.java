@@ -22,13 +22,20 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import pw.stamina.minecraftapi.network.outgoing.PacketPlayerPositionLook;
+import net.minecraft.network.play.client.C01PacketChatMessage;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.ChatPacket;
 
-@Mixin(C03PacketPlayer.C06PacketPlayerPosLook.class)
-public abstract class MixinPacketPlayerPositionLook implements PacketPlayerPositionLook {
+final class ChatPacketAdapter extends AbstractPacketAdapter<ChatPacket> implements ChatPacket.Adapter {
 
+    ChatPacketAdapter() {
+        super(ChatPacket.class);
+    }
+
+    @Override
+    public ChatPacket create(String message) {
+        return (ChatPacket) new C01PacketChatMessage(message);
+    }
 }

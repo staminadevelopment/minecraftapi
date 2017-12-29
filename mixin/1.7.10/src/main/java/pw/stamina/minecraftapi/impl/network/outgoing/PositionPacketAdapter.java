@@ -22,25 +22,33 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.network.outgoing;
+package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C01PacketChatMessage;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import pw.stamina.minecraftapi.network.outgoing.PacketChat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.PositionPacket;
 
-@Mixin(C01PacketChatMessage.class)
-public class MixinPacketChat implements PacketChat {
+final class PositionPacketAdapter extends AbstractPacketAdapter<PositionPacket> implements PositionPacket.Adapter {
+    private static final double DEFAULT_STANCE = 1.62;
 
-    @Shadow private String message;
-
-    @Override
-    public String getMessage() {
-        return message;
+    PositionPacketAdapter() {
+        super(PositionPacket.class);
     }
 
     @Override
-    public String setMessage(String message) {
-        return this.message = message;
+    public PositionPacket create(double x, double y, double z, boolean onGround) {
+        return (PositionPacket) new C03PacketPlayer.C04PacketPlayerPosition(x, y, y + getStance(), z, onGround);
+    }
+
+    static double getStance() {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+
+        if (player != null) {
+            return player.posY - player.boundingBox.minY;
+        } else {
+            return DEFAULT_STANCE;
+        }
     }
 }

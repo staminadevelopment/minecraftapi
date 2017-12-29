@@ -22,34 +22,13 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network;
+package pw.stamina.minecraftapi.mixin.network.outgoing;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import org.spongepowered.asm.mixin.Mixin;
+import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
-public final class SimplePacketFactory implements PacketFactory {
-    private final Map<Class<? extends Packet>, Supplier<?>> packetInstanceCreators;
+@Mixin(C03PacketPlayer.C06PacketPlayerPosLook.class)
+public abstract class MixinPositionLookPacket implements PositionLookPacket {
 
-    public SimplePacketFactory() {
-        this.packetInstanceCreators = new IdentityHashMap<>();
-    }
-
-    @Override
-    public <T extends Packet> T create(Class<T> packetClass) throws PacketCreationException {
-        Supplier<?> packetInstanceCreator = packetInstanceCreators.get(packetClass);
-
-        if (packetInstanceCreator == null) {
-            //TODO: Throw exception
-            return null;
-        }
-
-        return packetClass.cast(packetInstanceCreator.get());
-    }
-
-    public <T extends Packet> SimplePacketFactory registerPacketInstanceCreator(
-            Class<T> packetClass, Supplier<?> packetInstanceCreator) {
-        packetInstanceCreators.put(packetClass, packetInstanceCreator);
-        return this;
-    }
 }
