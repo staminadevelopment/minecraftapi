@@ -26,5 +26,4 @@ rootProject.name = 'minecraft-api'
 
 include 'events',
         'mixin',
-        'mixin:1.7.10',
         'mixin:1.8.9'
