@@ -43,6 +43,10 @@ public final class MinecraftApi {
         MinecraftApi.adapter = adapter;
     }
 
+    public static void loadModules(ClassLoader classLoader) {
+        modules = MinecraftApiModuleManager.loadModules(classLoader);
+    }
+
     public static void bootstrapModules() {
         modules.bootstrap(adapter);
     }
