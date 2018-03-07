@@ -24,19 +24,36 @@
 
 package pw.stamina.minecraftapi;
 
+import pw.stamina.minecraftapi.module.MinecraftApiModuleManager;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public final class MinecraftApi {
+    private static final AtomicBoolean BOOTSTRAPPED = new AtomicBoolean();
+
     private static MinecraftApiAdapter adapter;
+    private static MinecraftApiModuleManager modules;
 
     public static void bootstrap(MinecraftApiAdapter adapter) {
-        //TODO: Prevent bootstrapping multiple times
-        //TODO: Check that the provided adapter is not null
+        if (BOOTSTRAPPED.compareAndSet(false, true)) {
+            throw new Error("MinecraftApi has already been bootstrapped");
+        }
 
+        // This must be set, before modules are bootstrapped
         MinecraftApi.adapter = adapter;
-        //TODO: Bootstrap project(s) dependent using this API
+        modules.bootstrap(adapter);
+    }
+
+    public static void loadModules(ClassLoader classLoader) {
+        modules = MinecraftApiModuleManager.loadModules(classLoader);
+    }
+
+    public static void bootstrapModules() {
+        modules.bootstrap(adapter);
     }
 
     public static <T> void emitEvent(T event) {
-        //TODO: Delegate events
+        modules.consumeEvent(event);
     }
 
     public static MinecraftApiAdapter getAdapter() {

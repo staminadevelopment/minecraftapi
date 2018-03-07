@@ -29,6 +29,7 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
+import pw.stamina.minecraftapi.MinecraftApi;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public final class MinecraftApiTweaker implements ITweaker {
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
         excludeLog4JPackages(classLoader);
         MixinBootstrap.init();
+
+        MinecraftApi.loadModules(classLoader);
 
         Mixins.addConfiguration("mixins.minecraft-api-core.json");
         Mixins.addConfiguration("mixins.minecraft-api-events.json");
