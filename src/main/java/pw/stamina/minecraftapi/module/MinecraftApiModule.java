@@ -22,9 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi;
+package pw.stamina.minecraftapi.module;
 
-public interface MinecraftApiBootstrap {
+import pw.stamina.minecraftapi.MinecraftApiAdapter;
 
+import java.util.Optional;
 
+public interface MinecraftApiModule {
+
+    void bootstrap(MinecraftApiAdapter adapter);
+
+    Optional<EventConsumer> getEventConsumer();
 }
