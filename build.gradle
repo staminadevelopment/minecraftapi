@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Stamina Development
+ * Copyright (c) 2018 Stamina Development
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,15 +28,14 @@ version '1.0.0-SNAPSHOT'
 archivesBaseName = 'minecraft-api'
 
 allprojects {
+    apply plugin: 'java'
+    group = 'pw.stamina.minecraftapi'
+
     tasks.withType(JavaCompile) {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
         options.encoding = 'UTF-8'
     }
-
-    group = 'pw.stamina.minecraftapi'
-
-    apply plugin: 'java'
 
     repositories {
         mavenCentral()
