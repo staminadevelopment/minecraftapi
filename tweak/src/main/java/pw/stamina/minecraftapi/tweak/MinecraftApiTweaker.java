@@ -61,6 +61,8 @@ public final class MinecraftApiTweaker implements ITweaker {
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
         excludeLog4JPackages(classLoader);
+        excludeMinecraftApiPackages(classLoader);
+
         MixinBootstrap.init();
 
         MinecraftApi.loadModules(classLoader);
@@ -76,6 +78,10 @@ public final class MinecraftApiTweaker implements ITweaker {
     // Fixes a bug causing Mixin to crash when injecting from the launcher
     private void excludeLog4JPackages(LaunchClassLoader classLoader) {
         classLoader.addClassLoaderExclusion("org.apache.logging.log4j.");
+    }
+
+    private void excludeMinecraftApiPackages(LaunchClassLoader classLoader) {
+        classLoader.addClassLoaderExclusion("pw.stamina.minecraftapi.");
     }
 
     @Override

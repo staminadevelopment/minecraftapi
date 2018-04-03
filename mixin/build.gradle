@@ -38,23 +38,6 @@ dependencies {
     }
 }
 
-allprojects {
-    ext {
-        mixinVersion = '0.7.4-SNAPSHOT'
-    }
-
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
-
-    dependencies {
-        compile "org.spongepowered:mixin:$mixinVersion"
-    }
-}
-
 subprojects {
     ext {
         shadow_version = '1.2.4'
@@ -67,9 +50,16 @@ subprojects {
         }
     }
 
+    repositories {
+        maven {
+            name = 'sponge'
+            url = 'http://repo.spongepowered.org/maven'
+        }
+    }
+
     dependencies {
-        compile project(':mixin')
         compile project(':events')
+        compile project(':tweak')
     }
 
     task stagingJar(type: Jar) {
