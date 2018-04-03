@@ -35,7 +35,7 @@ public final class MinecraftApi {
     private static MinecraftApiModuleManager modules;
 
     public static void bootstrap(MinecraftApiAdapter adapter) {
-        if (BOOTSTRAPPED.compareAndSet(false, true)) {
+        if (!BOOTSTRAPPED.compareAndSet(false, true)) {
             throw new Error("MinecraftApi has already been bootstrapped");
         }
 

@@ -22,9 +22,29 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraft-api'
+version '1.0.0-SNAPSHOT'
+archivesBaseName = 'minecraft-api-tweaker'
 
-include 'events',
-        'tweak',
-        'mixin',
-        'mixin:1.8.9'
+ext {
+    mixinVersion = '0.7.4-SNAPSHOT'
+}
+
+repositories {
+    maven {
+        name = 'sponge'
+        url = 'http://repo.spongepowered.org/maven'
+    }
+
+    maven {
+        name = 'minecraft'
+        url = 'https://libraries.minecraft.net/'
+    }
+}
+
+dependencies {
+    compile ('net.minecraft:launchwrapper:1.11') {
+        transitive = false
+    }
+
+    compile "org.spongepowered:mixin:$mixinVersion"
+}
