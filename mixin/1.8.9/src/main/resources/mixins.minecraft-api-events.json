@@ -5,9 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7.4",
   "mixins": [
+    "input.MixinKeyInputEvent",
+    "input.MixinMouseInputEvent",
+
     "network.MixinIncomingPacketEvent",
     "network.MixinOutgoingPacketEvent",
+
     "player.MixinMotionUpdateEvent",
+
     "render.MixinHandRenderEvent",
     "render.MixinLightmapUpdateEvent",
     "render.MixinScreenRenderEvent",
