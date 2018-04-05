@@ -26,8 +26,6 @@ public class MixinMouseInputEvent {
             return;
         }
 
-        MouseInputEvent event = new MouseInputEvent(button, Mouse.getEventButtonState());
-
-        MinecraftApi.emitEvent(event);
+        MinecraftApi.emitEvent(new MouseInputEvent(button, Mouse.getEventButtonState()));
     }
 }

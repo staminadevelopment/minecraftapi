@@ -18,9 +18,7 @@ public class MixinKeyInputEvent {
                     target = "Lorg/lwjgl/input/Keyboard;getEventKey()I",
                     ordinal = 0))
     private void emitKeyInputEvent(CallbackInfo cbi) {
-        KeyInputEvent event = new KeyInputEvent(getKeyCode(), getKeyInputType());
-
-        MinecraftApi.emitEvent(event);
+        MinecraftApi.emitEvent(new KeyInputEvent(getKeyCode(), getKeyInputType()));
     }
 
     private static int getKeyCode() {
