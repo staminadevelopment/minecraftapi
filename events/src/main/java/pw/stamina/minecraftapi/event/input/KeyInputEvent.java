@@ -4,7 +4,7 @@ public final class KeyInputEvent {
     private final int key;
     private final KeyInputType inputType;
 
-    private KeyInputEvent(int key, KeyInputType inputType) {
+    public KeyInputEvent(int key, KeyInputType inputType) {
         this.key = key;
         this.inputType = inputType;
     }
