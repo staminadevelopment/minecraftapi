@@ -2,18 +2,18 @@ package pw.stamina.minecraftapi.event.input;
 
 public final class MouseInputEvent {
     private final int button;
-    private final boolean down;
+    private final boolean pressed;
 
-    public MouseInputEvent(int button, boolean down) {
+    public MouseInputEvent(int button, boolean pressed) {
         this.button = button;
-        this.down = down;
+        this.pressed = pressed;
     }
 
     public int getButton() {
         return button;
     }
 
-    public boolean isDown() {
-        return down;
+    public boolean isPressed() {
+        return pressed;
     }
 }
