@@ -23,6 +23,7 @@ build/
 *.iws
 *ipr
 out/
+classes/
 
 ### ForgeGradle
 run/
