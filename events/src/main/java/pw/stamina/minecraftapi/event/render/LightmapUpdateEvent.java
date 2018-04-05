@@ -26,25 +26,34 @@ package pw.stamina.minecraftapi.event.render;
 
 public final class LightmapUpdateEvent {
     private static final LightmapCalculator DEFAULT_LIGHTMAP_CALCULATOR =
-            (red, green, blue, alpha, color) -> color;
+            (red, green, blue, color) -> color;
 
-    private LightmapCalculator calculator = null;
+    private LightmapCalculator calculator;
+    private boolean shouldForceLightUpdate;
 
     public LightmapUpdateEvent() {
         this.calculator = DEFAULT_LIGHTMAP_CALCULATOR;
     }
 
-    public void setTransformer(LightmapCalculator calculator) {
+    public void forceLightUpdate() {
+        shouldForceLightUpdate = true;
+    }
+
+    public boolean isLightUpdateForced() {
+        return shouldForceLightUpdate;
+    }
+
+    public void setCalculator(LightmapCalculator calculator) {
         this.calculator = calculator;
     }
 
-    public int calculate(int red, int green, int blue, int alpha, int color) {
-        return calculator.calculate(red, green, blue, alpha, color);
+    public int calculate(int red, int green, int blue, int color) {
+        return calculator.calculate(red, green, blue, color);
     }
 
     @FunctionalInterface
     public interface LightmapCalculator {
 
-        int calculate(int red, int green, int blue, int alpha, int color);
+        int calculate(int red, int green, int blue, int color);
     }
 }
