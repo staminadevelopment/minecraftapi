@@ -22,11 +22,32 @@
  * SOFTWARE.
  */
 
-version = rootProject.version
-archivesBaseName = 'minecraft-api-events'
+package pw.stamina.minecraftapi.mixin.event.input;
 
-apply plugin: 'maven'
+import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Mouse;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import pw.stamina.minecraftapi.MinecraftApi;
+import pw.stamina.minecraftapi.event.input.MouseInputEvent;
 
-dependencies {
-    compile 'pw.stamina.causam:causam-core:1.0.0-SNAPSHOT'
+@Mixin(Minecraft.class)
+public class MixinMouseInputEvent {
+
+    @Inject(method = "runTick",
+            at = @At(value = "INVOKE",
+                    target = "Lorg/lwjgl/input/Mouse;getEventButton()I",
+                    ordinal = 0,
+                    remap = false))
+    private void emitKeyInputEvent(CallbackInfo cbi) {
+        int button = Mouse.getEventButton();
+
+        if (button == -1) {
+            return;
+        }
+
+        MinecraftApi.emitEvent(new MouseInputEvent(button, Mouse.getEventButtonState()));
+    }
 }

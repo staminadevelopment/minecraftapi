@@ -93,8 +93,8 @@ shadowJar {
 
     dependencies {
         include dependency('org.spongepowered:mixin')
-        include dependency(':minecraft-api')
-        include dependency(':common')
+        include dependency(':minecraftapi-core')
+        include dependency(':minecraftapi-tweaker')
     }
 
     classifier = 'release'

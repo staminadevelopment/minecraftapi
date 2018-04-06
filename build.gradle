@@ -22,14 +22,16 @@
  * SOFTWARE.
  */
 
-apply plugin: 'maven'
-
-version '1.0.0-SNAPSHOT'
-archivesBaseName = 'minecraft-api'
-
 allprojects {
-    apply plugin: 'java'
     group = 'pw.stamina.minecraftapi'
+}
+
+subprojects {
+    if (project.name == 'minecraftapi-mixin') {
+        return
+    }
+
+    apply plugin: 'java'
 
     tasks.withType(JavaCompile) {
         sourceCompatibility = '1.8'
@@ -41,22 +43,10 @@ allprojects {
         mavenCentral()
         mavenLocal()
     }
-}
 
-subprojects {
-    dependencies {
-        compile rootProject
-    }
-}
-
-// Mixins
-project(':mixin:1.8.9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
+    if (project.name != 'minecraftapi-core') {
+        dependencies {
+            compile project(':minecraftapi-core')
+        }
     }
 }

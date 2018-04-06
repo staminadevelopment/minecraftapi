@@ -22,48 +22,9 @@
  * SOFTWARE.
  */
 
-version '1.0.0-SNAPSHOT'
-archivesBaseName = 'minecraft-api-tweaker'
-
-repositories {
-    maven {
-        name = 'minecraft'
-        url = 'https://libraries.minecraft.net/'
-    }
-}
+apply plugin: 'maven'
+version = '1.0.0-SNAPSHOT'
 
 dependencies {
-    compile ('net.minecraft:launchwrapper:1.11') {
-        transitive = false
-    }
-}
-
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
-
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraft-api.refmap.json'
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
-
-    dependencies {
-        compile project(':events')
-        compile project(':tweak')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
+    compile 'pw.stamina.causam:causam-core:1.0.0-SNAPSHOT'
 }

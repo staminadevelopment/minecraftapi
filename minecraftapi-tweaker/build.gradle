@@ -23,7 +23,6 @@
  */
 
 version '1.0.0-SNAPSHOT'
-archivesBaseName = 'minecraft-api-tweaker'
 
 ext {
     mixinVersion = '0.7.4-SNAPSHOT'

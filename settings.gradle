@@ -22,9 +22,10 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraft-api'
+rootProject.name = 'minecraftapi'
 
-include 'events',
-        'tweak',
-        'mixin',
-        'mixin:1.8.9'
+include 'minecraftapi-core',
+        'minecraftapi-events',
+        'minecraftapi-tweaker',
+        'minecraftapi-mixin',
+        'minecraftapi-mixin:1_8_9'
