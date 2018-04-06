@@ -67,8 +67,8 @@ public final class MinecraftApiTweaker implements ITweaker {
 
         MinecraftApi.loadModules(classLoader);
 
-        Mixins.addConfiguration("mixins.minecraft-api-core.json");
-        Mixins.addConfiguration("mixins.minecraft-api-events.json");
+        Mixins.addConfiguration("mixins.minecraftapi-core.json");
+        Mixins.addConfiguration("mixins.minecraftapi-events.json");
 
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("notch");
 

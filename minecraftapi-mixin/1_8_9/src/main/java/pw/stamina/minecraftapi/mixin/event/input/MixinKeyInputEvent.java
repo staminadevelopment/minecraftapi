@@ -37,10 +37,11 @@ import pw.stamina.minecraftapi.event.input.KeyInputType;
 @Mixin(Minecraft.class)
 public class MixinKeyInputEvent {
 
-    @Inject(method = "runTick", remap = false,
+    @Inject(method = "runTick",
             at = @At(value = "INVOKE",
                     target = "Lorg/lwjgl/input/Keyboard;getEventKey()I",
-                    ordinal = 0))
+                    ordinal = 0,
+                    remap = false))
     private void emitKeyInputEvent(CallbackInfo cbi) {
         MinecraftApi.emitEvent(new KeyInputEvent(getKeyCode(), getKeyInputType()));
     }
