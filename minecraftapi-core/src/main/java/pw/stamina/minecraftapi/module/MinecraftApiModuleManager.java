@@ -10,16 +10,16 @@ import java.util.stream.StreamSupport;
 
 public final class MinecraftApiModuleManager {
     private final ServiceLoader<MinecraftApiModule> modules;
-    private final EventConsumer eventConsumer;
+    private EventConsumer eventConsumer;
 
-    private MinecraftApiModuleManager(ServiceLoader<MinecraftApiModule> modules,
-                                      EventConsumer eventConsumer) {
+    private MinecraftApiModuleManager(ServiceLoader<MinecraftApiModule> modules) {
         this.modules = modules;
-        this.eventConsumer = eventConsumer;
+        this.eventConsumer = null;
     }
 
     public void bootstrap(MinecraftApiAdapter adapter) {
         modules.forEach(module -> module.bootstrap(adapter));
+        eventConsumer = getEventConsumerFromModules(modules);
     }
 
     public <T> void consumeEvent(T event) {
@@ -28,9 +28,8 @@ public final class MinecraftApiModuleManager {
 
     public static MinecraftApiModuleManager loadModules(ClassLoader classLoader) {
         ServiceLoader<MinecraftApiModule> modules = loadModuleServiceLoader(classLoader);
-        EventConsumer eventConsumer = getEventConsumerFromModules(modules);
 
-        return new MinecraftApiModuleManager(modules, eventConsumer);
+        return new MinecraftApiModuleManager(modules);
     }
 
     private static ServiceLoader<MinecraftApiModule> loadModuleServiceLoader(ClassLoader classLoader) {

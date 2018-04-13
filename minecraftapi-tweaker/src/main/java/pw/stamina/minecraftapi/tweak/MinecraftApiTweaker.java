@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MinecraftApiTweaker implements ITweaker {
-    private final ArrayList<String> args = new ArrayList<>();
+    private final List<String> args = new ArrayList<>();
 
     @Override
     public void acceptOptions(List<String> list, File gameDir, File assetsDir, String profile) {
@@ -91,6 +91,6 @@ public final class MinecraftApiTweaker implements ITweaker {
 
     @Override
     public String[] getLaunchArguments() {
-        return args.toArray(new String[args.size()]);
+        return args.toArray(new String[0]);
     }
 }
