@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-allprojects {
-    group = 'pw.stamina.minecraftapi'
-}
-
 subprojects {
+    group = 'pw.stamina.minecraftapi'
+
     if (project.name == 'minecraftapi-mixin') {
         return
     }

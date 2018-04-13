@@ -93,7 +93,9 @@ shadowJar {
 
     dependencies {
         include dependency('org.spongepowered:mixin')
+        include dependency('pw.stamina.causam:causam-core')
         include dependency(':minecraftapi-core')
+        include dependency(':minecraftapi-events')
         include dependency(':minecraftapi-tweaker')
     }
 
