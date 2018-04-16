@@ -26,14 +26,14 @@ public final class MinecraftApiModuleManager {
         eventConsumer.consumeEvent(event);
     }
 
-    public static MinecraftApiModuleManager loadModules(ClassLoader classLoader) {
-        ServiceLoader<MinecraftApiModule> modules = loadModuleServiceLoader(classLoader);
+    public static MinecraftApiModuleManager loadModules() {
+        ServiceLoader<MinecraftApiModule> modules = loadModuleServiceLoader();
 
         return new MinecraftApiModuleManager(modules);
     }
 
-    private static ServiceLoader<MinecraftApiModule> loadModuleServiceLoader(ClassLoader classLoader) {
-        return ServiceLoader.load(MinecraftApiModule.class, classLoader);
+    private static ServiceLoader<MinecraftApiModule> loadModuleServiceLoader() {
+        return ServiceLoader.load(MinecraftApiModule.class);
     }
 
     private static EventConsumer getEventConsumerFromModules(ServiceLoader<MinecraftApiModule> modules) {
