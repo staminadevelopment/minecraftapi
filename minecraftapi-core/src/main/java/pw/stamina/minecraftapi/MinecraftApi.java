@@ -39,13 +39,10 @@ public final class MinecraftApi {
             throw new Error("MinecraftApi has already been bootstrapped");
         }
 
-        // This must be set, before modules are bootstrapped
         MinecraftApi.adapter = adapter;
-        modules.bootstrap(adapter);
-    }
 
-    public static void loadModules(ClassLoader classLoader) {
-        modules = MinecraftApiModuleManager.loadModules(classLoader);
+        modules = MinecraftApiModuleManager.loadModules();
+        modules.bootstrap(adapter);
     }
 
     public static void bootstrapModules() {

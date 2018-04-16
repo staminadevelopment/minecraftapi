@@ -122,14 +122,14 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
     }
 
     @Redirect(method = "onUpdateWalkingPlayer",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isSneaking()Z"))
-    public boolean redirectIsSneaking(Entity entity) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isSneaking()Z"))
+    public boolean redirectIsSneaking(EntityPlayerSP player) {
         return event.isSneaking();
     }
 
     @Redirect(method = "onUpdateWalkingPlayer",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isSprinting()Z"))
-    public boolean redirectIsSprinting(Entity entity) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isSprinting()Z"))
+    public boolean redirectIsSprinting(EntityPlayerSP player) {
         return event.isSneaking();
     }
 
