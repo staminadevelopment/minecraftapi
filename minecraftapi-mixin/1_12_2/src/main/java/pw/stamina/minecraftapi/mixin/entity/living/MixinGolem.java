@@ -22,56 +22,13 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
+package pw.stamina.minecraftapi.mixin.entity.living;
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
-    }
+import net.minecraft.entity.monster.EntityGolem;
+import org.spongepowered.asm.mixin.Mixin;
+import pw.stamina.minecraftapi.entity.living.Golem;
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
+@Mixin(EntityGolem.class)
+public abstract class MixinGolem implements Golem {
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
-    }
 }

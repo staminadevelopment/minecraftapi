@@ -22,56 +22,25 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
+package pw.stamina.minecraftapi.mixin.world;
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
-    }
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import pw.stamina.minecraftapi.entity.Entity;
+import pw.stamina.minecraftapi.world.World;
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
+import java.util.List;
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
+@Mixin(net.minecraft.world.World.class)
+public abstract class MixinWorld implements World {
 
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
+    @Shadow @Final
+    public List<net.minecraft.entity.Entity> loadedEntityList;
 
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Entity> getLoadedEntities() {
+        return (List<Entity>) (Object) loadedEntityList;
     }
 }

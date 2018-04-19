@@ -22,56 +22,21 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
+package pw.stamina.minecraftapi.mixin.event.render;
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
-    }
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import pw.stamina.minecraftapi.MinecraftApi;
+import pw.stamina.minecraftapi.event.render.ScreenRenderEvent;
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
+@Mixin(net.minecraft.client.renderer.EntityRenderer.class)
+public class MixinScreenRenderEvent {
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
+    @Inject(method = "updateCameraAndRender", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
+            target="Lnet/minecraft/client/gui/GuiIngame;renderGameOverlay(F)V"))
+    public void emitScreenRenderEvent(float p_updateCameraAndRender_1_, long p_updateCameraAndRender_2_, CallbackInfo cbi) {
+        MinecraftApi.emitEvent(ScreenRenderEvent.getInstance());
     }
 }

@@ -22,56 +22,29 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
+package pw.stamina.minecraftapi.mixin.entity.living;
+
+import net.minecraft.entity.EntityLivingBase;
+import org.spongepowered.asm.mixin.*;
+import pw.stamina.minecraftapi.entity.living.Living;
+
+@Implements(@Interface(iface = Living.class, prefix = "api$"))
+@Mixin(EntityLivingBase.class)
+public abstract class MixinLiving implements Living {
+
+    @Intrinsic
+    public float api$getHealth() {
+        return shadow$getHealth();
     }
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
+    @Intrinsic
+    public void api$setHealth(float health) {
+        shadow$setHealth(health);
     }
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
+    @Shadow
+    public abstract float shadow$getHealth();
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
-    }
+    @Shadow
+    public abstract void shadow$setHealth(float health);
 }

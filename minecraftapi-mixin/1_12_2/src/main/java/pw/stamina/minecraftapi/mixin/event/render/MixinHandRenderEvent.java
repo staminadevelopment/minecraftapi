@@ -22,56 +22,30 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
+package pw.stamina.minecraftapi.mixin.event.render;
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import pw.stamina.minecraftapi.MinecraftApi;
+import pw.stamina.minecraftapi.client.Minecraft;
+import pw.stamina.minecraftapi.event.render.HandRenderEvent;
+
+@Mixin(net.minecraft.client.renderer.EntityRenderer.class)
+public class MixinHandRenderEvent {
+
+    @Shadow private net.minecraft.client.Minecraft mc;
+
+    @Inject(method = "renderWorldPass", cancellable = true, at = @At(value = "INVOKE_STRING",
+            target="Lnet/minecraft/profiler/Profiler;endStartSection(Ljava/lang/String;)V", args = {"ldc=hand"}))
+    private void emitHandRenderEvent(int p_renderWorldPass_1_, float p_renderWorldPass_2_, long p_renderWorldPass_3_, CallbackInfo cbi) {
+        HandRenderEvent event = new HandRenderEvent((Minecraft) mc, p_renderWorldPass_2_);
+        MinecraftApi.emitEvent(event);
+
+        if (event.isCancelled()) {
+            cbi.cancel();
         }
-    }
-
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
-
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
     }
 }

@@ -22,56 +22,13 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
-    }
+package pw.stamina.minecraftapi.mixin.network.outgoing;
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
-    }
+import net.minecraft.network.play.client.C03PacketPlayer;
+import org.spongepowered.asm.mixin.Mixin;
+import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
+@Mixin(C03PacketPlayer.C06PacketPlayerPosLook.class)
+public abstract class MixinPositionLookPacket implements PositionLookPacket {
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
-    }
 }

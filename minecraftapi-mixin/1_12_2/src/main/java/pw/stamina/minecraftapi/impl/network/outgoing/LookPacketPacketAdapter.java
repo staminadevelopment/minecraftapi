@@ -22,56 +22,20 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
+package pw.stamina.minecraftapi.impl.network.outgoing;
+
+import net.minecraft.network.play.client.C03PacketPlayer;
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.outgoing.LookPacket;
+
+final class LookPacketPacketAdapter extends AbstractPacketAdapter<LookPacket> implements LookPacket.Adapter {
+
+    LookPacketPacketAdapter() {
+        super(LookPacket.class);
     }
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
-
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
+    @Override
+    public LookPacket create(float yaw, float pitch, boolean onGround) {
+        return (LookPacket) new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, onGround);
     }
 }
