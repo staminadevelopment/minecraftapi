@@ -22,56 +22,40 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
+package pw.stamina.minecraftapi.mixin.entity.animal;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityTameable;
+import org.spongepowered.asm.mixin.*;
+import pw.stamina.minecraftapi.entity.animal.Tamable;
+import pw.stamina.minecraftapi.entity.living.Living;
+
+@Implements(@Interface(iface = Tamable.class, prefix = "api$"))
+@Mixin(EntityTameable.class)
+public abstract class MixinTamable implements Tamable {
+
+    @Intrinsic
+    public boolean api$isTamed() {
+        return shadow$isTamed();
     }
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
+    @Intrinsic
+    public Living api$getOwner() {
+        return (Living) shadow$getOwner();
     }
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
+    @Intrinsic
+    public boolean api$isOwner(Living entity) {
+        return shadow$isOwner((EntityLivingBase) entity);
     }
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
+    @Override
+    public String getOwnerIdAsString() {
+        return shadow$getOwnerId();
     }
 
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
-    }
+    @Shadow public abstract boolean shadow$isTamed();
+    @Shadow public abstract EntityLivingBase shadow$getOwner();
+    @Shadow public abstract boolean shadow$isOwner(EntityLivingBase entityIn);
+    @Shadow public abstract String shadow$getOwnerId();
 }

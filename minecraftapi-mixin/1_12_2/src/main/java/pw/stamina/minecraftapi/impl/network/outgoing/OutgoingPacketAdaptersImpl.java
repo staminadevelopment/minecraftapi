@@ -22,56 +22,34 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
+package pw.stamina.minecraftapi.impl.network.outgoing;
+
+import pw.stamina.minecraftapi.network.outgoing.*;
+
+public final class OutgoingPacketAdaptersImpl implements OutgoingPacketAdapters {
+
+    @Override
+    public ChatPacket.Adapter chat() {
+        return new ChatPacketAdapter();
     }
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
+    @Override
+    public OnGroundPacket.Adapter onGround() {
+        return new OnGroundPacketAdapter();
     }
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
+    @Override
+    public PositionPacket.Adapter position() {
+        return new PositionPacketAdapter();
     }
 
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
+    @Override
+    public LookPacket.Adapter look() {
+        return new LookPacketPacketAdapter();
     }
 
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
+    @Override
+    public PositionLookPacket.Adapter positionLook() {
+        return new PositionLookPacketPacketAdapter();
     }
 }

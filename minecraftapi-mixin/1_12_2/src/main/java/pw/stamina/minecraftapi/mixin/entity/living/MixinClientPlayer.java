@@ -22,56 +22,31 @@
  * SOFTWARE.
  */
 
-subprojects {
-    ext {
-        shadow_version = '1.2.4'
-        mixin_gradle_version = '0.5-SNAPSHOT'
+package pw.stamina.minecraftapi.mixin.entity.living;
+
+import com.mojang.authlib.GameProfile;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.*;
+import pw.stamina.minecraftapi.entity.living.ClientPlayer;
+import pw.stamina.minecraftapi.network.NetHandlerPlayClient;
+
+@Mixin(EntityPlayerSP.class)
+@Implements(@Interface(iface = ClientPlayer.class, prefix = "api$"))
+public abstract class MixinClientPlayer extends AbstractClientPlayer {
+
+    @Shadow @Final public net.minecraft.client.network.NetHandlerPlayClient sendQueue;
+
+    public MixinClientPlayer(World p_i45074_1_, GameProfile p_i45074_2_) {
+        super(p_i45074_1_, p_i45074_2_);
     }
 
-    sourceSets {
-        main {
-            ext.refMap = 'main.minecraftapi.refmap.json'
-        }
+    public NetHandlerPlayClient api$getSendQueue() {
+        return (NetHandlerPlayClient) sendQueue;
     }
 
-    repositories {
-        maven {
-            name = 'sponge'
-            url = 'http://repo.spongepowered.org/maven'
-        }
-    }
-
-    dependencies {
-        compile project(':minecraftapi-events')
-        compile project(':minecraftapi-tweaker')
-    }
-
-    task stagingJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'staging'
-    }
-}
-
-
-// Mixins
-project('1_8_9') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.1-SNAPSHOT'
-
-        minecraftVersion = '1.8.9'
-        minecraftMappings = 'stable_22'
-    }
-}
-
-project('1_12_2') {
-    version = '1.0.0-SNAPSHOT'
-
-    ext {
-        forge_gradle_version = '2.3-SNAPSHOT'
-
-        minecraftVersion = '1.12'
-        minecraftMappings = 'snapshot_20180419'
+    public void api$swingArm() {
+        swingItem();
     }
 }
