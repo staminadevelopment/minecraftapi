@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
 import pw.stamina.minecraftapi.network.outgoing.PositionPacket;
 
@@ -36,6 +36,6 @@ final class PositionPacketAdapter extends AbstractPacketAdapter<PositionPacket> 
 
     @Override
     public PositionPacket create(double x, double y, double z, boolean onGround) {
-        return (PositionPacket) new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, onGround);
+        return (PositionPacket) new CPacketPlayer.Position(x, y, z, onGround);
     }
 }

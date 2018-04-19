@@ -40,13 +40,15 @@ public interface BoundingBox {
 
     double getMaxZ();
 
-    BoundingBox add(double x, double y, double z);
-
-    BoundingBox offset(double x, double y, double z);
-
     BoundingBox expand(double x, double y, double z);
 
     BoundingBox contract(double x, double y, double z);
+
+    BoundingBox offset(double x, double y, double z);
+
+    BoundingBox grow(double x, double y, double z);
+
+    BoundingBox shrink(double x, double y, double z);
 
     double calculateXOffset(BoundingBox other, double distance);
 

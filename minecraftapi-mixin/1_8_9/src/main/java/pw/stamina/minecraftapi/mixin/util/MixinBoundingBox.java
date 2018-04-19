@@ -69,9 +69,48 @@ public abstract class MixinBoundingBox implements BoundingBox {
         return maxZ;
     }
 
-    @Override
-    public BoundingBox add(double x, double y, double z) {
+    @Intrinsic
+    public BoundingBox api$expand(double x, double y, double z) {
         return (BoundingBox) shadow$addCoord(x, y, z);
+    }
+
+    @Override
+    public BoundingBox contract(double x, double y, double z) {
+        double d0 = this.minX;
+        double d1 = this.minY;
+        double d2 = this.minZ;
+        double d3 = this.maxX;
+        double d4 = this.maxY;
+        double d5 = this.maxZ;
+
+        if (x < 0.0D)
+        {
+            d0 -= x;
+        }
+        else if (x > 0.0D)
+        {
+            d3 -= x;
+        }
+
+        if (y < 0.0D)
+        {
+            d1 -= y;
+        }
+        else if (y > 0.0D)
+        {
+            d4 -= y;
+        }
+
+        if (z < 0.0D)
+        {
+            d2 -= z;
+        }
+        else if (z > 0.0D)
+        {
+            d5 -= z;
+        }
+
+        return BoundingBox.fromBounds(d0, d1, d2, d3, d4, d5);
     }
 
     @Intrinsic
@@ -79,13 +118,13 @@ public abstract class MixinBoundingBox implements BoundingBox {
         return (BoundingBox) shadow$offset(x, y, z);
     }
 
-    @Intrinsic
-    public BoundingBox api$expand(double x, double y, double z) {
+    @Override
+    public BoundingBox grow(double x, double y, double z) {
         return (BoundingBox) shadow$expand(x, y, z);
     }
 
     @Intrinsic
-    public BoundingBox api$contract(double x, double y, double z) {
+    public BoundingBox api$shrink(double x, double y, double z) {
         return (BoundingBox) shadow$contract(x, y, z);
     }
 

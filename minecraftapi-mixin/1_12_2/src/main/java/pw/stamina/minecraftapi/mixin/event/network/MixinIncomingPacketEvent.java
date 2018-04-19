@@ -56,7 +56,7 @@ public abstract class MixinIncomingPacketEvent implements NetworkManager {
                     return;
                 }
 
-                p_channelRead0_2_.processPacket(this.packetListener);
+                ((net.minecraft.network.Packet<INetHandler>)p_channelRead0_2_).processPacket(this.packetListener);
 
                 event.sendPackets(this::sendPacket);
             } catch (ThreadQuickExitException ignored) {}

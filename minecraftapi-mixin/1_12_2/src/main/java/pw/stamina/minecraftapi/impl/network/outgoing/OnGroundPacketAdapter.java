@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
 import pw.stamina.minecraftapi.network.outgoing.OnGroundPacket;
 
@@ -36,6 +36,6 @@ final class OnGroundPacketAdapter extends AbstractPacketAdapter<OnGroundPacket> 
 
     @Override
     public OnGroundPacket create(boolean onGround) {
-        return (OnGroundPacket) new C03PacketPlayer(onGround);
+        return (OnGroundPacket) new CPacketPlayer(onGround);
     }
 }

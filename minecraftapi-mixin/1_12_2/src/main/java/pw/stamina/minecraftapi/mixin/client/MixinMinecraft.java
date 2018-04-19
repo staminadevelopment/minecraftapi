@@ -46,19 +46,19 @@ import pw.stamina.minecraftapi.world.World;
 public class MixinMinecraft implements Minecraft {
 
     @Shadow public PlayerControllerMP playerController;
-    @Shadow public EntityPlayerSP thePlayer;
-    @Shadow public WorldClient theWorld;
+    @Shadow public EntityPlayerSP player;
+    @Shadow public WorldClient world;
     @Shadow private int rightClickDelayTimer;
 
     @Shadow private net.minecraft.client.renderer.entity.RenderManager renderManager;
 
     @Shadow public net.minecraft.client.renderer.EntityRenderer entityRenderer;
 
-    @Shadow public net.minecraft.client.gui.FontRenderer fontRendererObj;
+    @Shadow public net.minecraft.client.gui.FontRenderer fontRenderer;
 
     @Override
     public FontRenderer getFontRenderer() {
-        return (FontRenderer) fontRendererObj;
+        return (FontRenderer) fontRenderer;
     }
 
     @Override
@@ -68,12 +68,12 @@ public class MixinMinecraft implements Minecraft {
 
     @Override
     public ClientPlayer getPlayer() {
-        return (ClientPlayer) thePlayer;
+        return (ClientPlayer) player;
     }
 
     @Override
     public World getWorld() {
-        return (World) theWorld;
+        return (World) world;
     }
 
     @Override
@@ -96,8 +96,8 @@ public class MixinMinecraft implements Minecraft {
         return rightClickDelayTimer;
     }
 
-    @Inject(method = "startGame", at = @At("TAIL"))
-    private void startGame(CallbackInfo cbi) {
+    @Inject(method = "init", at = @At("TAIL"))
+    private void init(CallbackInfo cbi) {
         MinecraftApi.bootstrap(new MinecraftApiAdapterImpl());
     }
 }

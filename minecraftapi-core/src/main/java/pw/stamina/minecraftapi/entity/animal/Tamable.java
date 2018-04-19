@@ -36,13 +36,7 @@ public interface Tamable extends Animal {
 
     boolean isOwner(Living entity);
 
-    default UUID getOwnerId() {
-        try {
-            return UUID.fromString(this.getOwnerIdAsString());
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
+    UUID getOwnerId();
 
     String getOwnerIdAsString();
 }

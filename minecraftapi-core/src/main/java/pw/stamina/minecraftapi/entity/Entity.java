@@ -27,6 +27,7 @@ package pw.stamina.minecraftapi.entity;
 import pw.stamina.minecraftapi.util.BoundingBox;
 import pw.stamina.minecraftapi.util.Rotation;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface Entity {
@@ -34,7 +35,7 @@ public interface Entity {
     int getEntityId();
     UUID getUniqueId();
 
-    Entity getRider();
+    List<Entity> getRiddenByEntities();
 
     double posX();
     void posX(double posX);

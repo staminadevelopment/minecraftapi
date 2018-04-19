@@ -27,6 +27,7 @@ package pw.stamina.minecraftapi.mixin.entity.living;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.entity.living.ClientPlayer;
@@ -36,17 +37,20 @@ import pw.stamina.minecraftapi.network.NetHandlerPlayClient;
 @Implements(@Interface(iface = ClientPlayer.class, prefix = "api$"))
 public abstract class MixinClientPlayer extends AbstractClientPlayer {
 
-    @Shadow @Final public net.minecraft.client.network.NetHandlerPlayClient sendQueue;
+    @Shadow @Final public net.minecraft.client.network.NetHandlerPlayClient connection;
+
+    @Shadow public abstract void shadow$swingArm(EnumHand hand);
 
     public MixinClientPlayer(World p_i45074_1_, GameProfile p_i45074_2_) {
         super(p_i45074_1_, p_i45074_2_);
     }
 
     public NetHandlerPlayClient api$getSendQueue() {
-        return (NetHandlerPlayClient) sendQueue;
+        return (NetHandlerPlayClient) connection;
     }
 
     public void api$swingArm() {
-        swingItem();
+        //TODO: Add EnumHand
+        shadow$swingArm(EnumHand.MAIN_HAND);
     }
 }

@@ -27,8 +27,7 @@ package pw.stamina.minecraftapi.mixin.event.player;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +44,7 @@ import pw.stamina.minecraftapi.network.NetHandlerPlayClient;
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
 
-    @Shadow @Final public net.minecraft.client.network.NetHandlerPlayClient sendQueue;
+    @Shadow @Final public net.minecraft.client.network.NetHandlerPlayClient connection;
 
     @Shadow private double lastReportedPosX;
     @Shadow private double lastReportedPosY;
@@ -108,7 +107,7 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
                 isSprinting(), serverSneakState,
                 onGround,
 
-                (NetHandlerPlayClient) sendQueue);
+                (NetHandlerPlayClient) connection);
     }
 
     private void modifyPlayerState() {
@@ -143,6 +142,6 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
         rotationPitch = originalPitch;
         onGround = originalOnGround;
 
-        event.sendPackets(((NetHandlerPlayClient) sendQueue)::queuePacket);
+        event.sendPackets(((NetHandlerPlayClient) connection)::queuePacket);
     }
 }

@@ -24,11 +24,12 @@
 
 package pw.stamina.minecraftapi.mixin.entity;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.entity.Entity;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mixin(net.minecraft.entity.Entity.class)
@@ -38,7 +39,7 @@ public abstract class MixinEntity implements Entity {
     @Shadow private int entityId;
     @Shadow protected UUID entityUniqueID;
 
-    @Shadow public net.minecraft.entity.Entity riddenByEntity;
+    @Shadow @Final private List<net.minecraft.entity.Entity> riddenByEntities;
 
     @Shadow public double posX;
     @Shadow public double posY;
@@ -55,7 +56,7 @@ public abstract class MixinEntity implements Entity {
     @Shadow public float rotationYaw;
     @Shadow public float rotationPitch;
 
-    @Shadow private net.minecraft.util.AxisAlignedBB boundingBox;
+    @Shadow private net.minecraft.util.math.AxisAlignedBB boundingBox;
     @Shadow public boolean onGround;
     @Shadow public boolean isDead;
 
@@ -76,8 +77,9 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public Entity getRider() {
-        return (Entity) riddenByEntity;
+    @SuppressWarnings("unchecked")
+    public List<Entity> getRiddenByEntities() {
+        return (List<Entity>) (Object) riddenByEntities;
     }
 
     @Override
@@ -227,11 +229,11 @@ public abstract class MixinEntity implements Entity {
 
     @Override
     public float getDistanceToEntity(Entity other) {
-        return getDistanceToEntity((net.minecraft.entity.Entity) other);
+        return getDistance((net.minecraft.entity.Entity) other);
     }
 
     @Shadow
-    public abstract float getDistanceToEntity(net.minecraft.entity.Entity entityIn);
+    public abstract float getDistance(net.minecraft.entity.Entity entityIn);
 
     @Shadow public abstract boolean isSprinting();
 

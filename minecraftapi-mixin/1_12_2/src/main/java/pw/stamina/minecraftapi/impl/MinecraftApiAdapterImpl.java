@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import pw.stamina.minecraftapi.MinecraftApiAdapter;
 import pw.stamina.minecraftapi.client.Minecraft;
 import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;

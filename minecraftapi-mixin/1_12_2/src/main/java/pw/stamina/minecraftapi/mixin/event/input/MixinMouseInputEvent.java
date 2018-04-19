@@ -36,7 +36,7 @@ import pw.stamina.minecraftapi.event.input.MouseInputEvent;
 @Mixin(Minecraft.class)
 public class MixinMouseInputEvent {
 
-    @Inject(method = "runTick",
+    @Inject(method = "runTickMouse",
             at = @At(value = "INVOKE",
                     target = "Lorg/lwjgl/input/Mouse;getEventButton()I",
                     ordinal = 0,

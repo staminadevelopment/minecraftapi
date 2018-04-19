@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C01PacketChatMessage;
+import net.minecraft.network.play.client.CPacketChatMessage;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
 import pw.stamina.minecraftapi.network.outgoing.ChatPacket;
 
@@ -36,6 +36,6 @@ final class ChatPacketAdapter extends AbstractPacketAdapter<ChatPacket> implemen
 
     @Override
     public ChatPacket create(String message) {
-        return (ChatPacket) new C01PacketChatMessage(message);
+        return (ChatPacket) new CPacketChatMessage(message);
     }
 }

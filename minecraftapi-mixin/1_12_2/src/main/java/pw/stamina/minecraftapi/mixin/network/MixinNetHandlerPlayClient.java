@@ -34,9 +34,9 @@ public abstract class MixinNetHandlerPlayClient implements NetHandlerPlayClient 
 
     @Override
     public void queuePacket(Packet packet) {
-        shadow$addToSendQueue((net.minecraft.network.Packet) packet);
+        shadow$sendPacket((net.minecraft.network.Packet) packet);
     }
 
     @Shadow
-    public abstract void shadow$addToSendQueue(net.minecraft.network.Packet p_147297_1_);
+    public abstract void shadow$sendPacket(net.minecraft.network.Packet<?> packetIn);
 }
