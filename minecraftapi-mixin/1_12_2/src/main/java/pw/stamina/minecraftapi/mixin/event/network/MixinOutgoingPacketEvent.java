@@ -42,9 +42,9 @@ public class MixinOutgoingPacketEvent {
      * @author
      */
     @Overwrite
-    public void addToSendQueue(net.minecraft.network.Packet p_addToSendQueue_1_) {
+    public void sendPacket(net.minecraft.network.Packet packetIn) {
         OutgoingPacketEvent event = new OutgoingPacketEvent(
-                (Packet) p_addToSendQueue_1_,
+                (Packet) packetIn,
                 (NetworkManager) this.netManager);
 
         MinecraftApi.emitEvent(event);
@@ -53,7 +53,7 @@ public class MixinOutgoingPacketEvent {
             return;
         }
 
-        this.netManager.sendPacket(p_addToSendQueue_1_);
+        this.netManager.sendPacket(packetIn);
 
         NetworkManager networkManager = (NetworkManager) this.netManager;
         event.sendPackets(networkManager::sendPacket);

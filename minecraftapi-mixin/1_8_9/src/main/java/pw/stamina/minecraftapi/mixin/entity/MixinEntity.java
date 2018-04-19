@@ -29,6 +29,8 @@ import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.entity.Entity;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Mixin(net.minecraft.entity.Entity.class)
@@ -76,8 +78,12 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public Entity getRider() {
-        return (Entity) riddenByEntity;
+    public List<Entity> getRiddenByEntities() {
+        if (riddenByEntity != null) {
+            return Collections.singletonList((Entity) riddenByEntity);
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     @Override

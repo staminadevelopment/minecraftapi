@@ -40,7 +40,7 @@ public class MixinRenderManager implements RenderManager {
     @Shadow public double viewerPosY;
     @Shadow public double viewerPosZ;
 
-    @Shadow public Entity livingPlayer;
+    @Shadow public Entity renderViewEntity;
 
     @Override
     public double renderPosX() {
@@ -74,8 +74,8 @@ public class MixinRenderManager implements RenderManager {
 
     @Override
     public float getOriginYOffset() {
-        if (livingPlayer != null) {
-            return livingPlayer.getEyeHeight();
+        if (renderViewEntity != null) {
+            return renderViewEntity.getEyeHeight();
         } else {
             return 0;
         }

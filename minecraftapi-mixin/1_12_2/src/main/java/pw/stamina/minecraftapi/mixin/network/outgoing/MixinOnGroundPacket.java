@@ -24,12 +24,12 @@
 
 package pw.stamina.minecraftapi.mixin.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import pw.stamina.minecraftapi.network.outgoing.OnGroundPacket;
 
-@Mixin(C03PacketPlayer.class)
+@Mixin(CPacketPlayer.class)
 public class MixinOnGroundPacket implements OnGroundPacket {
 
     @Shadow protected double x;

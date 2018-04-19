@@ -30,6 +30,8 @@ import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.entity.animal.Tamable;
 import pw.stamina.minecraftapi.entity.living.Living;
 
+import java.util.UUID;
+
 @Implements(@Interface(iface = Tamable.class, prefix = "api$"))
 @Mixin(EntityTameable.class)
 public abstract class MixinTamable implements Tamable {
@@ -47,6 +49,15 @@ public abstract class MixinTamable implements Tamable {
     @Intrinsic
     public boolean api$isOwner(Living entity) {
         return shadow$isOwner((EntityLivingBase) entity);
+    }
+
+    @Override
+    public UUID getOwnerId() {
+        try {
+            return UUID.fromString(this.getOwnerIdAsString());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     @Override

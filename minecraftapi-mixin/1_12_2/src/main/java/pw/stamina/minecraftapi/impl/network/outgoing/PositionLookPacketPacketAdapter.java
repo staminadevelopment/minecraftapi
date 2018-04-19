@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
 import pw.stamina.minecraftapi.network.outgoing.PositionLookPacket;
 
@@ -37,6 +37,6 @@ final class PositionLookPacketPacketAdapter
 
     @Override
     public PositionLookPacket create(double x, double y, double z, float yaw, float pitch, boolean onGround) {
-        return (PositionLookPacket) new C03PacketPlayer.C06PacketPlayerPosLook(x, y, z, yaw, pitch, onGround);
+        return (PositionLookPacket) new CPacketPlayer.PositionRotation(x, y, z, yaw, pitch, onGround);
     }
 }

@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.mixin.util;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.util.BoundingBox;
 
@@ -69,9 +69,13 @@ public abstract class MixinBoundingBox implements BoundingBox {
         return maxZ;
     }
 
-    @Override
-    public BoundingBox add(double x, double y, double z) {
-        return (BoundingBox) shadow$addCoord(x, y, z);
+    @Intrinsic
+    public BoundingBox api$expand(double x, double y, double z) {
+        return (BoundingBox) shadow$expand(x, y, z);
+    }
+
+    public BoundingBox api$contract(double x, double y, double z) {
+        return (BoundingBox) shadow$contract(x, y, z);
     }
 
     @Intrinsic
@@ -79,20 +83,20 @@ public abstract class MixinBoundingBox implements BoundingBox {
         return (BoundingBox) shadow$offset(x, y, z);
     }
 
-    @Intrinsic
-    public BoundingBox api$expand(double x, double y, double z) {
-        return (BoundingBox) shadow$expand(x, y, z);
+    @Override
+    public BoundingBox grow(double x, double y, double z) {
+        return (BoundingBox) shadow$grow(x, y, z);
     }
 
     @Intrinsic
-    public BoundingBox api$contract(double x, double y, double z) {
-        return (BoundingBox) shadow$contract(x, y, z);
+    public BoundingBox api$shrink(double x, double y, double z) {
+        return (BoundingBox) shadow$grow(-x, -y, -z);
     }
 
-    @Shadow public abstract AxisAlignedBB shadow$addCoord(double x, double y, double z);
-    @Shadow public abstract AxisAlignedBB shadow$offset(double x, double y, double z);
     @Shadow public abstract AxisAlignedBB shadow$expand(double x, double y, double z);
+    @Shadow public abstract AxisAlignedBB shadow$offset(double x, double y, double z);
     @Shadow public abstract AxisAlignedBB shadow$contract(double x, double y, double z);
+    @Shadow public abstract AxisAlignedBB shadow$grow(double x, double y, double z);
 
     @Override
     public double calculateXOffset(BoundingBox other, double distance) {

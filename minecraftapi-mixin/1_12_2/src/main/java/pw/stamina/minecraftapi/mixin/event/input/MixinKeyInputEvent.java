@@ -37,7 +37,7 @@ import pw.stamina.minecraftapi.event.input.KeyInputType;
 @Mixin(Minecraft.class)
 public class MixinKeyInputEvent {
 
-    @Inject(method = "runTick",
+    @Inject(method = "dispatchKeypresses",
             at = @At(value = "INVOKE",
                     target = "Lorg/lwjgl/input/Keyboard;getEventKey()I",
                     ordinal = 0,

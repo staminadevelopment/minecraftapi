@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.impl.network.outgoing;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
 import pw.stamina.minecraftapi.network.outgoing.LookPacket;
 
@@ -36,6 +36,6 @@ final class LookPacketPacketAdapter extends AbstractPacketAdapter<LookPacket> im
 
     @Override
     public LookPacket create(float yaw, float pitch, boolean onGround) {
-        return (LookPacket) new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, onGround);
+        return (LookPacket) new CPacketPlayer.Rotation(yaw, pitch, onGround);
     }
 }
