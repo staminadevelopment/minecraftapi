@@ -24,12 +24,20 @@
 
 package pw.stamina.minecraftapi.impl.network.incoming;
 
+import net.minecraft.network.play.server.SPacketChat;
+import net.minecraft.util.text.ChatType;
 import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.Packet;
 import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 
 final class ChatPacketAdapter extends AbstractPacketAdapter<ChatPacket> implements ChatPacket.Adapter {
 
     ChatPacketAdapter() {
         super(ChatPacket.class);
+    }
+
+    @Override
+    public boolean is(Packet packet) {
+        return super.is(packet) && ((SPacketChat) packet).getType() == ChatType.CHAT;
     }
 }

@@ -33,7 +33,6 @@ import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 @Mixin(SPacketChat.class)
 public class MixinChatPacket implements ChatPacket {
 
-    //TODO: Add ChatType
     @Shadow private ITextComponent chatComponent;
 
     @Override
