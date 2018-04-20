@@ -71,7 +71,7 @@ project('1_12_2') {
     ext {
         forge_gradle_version = '2.3-SNAPSHOT'
 
-        minecraftVersion = '1.12'
+        minecraftVersion = '1.12.2'
         minecraftMappings = 'snapshot_20180419'
     }
 }
