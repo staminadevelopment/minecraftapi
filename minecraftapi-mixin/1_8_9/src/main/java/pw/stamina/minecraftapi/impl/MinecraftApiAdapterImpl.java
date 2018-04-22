@@ -32,6 +32,7 @@ import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
 import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
 import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 import pw.stamina.minecraftapi.util.BoundingBox;
+import pw.stamina.minecraftapi.util.Hand;
 
 public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
 
@@ -53,5 +54,10 @@ public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
     @Override
     public OutgoingPacketAdapters getOutingPacketAdapters() {
         return new OutgoingPacketAdaptersImpl();
+    }
+
+    @Override
+    public Hand.Adapter getHandAdapter() {
+        return new HandAdapter();
     }
 }

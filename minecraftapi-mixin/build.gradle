@@ -64,3 +64,14 @@ project('1_8_9') {
         minecraftMappings = 'stable_22'
     }
 }
+
+project('1_12_2') {
+    version = '1.0.0-SNAPSHOT'
+
+    ext {
+        forge_gradle_version = '2.3-SNAPSHOT'
+
+        minecraftVersion = '1.12.2'
+        minecraftMappings = 'snapshot_20180419'
+    }
+}
