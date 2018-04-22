@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Stamina Development
+ * Copyright (c) 2018 Stamina Development
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,11 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraft-api'
+rootProject.name = 'minecraftapi'
 
-include 'events',
-        'mixin',
-        'mixin:1.7.10',
-        'mixin:1.8.9'
+include 'minecraftapi-core',
+        'minecraftapi-events',
+        'minecraftapi-tweaker',
+        'minecraftapi-mixin',
+        'minecraftapi-mixin:1_8_9',
+        'minecraftapi-mixin:1_12_2'
