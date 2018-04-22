@@ -25,10 +25,13 @@
 package pw.stamina.minecraftapi.entity.living;
 
 import pw.stamina.minecraftapi.network.NetHandlerPlayClient;
+import pw.stamina.minecraftapi.util.Hand;
 
 public interface ClientPlayer extends Player {
 
     NetHandlerPlayClient getSendQueue();
+
+    void swingArm(Hand hand);
 
     void swingArm();
 }

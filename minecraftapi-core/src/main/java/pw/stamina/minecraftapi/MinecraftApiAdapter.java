@@ -28,6 +28,7 @@ import pw.stamina.minecraftapi.client.Minecraft;
 import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
 import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 import pw.stamina.minecraftapi.util.BoundingBox;
+import pw.stamina.minecraftapi.util.Hand;
 
 public interface MinecraftApiAdapter {
 
@@ -37,4 +38,6 @@ public interface MinecraftApiAdapter {
 
     IncomingPacketAdapters getIncomingPacketAdapters();
     OutgoingPacketAdapters getOutingPacketAdapters();
+
+    Hand.Adapter getHandAdapter();
 }

@@ -8,6 +8,7 @@
     "client.MixinMinecraft",
     "client.MixinPlayerController",
     "util.MixinBoundingBox",
+    "util.MixinHand",
     "world.MixinWorld",
     "entity.MixinEntity",
     "entity.animal.MixinAnimal",
