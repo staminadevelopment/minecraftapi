@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import pw.stamina.minecraftapi.entity.living.ClientPlayer;
 import pw.stamina.minecraftapi.network.NetHandlerPlayClient;
+import pw.stamina.minecraftapi.util.Hand;
 
 @Mixin(EntityPlayerSP.class)
 @Implements(@Interface(iface = ClientPlayer.class, prefix = "api$"))
@@ -47,6 +48,10 @@ public abstract class MixinClientPlayer extends AbstractClientPlayer {
     }
 
     public void api$swingArm() {
+        swingItem();
+    }
+
+    public void api$swingArm(Hand hand) {
         swingItem();
     }
 }

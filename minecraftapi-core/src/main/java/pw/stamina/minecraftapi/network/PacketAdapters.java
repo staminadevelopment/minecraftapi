@@ -34,10 +34,10 @@ public final class PacketAdapters {
     private static final OutgoingPacketAdapters OUTGOING_ADAPTERS;
 
     static {
-        MinecraftApiAdapter apiAdapter = MinecraftApi.getAdapter();
+        MinecraftApiAdapter adapter = MinecraftApi.getAdapter();
 
-        INCOMING_ADAPTERS = apiAdapter.getIncomingPacketAdapters();
-        OUTGOING_ADAPTERS = apiAdapter.getOutingPacketAdapters();
+        INCOMING_ADAPTERS = adapter.getIncomingPacketAdapters();
+        OUTGOING_ADAPTERS = adapter.getOutingPacketAdapters();
     }
 
     private PacketAdapters() {
