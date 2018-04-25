@@ -60,7 +60,7 @@ minecraft {
     runDir = rootProject.projectDir.absolutePath + '/run'
 
     makeObfSourceJar = false
-    tweakClass = 'pw.stamina.minecraftapi.tweak.MinecraftApiTweaker'
+    tweakClass = 'pw.stamina.minecraftapi.tweak.MinecraftApiDevelopmentTweaker'
 }
 
 mixin {

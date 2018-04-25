@@ -49,7 +49,7 @@ public interface Minecraft {
 
     EntityRenderer getEntityRenderer();
 
-    void setRightClickDelay(int delay);
-
     int getRightClickDelay();
+
+    void setRightClickDelay(int delay);
 }
