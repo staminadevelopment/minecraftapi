@@ -45,5 +45,9 @@ dependencies {
         transitive = false
     }
 
-    compile "org.spongepowered:mixin:$mixinVersion"
+    // Fixes an issue with Mixin's transitive dependencies
+    compileOnly "org.spongepowered:mixin:$mixinVersion"
+    compile ("org.spongepowered:mixin:$mixinVersion") {
+        transitive = false
+    }
 }
