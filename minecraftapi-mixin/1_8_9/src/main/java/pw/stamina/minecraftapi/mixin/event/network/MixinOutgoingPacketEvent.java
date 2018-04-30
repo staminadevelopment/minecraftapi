@@ -26,8 +26,10 @@ package pw.stamina.minecraftapi.mixin.event.network;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pw.stamina.minecraftapi.MinecraftApi;
 import pw.stamina.minecraftapi.event.network.OutgoingPacketEvent;
 import pw.stamina.minecraftapi.network.NetworkManager;
@@ -38,23 +40,23 @@ public class MixinOutgoingPacketEvent {
 
     @Shadow @Final private net.minecraft.network.NetworkManager netManager;
 
-    /**
-     * @author
-     */
-    @Overwrite
-    public void addToSendQueue(net.minecraft.network.Packet p_addToSendQueue_1_) {
-        OutgoingPacketEvent event = new OutgoingPacketEvent(
-                (Packet) p_addToSendQueue_1_,
+    private OutgoingPacketEvent event;
+
+    @Inject(method = "addToSendQueue", at = @At("HEAD"), cancellable = true)
+    public void emitOutgoingPacketEvent(net.minecraft.network.Packet p_147297_1_, CallbackInfo cbi) {
+        event = new OutgoingPacketEvent(
+                (Packet) p_147297_1_,
                 (NetworkManager) this.netManager);
 
         MinecraftApi.emitEvent(event);
 
         if (event.isCancelled()) {
-            return;
+            cbi.cancel();
         }
+    }
 
-        this.netManager.sendPacket(p_addToSendQueue_1_);
-
+    @Inject(method = "addToSendQueue", at = @At("RETURN"))
+    public void sendResponsePackets(net.minecraft.network.Packet p_147297_1_, CallbackInfo cbi) {
         NetworkManager networkManager = (NetworkManager) this.netManager;
         event.sendPackets(networkManager::sendPacket);
     }
