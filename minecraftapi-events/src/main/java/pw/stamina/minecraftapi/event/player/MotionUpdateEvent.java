@@ -75,11 +75,11 @@ public final class MotionUpdateEvent extends AbstractCancellable {
         this.oldYaw = oldYaw;
         this.oldPitch = oldPitch;
 
-        this.sneaking = sneaking;
-        this.wasSneaking = wasSneaking;
-
         this.sprinting = sprinting;
         this.wasSprinting = wasSprinting;
+
+        this.sneaking = sneaking;
+        this.wasSneaking = wasSneaking;
 
         this.onGround = onGround;
 

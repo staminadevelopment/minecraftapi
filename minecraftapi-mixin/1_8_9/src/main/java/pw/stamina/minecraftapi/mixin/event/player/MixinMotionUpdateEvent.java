@@ -54,7 +54,6 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
     @Shadow private boolean serverSneakState;
     @Shadow private boolean serverSprintState;
 
-    // MotionUpdateEvent
     private double originalX;
     private double originalZ;
 
@@ -129,7 +128,7 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
     @Redirect(method = "onUpdateWalkingPlayer",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isSprinting()Z"))
     public boolean redirectIsSprinting(EntityPlayerSP player) {
-        return event.isSneaking();
+        return event.isSprinting();
     }
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("TAIL"))
