@@ -29,4 +29,6 @@ public interface IncomingPacketAdapters {
     ChatPacket.Adapter chat();
 
     VelocityPacket.Adapter velocity();
+
+    ExplosionPacket.Adapter explosion();
 }

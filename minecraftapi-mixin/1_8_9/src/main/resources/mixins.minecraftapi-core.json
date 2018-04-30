@@ -38,6 +38,7 @@
     "network.outgoing.MixinPositionPacket",
     "network.outgoing.MixinPositionLookPacket",
     "network.incoming.MixinChatPacket",
+    "network.incoming.MixinExplosionPacket",
     "network.incoming.MixinVelocityPacket"
   ]
 }

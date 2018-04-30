@@ -25,6 +25,7 @@
 package pw.stamina.minecraftapi.impl.network.incoming;
 
 import pw.stamina.minecraftapi.network.incoming.ChatPacket;
+import pw.stamina.minecraftapi.network.incoming.ExplosionPacket;
 import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
 import pw.stamina.minecraftapi.network.incoming.VelocityPacket;
 
@@ -38,5 +39,10 @@ public final class IncomingPacketAdaptersImpl implements IncomingPacketAdapters 
     @Override
     public VelocityPacket.Adapter velocity() {
         return new VelocityPacketAdapter();
+    }
+
+    @Override
+    public ExplosionPacket.Adapter explosion() {
+        return new ExplosionPacketAdapter();
     }
 }
