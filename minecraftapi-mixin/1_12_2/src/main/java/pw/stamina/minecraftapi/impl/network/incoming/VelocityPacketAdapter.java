@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.network.incoming;
+package pw.stamina.minecraftapi.impl.network.incoming;
 
-public interface IncomingPacketAdapters {
+import pw.stamina.minecraftapi.network.AbstractPacketAdapter;
+import pw.stamina.minecraftapi.network.incoming.VelocityPacket;
 
-    ChatPacket.Adapter chat();
+final class VelocityPacketAdapter extends AbstractPacketAdapter<VelocityPacket> implements VelocityPacket.Adapter {
 
-    VelocityPacket.Adapter velocity();
+    VelocityPacketAdapter() {
+        super(VelocityPacket.class);
+    }
 }

@@ -26,11 +26,17 @@ package pw.stamina.minecraftapi.impl.network.incoming;
 
 import pw.stamina.minecraftapi.network.incoming.ChatPacket;
 import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
+import pw.stamina.minecraftapi.network.incoming.VelocityPacket;
 
 public final class IncomingPacketAdaptersImpl implements IncomingPacketAdapters {
 
     @Override
     public ChatPacket.Adapter chat() {
         return new ChatPacketAdapter();
+    }
+
+    @Override
+    public VelocityPacket.Adapter velocity() {
+        return new VelocityPacketAdapter();
     }
 }
