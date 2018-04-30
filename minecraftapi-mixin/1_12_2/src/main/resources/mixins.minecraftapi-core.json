@@ -25,6 +25,8 @@
     "entity.monster.MixinEnderman",
     "entity.monster.MixinMonster",
     "entity.monster.MixinZombiePigman",
+    "item.MixinItem",
+    "item.MixinItemBlock",
     "render.MixinEntityRenderer",
     "render.MixinFontRenderer",
     "render.MixinRenderManager",

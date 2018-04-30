@@ -52,4 +52,7 @@ public interface Minecraft {
     int getRightClickDelay();
 
     void setRightClickDelay(int delay);
+
+    // TODO: Add ChatComponent based alternative when that API has been implemented
+    void printChatMessage(String message);
 }

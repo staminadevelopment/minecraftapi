@@ -25,8 +25,10 @@
 package pw.stamina.minecraftapi.mixin.client;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.util.text.TextComponentString;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,6 +57,8 @@ public class MixinMinecraft implements Minecraft {
     @Shadow public net.minecraft.client.renderer.EntityRenderer entityRenderer;
 
     @Shadow public net.minecraft.client.gui.FontRenderer fontRenderer;
+
+    @Shadow public GuiIngame ingameGUI;
 
     @Override
     public FontRenderer getFontRenderer() {
@@ -89,6 +93,11 @@ public class MixinMinecraft implements Minecraft {
     @Override
     public void setRightClickDelay(int delay) {
         rightClickDelayTimer = delay;
+    }
+
+    @Override
+    public void printChatMessage(String message) {
+        ingameGUI.getChatGUI().printChatMessage(new TextComponentString(message));
     }
 
     @Override
