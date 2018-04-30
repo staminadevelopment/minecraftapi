@@ -24,6 +24,12 @@
 
 package pw.stamina.minecraftapi.entity.living;
 
+import pw.stamina.minecraftapi.item.Item;
+import pw.stamina.minecraftapi.util.Hand;
+
 public interface Player extends Living {
 
+    Item getHeldItem();
+
+    Item getHeldItem(Hand hand);
 }

@@ -35,25 +35,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinecraftApiDevelopmentTweaker implements ITweaker {
-    private final List<String> args = new ArrayList<>();
+    private final List<String> arguments = new ArrayList<>();
 
     @Override
     public void acceptOptions(List<String> list, File gameDir, File assetsDir, String profile) {
-        args.addAll(list);
+        arguments.addAll(list);
 
-        if (!args.contains("--version") && profile != null) {
-            args.add("--version");
-            args.add(profile);
+        if (!arguments.contains("--version") && profile != null) {
+            arguments.add("--version");
+            arguments.add(profile);
         }
 
-        if (!args.contains("--assetsDir") && assetsDir != null) {
-            args.add("--assetsDir");
-            args.add(assetsDir.getPath());
+        if (!arguments.contains("--assetsDir") && assetsDir != null) {
+            arguments.add("--assetsDir");
+            arguments.add(assetsDir.getPath());
         }
 
-        if (!args.contains("--gameDir") && gameDir != null) {
-            args.add("--gameDir");
-            args.add(gameDir.getPath());
+        if (!arguments.contains("--gameDir") && gameDir != null) {
+            arguments.add("--gameDir");
+            arguments.add(gameDir.getPath());
         }
     }
 
@@ -83,6 +83,6 @@ public class MinecraftApiDevelopmentTweaker implements ITweaker {
 
     @Override
     public String[] getLaunchArguments() {
-        return args.toArray(new String[0]);
+        return arguments.toArray(new String[0]);
     }
 }

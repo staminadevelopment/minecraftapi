@@ -24,11 +24,38 @@
 
 package pw.stamina.minecraftapi.mixin.entity.living;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import pw.stamina.minecraftapi.entity.living.Player;
+import pw.stamina.minecraftapi.item.Item;
+import pw.stamina.minecraftapi.util.Hand;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinPlayer implements Player {
+public abstract class MixinPlayer extends EntityLivingBase implements Player {
 
+    @Shadow
+    public abstract ItemStack shadow$getItemStackFromSlot(EntityEquipmentSlot slotIn);
+
+    public MixinPlayer(World worldIn) {
+        super(worldIn);
+    }
+
+    @Override
+    public Item getHeldItem() {
+        return (Item) getHeldItemMainhand().getItem();
+    }
+
+    @Override
+    public Item getHeldItem(Hand hand) {
+        if (hand == Hand.main()) {
+            return getHeldItem();
+        } else {
+            return (Item) getHeldItemOffhand().getItem();
+        }
+    }
 }

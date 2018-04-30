@@ -24,16 +24,10 @@
 
 package pw.stamina.minecraftapi.tweak;
 
-import java.io.File;
-import java.util.List;
-
 public final class MinecraftApiProductionTweaker extends MinecraftApiDevelopmentTweaker {
 
     // These methods are supposed to be empty, to prevent issues
     // with duplicate arguments when running from the launcher
-
-    @Override
-    public void acceptOptions(List<String> list, File gameDir, File assetsDir, String profile) { }
 
     @Override
     public String[] getLaunchArguments() {

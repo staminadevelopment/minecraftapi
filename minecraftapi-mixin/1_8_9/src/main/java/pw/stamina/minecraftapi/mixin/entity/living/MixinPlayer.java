@@ -25,10 +25,32 @@
 package pw.stamina.minecraftapi.mixin.entity.living;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import org.spongepowered.asm.mixin.Implements;
+import org.spongepowered.asm.mixin.Interface;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import pw.stamina.minecraftapi.entity.living.Player;
+import pw.stamina.minecraftapi.item.Item;
+import pw.stamina.minecraftapi.util.Hand;
 
 @Mixin(EntityPlayer.class)
+@Implements(@Interface(iface = Player.class, prefix = "api$"))
 public abstract class MixinPlayer implements Player {
 
+    @Shadow public abstract ItemStack shadow$getHeldItem();
+
+    public Item api$getHeldItem() {
+        ItemStack itemStack = shadow$getHeldItem();
+
+        if (itemStack == null) {
+            return null;
+        }
+
+        return (Item) itemStack.getItem();
+    }
+
+    public Item api$getHeldItem(Hand hand) {
+        return api$getHeldItem();
+    }
 }
