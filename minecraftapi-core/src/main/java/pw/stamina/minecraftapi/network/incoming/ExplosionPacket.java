@@ -29,11 +29,11 @@ import pw.stamina.minecraftapi.network.PacketAdapter;
 
 public interface ExplosionPacket extends Packet {
 
-    float getField_149152_f();
-    void setField_149152_f(float field_149152_f);
+    float getMotionX();
+    void setMotionX(float motionX);
 
-    float getField_149153_g();
-    void setField_149153_g(float field_149153_g);
+    float getMotionY();
+    void setMotionY(float motionY);
 
     float getMotionZ();
     void setMotionZ(float motionZ);

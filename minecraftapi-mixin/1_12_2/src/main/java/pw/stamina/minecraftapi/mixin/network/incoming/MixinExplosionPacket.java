@@ -37,23 +37,23 @@ public class MixinExplosionPacket implements ExplosionPacket {
     @Shadow private float motionZ;
 
     @Override
-    public float getField_149152_f() {
+    public float getMotionX() {
         return motionX;
     }
 
     @Override
-    public void setField_149152_f(float field_149152_f) {
-        this.motionX = field_149152_f;
+    public void setMotionX(float motionX) {
+        this.motionX = motionX;
     }
 
     @Override
-    public float getField_149153_g() {
+    public float getMotionY() {
         return motionY;
     }
 
     @Override
-    public void setField_149153_g(float field_149153_g) {
-        this.motionY = field_149153_g;
+    public void setMotionY(float motionY) {
+        this.motionY = motionY;
     }
 
     @Override

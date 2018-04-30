@@ -33,9 +33,10 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class PacketEvent extends AbstractCancellable {
+    private final Packet packet;
     private final NetworkManager networkManager;
+
     private List<Packet> packets;
-    private Packet packet;
 
     PacketEvent(Packet packet, NetworkManager networkManager) {
         this.packet = packet;
@@ -44,10 +45,6 @@ public abstract class PacketEvent extends AbstractCancellable {
 
     public final Packet getPacket() {
         return packet;
-    }
-
-    public final void setPacket(Packet packet) {
-        this.packet = packet;
     }
 
     public final void sendPacket(Packet packet) {
