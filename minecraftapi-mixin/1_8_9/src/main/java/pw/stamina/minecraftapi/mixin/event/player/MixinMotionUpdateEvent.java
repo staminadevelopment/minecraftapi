@@ -27,7 +27,6 @@ package pw.stamina.minecraftapi.mixin.event.player;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
@@ -104,8 +103,8 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
                 rotationYaw, rotationPitch,
                 lastReportedYaw, lastReportedPitch,
 
-                isSneaking(), serverSprintState,
-                isSprinting(), serverSneakState,
+                isSprinting(), serverSprintState,
+                isSneaking(), serverSneakState,
                 onGround,
 
                 (NetHandlerPlayClient) sendQueue);

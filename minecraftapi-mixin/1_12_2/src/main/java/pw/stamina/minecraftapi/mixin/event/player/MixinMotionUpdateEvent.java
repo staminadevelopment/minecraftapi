@@ -54,6 +54,8 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
     @Shadow private boolean serverSneakState;
     @Shadow private boolean serverSprintState;
 
+    @Shadow public abstract boolean isSneaking();
+
     // MotionUpdateEvent
     private double originalX;
     private double originalZ;
@@ -103,8 +105,8 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
                 rotationYaw, rotationPitch,
                 lastReportedYaw, lastReportedPitch,
 
-                isSneaking(), serverSprintState,
-                isSprinting(), serverSneakState,
+                isSprinting(), serverSprintState,
+                isSneaking(), serverSneakState,
                 onGround,
 
                 (NetHandlerPlayClient) connection);
