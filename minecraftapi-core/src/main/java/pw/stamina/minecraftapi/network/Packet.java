@@ -26,4 +26,11 @@ package pw.stamina.minecraftapi.network;
 
 public interface Packet {
 
+    default <T extends Packet> boolean is(PacketAdapter<T> adapter) {
+        return adapter.is(this);
+    }
+
+    default <T extends Packet> T cast(PacketAdapter<T> adapter) {
+        return adapter.cast(this);
+    }
 }
