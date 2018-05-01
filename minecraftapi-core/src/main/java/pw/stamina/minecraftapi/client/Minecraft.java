@@ -55,4 +55,10 @@ public interface Minecraft {
 
     // TODO: Add ChatComponent based alternative when that API has been implemented
     void printChatMessage(String message);
+
+    ScaledResolution getScaledResolution();
+
+    int getDisplayWidth();
+
+    int getDisplayHeight();
 }

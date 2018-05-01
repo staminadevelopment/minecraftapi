@@ -22,18 +22,44 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.event.render;
+package pw.stamina.minecraftapi.mixin.client;
 
-import pw.stamina.causam.event.AbstractCancellable;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import pw.stamina.minecraftapi.client.ScaledResolution;
 
-public final class HandRenderEvent extends AbstractCancellable {
-    private final float partialRenderTick;
+@Mixin(net.minecraft.client.gui.ScaledResolution.class)
+public class MixinScaledResolution implements ScaledResolution {
 
-    public HandRenderEvent(float partialRenderTick) {
-        this.partialRenderTick = partialRenderTick;
+    @Shadow private int scaledWidth;
+    @Shadow private int scaledHeight;
+    @Shadow @Final private double scaledWidthD;
+    @Shadow @Final private double scaledHeightD;
+    @Shadow private int scaleFactor;
+
+    @Override
+    public int getScaledWidth() {
+        return scaledWidth;
     }
 
-    public float getPartialRenderTick() {
-        return partialRenderTick;
+    @Override
+    public int getScaledHeight() {
+        return scaledHeight;
+    }
+
+    @Override
+    public double getScaledWidthAsDouble() {
+        return scaledWidthD;
+    }
+
+    @Override
+    public double getScaledHeightAsDouble() {
+        return scaledHeightD;
+    }
+
+    @Override
+    public int getScaleFactor() {
+        return scaleFactor;
     }
 }

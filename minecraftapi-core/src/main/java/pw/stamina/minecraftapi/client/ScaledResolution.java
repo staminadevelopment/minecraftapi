@@ -22,18 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.event.render;
+package pw.stamina.minecraftapi.client;
 
-import pw.stamina.causam.event.AbstractCancellable;
+public interface ScaledResolution {
 
-public final class HandRenderEvent extends AbstractCancellable {
-    private final float partialRenderTick;
+    int getScaledWidth();
 
-    public HandRenderEvent(float partialRenderTick) {
-        this.partialRenderTick = partialRenderTick;
-    }
+    int getScaledHeight();
 
-    public float getPartialRenderTick() {
-        return partialRenderTick;
-    }
+    double getScaledWidthAsDouble();
+
+    double getScaledHeightAsDouble();
+
+    int getScaleFactor();
 }

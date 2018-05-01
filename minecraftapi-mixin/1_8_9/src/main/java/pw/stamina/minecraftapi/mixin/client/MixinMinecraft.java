@@ -37,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pw.stamina.minecraftapi.MinecraftApi;
 import pw.stamina.minecraftapi.client.Minecraft;
 import pw.stamina.minecraftapi.client.PlayerController;
+import pw.stamina.minecraftapi.client.ScaledResolution;
 import pw.stamina.minecraftapi.entity.living.ClientPlayer;
 import pw.stamina.minecraftapi.impl.MinecraftApiAdapterImpl;
 import pw.stamina.minecraftapi.render.EntityRenderer;
@@ -59,6 +60,12 @@ public class MixinMinecraft implements Minecraft {
     @Shadow public net.minecraft.client.gui.FontRenderer fontRendererObj;
 
     @Shadow public GuiIngame ingameGUI;
+
+    @Shadow private static net.minecraft.client.Minecraft theMinecraft;
+
+    @Shadow public int displayWidth;
+
+    @Shadow public int displayHeight;
 
     @Override
     public FontRenderer getFontRenderer() {
@@ -96,13 +103,28 @@ public class MixinMinecraft implements Minecraft {
     }
 
     @Override
+    public int getRightClickDelay() {
+        return rightClickDelayTimer;
+    }
+
+    @Override
     public void printChatMessage(String message) {
         ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
     }
 
     @Override
-    public int getRightClickDelay() {
-        return rightClickDelayTimer;
+    public ScaledResolution getScaledResolution() {
+        return (ScaledResolution) new net.minecraft.client.gui.ScaledResolution(theMinecraft);
+    }
+
+    @Override
+    public int getDisplayWidth() {
+        return displayWidth;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return displayHeight;
     }
 
     @Inject(method = "startGame", at = @At("TAIL"))
