@@ -26,10 +26,8 @@ package pw.stamina.minecraftapi.mixin.event.network;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pw.stamina.minecraftapi.MinecraftApi;
 import pw.stamina.minecraftapi.event.network.OutgoingPacketEvent;
 import pw.stamina.minecraftapi.network.NetworkManager;
@@ -38,25 +36,30 @@ import pw.stamina.minecraftapi.network.Packet;
 @Mixin(net.minecraft.client.network.NetHandlerPlayClient.class)
 public class MixinOutgoingPacketEvent {
 
-    @Shadow @Final private net.minecraft.network.NetworkManager netManager;
+    @Shadow
+    @Final
+    private net.minecraft.network.NetworkManager netManager;
 
-    private OutgoingPacketEvent event;
-
-    @Inject(method = "addToSendQueue", at = @At("HEAD"), cancellable = true)
-    public void emitOutgoingPacketEvent(net.minecraft.network.Packet p_147297_1_, CallbackInfo cbi) {
-        event = new OutgoingPacketEvent(
+    /**
+     * @reason We have to override this method, because
+     * splitting it into two different injection points,
+     * seems to cause data races.
+     * @author Abstraction
+     */
+    @Overwrite
+    public void addToSendQueue(net.minecraft.network.Packet p_147297_1_) {
+        OutgoingPacketEvent event = new OutgoingPacketEvent(
                 (Packet) p_147297_1_,
                 (NetworkManager) this.netManager);
 
         MinecraftApi.emitEvent(event);
 
         if (event.isCancelled()) {
-            cbi.cancel();
+            return;
         }
-    }
 
-    @Inject(method = "addToSendQueue", at = @At("RETURN"))
-    public void sendResponsePackets(net.minecraft.network.Packet p_147297_1_, CallbackInfo cbi) {
+        this.netManager.sendPacket(p_147297_1_);
+
         NetworkManager networkManager = (NetworkManager) this.netManager;
         event.sendPackets(networkManager::sendPacket);
     }
