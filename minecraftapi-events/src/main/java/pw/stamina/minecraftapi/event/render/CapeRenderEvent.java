@@ -22,28 +22,34 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.mixin.event.player;
+package pw.stamina.minecraftapi.event.render;
 
-import net.minecraft.client.entity.AbstractClientPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import pw.stamina.minecraftapi.entity.living.Player;
-import pw.stamina.minecraftapi.event.render.CapeLocationEvent;
 import pw.stamina.minecraftapi.util.ResourceLocation;
 
-@Mixin(AbstractClientPlayer.class)
-public abstract class MixinCapeLocationEvent {
+public final class CapeRenderEvent {
 
-    @Inject(method = "getLocationCape", at = @At("HEAD"))
-    public void getLocationCape(CallbackInfoReturnable<ResourceLocation> cir) {
-        CapeLocationEvent event = new CapeLocationEvent((Player) this);
+    private final Player player;
+    private ResourceLocation overridingCapeLocation;
 
-        ResourceLocation capeLocation = event.getCapeLocation();
+    public CapeRenderEvent(Player player) {
+        this.player = player;
+        this.overridingCapeLocation = null;
+    }
 
-        if (capeLocation != null) {
-            cir.setReturnValue(capeLocation);
-        }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void overrideCapeLocation(ResourceLocation capeLocation) {
+        this.overridingCapeLocation = capeLocation;
+    }
+
+    public ResourceLocation getOverridingCapeLocation() {
+        return overridingCapeLocation;
+    }
+
+    public boolean isCapeLocationOverridden() {
+        return overridingCapeLocation != null;
     }
 }
