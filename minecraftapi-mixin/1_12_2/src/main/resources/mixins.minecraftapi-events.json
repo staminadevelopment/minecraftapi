@@ -12,6 +12,7 @@
     "network.MixinOutgoingPacketEvent",
 
     "player.MixinMotionUpdateEvent",
+    "player.MixinCapeLocationEvent",
 
     "render.MixinHandRenderEvent",
     "render.MixinLightmapUpdateEvent",
