@@ -30,11 +30,13 @@ import pw.stamina.minecraftapi.client.Minecraft;
 import pw.stamina.minecraftapi.impl.network.incoming.IncomingPacketAdaptersImpl;
 import pw.stamina.minecraftapi.impl.network.outgoing.OutgoingPacketAdaptersImpl;
 import pw.stamina.minecraftapi.impl.util.HandAdapterImpl;
+import pw.stamina.minecraftapi.impl.util.ResourceLocationFactory;
 import pw.stamina.minecraftapi.item.ItemRegistry;
 import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
 import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
 import pw.stamina.minecraftapi.util.BoundingBox;
 import pw.stamina.minecraftapi.util.Hand;
+import pw.stamina.minecraftapi.util.ResourceLocation;
 
 public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
 
@@ -49,6 +51,16 @@ public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
     }
 
     @Override
+    public Hand.Adapter getHandAdapter() {
+        return new HandAdapterImpl();
+    }
+
+    @Override
+    public ResourceLocation.Factory getResourceLocationFactory() {
+        return new ResourceLocationFactory();
+    }
+
+    @Override
     public IncomingPacketAdapters getIncomingPacketAdapters() {
         return new IncomingPacketAdaptersImpl();
     }
@@ -56,11 +68,6 @@ public final class MinecraftApiAdapterImpl implements MinecraftApiAdapter {
     @Override
     public OutgoingPacketAdapters getOutingPacketAdapters() {
         return new OutgoingPacketAdaptersImpl();
-    }
-
-    @Override
-    public Hand.Adapter getHandAdapter() {
-        return new HandAdapterImpl();
     }
 
     @Override

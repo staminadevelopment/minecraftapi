@@ -9,6 +9,7 @@
     "client.MixinPlayerController",
     "client.MixinScaledResolution",
     "util.MixinBoundingBox",
+    "util.MixinResourceLocation",
     "world.MixinWorld",
     "entity.MixinEntity",
     "entity.animal.MixinAnimal",

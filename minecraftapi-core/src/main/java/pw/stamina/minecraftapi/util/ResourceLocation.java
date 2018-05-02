@@ -22,26 +22,28 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi;
+package pw.stamina.minecraftapi.util;
 
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.item.ItemRegistry;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
-import pw.stamina.minecraftapi.util.Hand;
-import pw.stamina.minecraftapi.util.ResourceLocation;
+import pw.stamina.minecraftapi.MinecraftApi;
 
-public interface MinecraftApiAdapter {
+public interface ResourceLocation {
 
-    Minecraft getMinecraft();
+    String getResourcePath();
 
-    BoundingBox.Factory getBoundingBoxFactory();
-    Hand.Adapter getHandAdapter();
-    ResourceLocation.Factory getResourceLocationFactory();
+    String getResourceDomain();
 
-    IncomingPacketAdapters getIncomingPacketAdapters();
-    OutgoingPacketAdapters getOutingPacketAdapters();
+    static ResourceLocation from(String resourceName) {
+        return MinecraftApi.getAdapter().getResourceLocationFactory().create(resourceName);
+    }
 
-    ItemRegistry getItemRegistry();
+    static ResourceLocation from(String resourceDomain, String resourcePath) {
+        return MinecraftApi.getAdapter().getResourceLocationFactory().create(resourceDomain, resourcePath);
+    }
+
+    interface Factory {
+
+        ResourceLocation create(String resourceName);
+
+        ResourceLocation create(String resourceDomain, String resourcePath);
+    }
 }

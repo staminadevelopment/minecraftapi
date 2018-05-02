@@ -22,26 +22,19 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi;
+package pw.stamina.minecraftapi.impl.util;
 
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.item.ItemRegistry;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
-import pw.stamina.minecraftapi.util.Hand;
 import pw.stamina.minecraftapi.util.ResourceLocation;
 
-public interface MinecraftApiAdapter {
+public final class ResourceLocationFactory implements ResourceLocation.Factory {
 
-    Minecraft getMinecraft();
+    @Override
+    public ResourceLocation create(String resourceName) {
+        return (ResourceLocation) new net.minecraft.util.ResourceLocation(resourceName);
+    }
 
-    BoundingBox.Factory getBoundingBoxFactory();
-    Hand.Adapter getHandAdapter();
-    ResourceLocation.Factory getResourceLocationFactory();
-
-    IncomingPacketAdapters getIncomingPacketAdapters();
-    OutgoingPacketAdapters getOutingPacketAdapters();
-
-    ItemRegistry getItemRegistry();
+    @Override
+    public ResourceLocation create(String resourceDomain, String resourcePath) {
+        return (ResourceLocation) new net.minecraft.util.ResourceLocation(resourceDomain, resourcePath);
+    }
 }

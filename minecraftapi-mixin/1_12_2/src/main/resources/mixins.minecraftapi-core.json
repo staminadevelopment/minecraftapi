@@ -10,6 +10,7 @@
     "client.MixinScaledResolution",
     "util.MixinBoundingBox",
     "util.MixinHand",
+    "util.MixinResourceLocation",
     "world.MixinWorld",
     "entity.MixinEntity",
     "entity.animal.MixinAnimal",

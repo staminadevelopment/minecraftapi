@@ -22,26 +22,26 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi;
+package pw.stamina.minecraftapi.mixin.util;
 
-import pw.stamina.minecraftapi.client.Minecraft;
-import pw.stamina.minecraftapi.item.ItemRegistry;
-import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters;
-import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters;
-import pw.stamina.minecraftapi.util.BoundingBox;
-import pw.stamina.minecraftapi.util.Hand;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import pw.stamina.minecraftapi.util.ResourceLocation;
 
-public interface MinecraftApiAdapter {
+@Mixin(net.minecraft.util.ResourceLocation.class)
+public class MixinResourceLocation implements ResourceLocation {
 
-    Minecraft getMinecraft();
+    @Shadow @Final protected String resourcePath;
+    @Shadow @Final protected String resourceDomain;
 
-    BoundingBox.Factory getBoundingBoxFactory();
-    Hand.Adapter getHandAdapter();
-    ResourceLocation.Factory getResourceLocationFactory();
+    @Override
+    public String getResourcePath() {
+        return resourcePath;
+    }
 
-    IncomingPacketAdapters getIncomingPacketAdapters();
-    OutgoingPacketAdapters getOutingPacketAdapters();
-
-    ItemRegistry getItemRegistry();
+    @Override
+    public String getResourceDomain() {
+        return resourceDomain;
+    }
 }
