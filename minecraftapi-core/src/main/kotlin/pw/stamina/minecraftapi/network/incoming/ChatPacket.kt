@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network.incoming
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.network.Packet
+import pw.stamina.minecraftapi.network.PacketAdapter
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+//TODO: Add getMessage when a ChatComponent API has been implemented
+interface ChatPacket : Packet {
+
+    val textMessage: String
+
+    interface Adapter : PacketAdapter<ChatPacket>
 }

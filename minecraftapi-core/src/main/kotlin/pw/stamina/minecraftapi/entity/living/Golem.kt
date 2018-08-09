@@ -22,11 +22,6 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.entity.living
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
-
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
-}
+interface Golem : Living

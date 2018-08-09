@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.entity.animal
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface Wolf : Tamable {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    val isAngry: Boolean
 }

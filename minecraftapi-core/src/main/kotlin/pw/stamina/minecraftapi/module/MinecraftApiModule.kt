@@ -22,11 +22,13 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.module
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.MinecraftApiAdapter
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface MinecraftApiModule {
+
+    val eventConsumer: EventConsumer?
+
+    fun bootstrap(adapter: MinecraftApiAdapter)
 }

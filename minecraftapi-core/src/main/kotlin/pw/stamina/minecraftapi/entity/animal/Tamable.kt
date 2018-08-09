@@ -22,11 +22,20 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.entity.animal
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.entity.living.Living
+import java.util.*
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface Tamable : Animal {
+
+    val isTamed: Boolean
+
+    val owner: Living?
+
+    val ownerId: UUID?
+
+    val ownerIdAsString: String?
+
+    fun isOwner(entity: Living): Boolean
 }

@@ -22,11 +22,31 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.util
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.MinecraftApi
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface ResourceLocation {
+
+    val resourcePath: String
+
+    val resourceDomain: String
+
+    interface Factory {
+
+        fun create(resourceName: String): ResourceLocation
+
+        fun create(resourceDomain: String, resourcePath: String): ResourceLocation
+    }
+
+    companion object {
+
+        fun from(resourceName: String): ResourceLocation {
+            return MinecraftApi.adapter.resourceLocationFactory.create(resourceName)
+        }
+
+        fun from(resourceDomain: String, resourcePath: String): ResourceLocation {
+            return MinecraftApi.adapter.resourceLocationFactory.create(resourceDomain, resourcePath)
+        }
+    }
 }

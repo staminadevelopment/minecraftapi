@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.render
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface FontRenderer {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    fun drawString(text: String, x: Float, y: Float, color: Int)
+
+    fun drawStringWithShadow(text: String, x: Float, y: Float, color: Int)
+
+    fun getStringWidth(text: String): Int
+
+    fun getCharacterWidth(character: Char): Int
 }

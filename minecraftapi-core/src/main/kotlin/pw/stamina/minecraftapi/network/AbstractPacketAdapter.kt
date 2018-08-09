@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+abstract class AbstractPacketAdapter<T : Packet> protected constructor(private val packetType: Class<T>) : PacketAdapter<T> {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    override fun `is`(packet: Packet): Boolean {
+        return packetType.isInstance(packet)
+    }
+
+    override fun cast(packet: Packet): T {
+        return packetType.cast(packet)
+    }
 }

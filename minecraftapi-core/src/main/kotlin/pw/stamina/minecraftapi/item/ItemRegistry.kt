@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.item
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface ItemRegistry {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    fun getRegisteredItemOrAir(name: String): Item
+
+    fun getRegisteredItem(name: String): Item?
 }

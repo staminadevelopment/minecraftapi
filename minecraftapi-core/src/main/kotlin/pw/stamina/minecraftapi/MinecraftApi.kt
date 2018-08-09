@@ -22,11 +22,36 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.module.MinecraftApiModuleManager
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+import java.util.concurrent.atomic.AtomicBoolean
+
+object MinecraftApi {
+    private val BOOTSTRAPPED = AtomicBoolean()
+
+    lateinit var adapter: MinecraftApiAdapter
+        private set
+
+    private lateinit var modules: MinecraftApiModuleManager
+
+    fun bootstrap(adapter: MinecraftApiAdapter) {
+        if (!BOOTSTRAPPED.compareAndSet(false, true)) {
+            throw Error("MinecraftApi has already been bootstrapped")
+        }
+
+        MinecraftApi.adapter = adapter
+
+        modules = MinecraftApiModuleManager.loadModules()
+        modules.bootstrap(adapter)
+    }
+
+    fun bootstrapModules() {
+        modules.bootstrap(adapter)
+    }
+
+    fun <T> emitEvent(event: T) {
+        modules.consumeEvent(event)
+    }
 }

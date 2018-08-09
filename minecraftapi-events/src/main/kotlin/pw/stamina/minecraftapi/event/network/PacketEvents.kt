@@ -22,11 +22,36 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.event.network
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.causam.event.AbstractCancellable
+import pw.stamina.minecraftapi.network.NetworkManager
+import pw.stamina.minecraftapi.network.Packet
+import java.util.*
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+sealed class PacketEvent(val packet: Packet, private val networkManager: NetworkManager) : AbstractCancellable() {
+
+    private val packetsDelegate = lazy { LinkedList<Packet>() }
+    private val packets by packetsDelegate
+
+    fun sendPacket(packet: Packet) {
+        networkManager.sendPacket(packet)
+    }
+
+    fun addPacket(packet: Packet) {
+        packets.add(packet)
+    }
+
+    fun sendPackets(sender: (Packet) -> Unit) {
+        if (!packetsDelegate.isInitialized()) {
+            return
+        }
+
+        packets.forEach(sender)
+        packets.clear()
+    }
 }
+
+class IncomingPacketEvent(packet: Packet, networkManager: NetworkManager) : PacketEvent(packet, networkManager)
+
+class OutgoingPacketEvent(packet: Packet, networkManager: NetworkManager) : PacketEvent(packet, networkManager)

@@ -38,17 +38,17 @@ open class MinecraftApiDevelopmentTweaker : ITweaker {
     override fun acceptOptions(list: List<String>, gameDir: File?, assetsDir: File?, profile: String?) {
         arguments.addAll(list)
 
-        if (!arguments.contains("--version") && profile != null) {
+        if (profile != null && !arguments.contains("--version")) {
             arguments.add("--version")
             arguments.add(profile)
         }
 
-        if (!arguments.contains("--assetsDir") && assetsDir != null) {
+        if (assetsDir != null && !arguments.contains("--assetsDir")) {
             arguments.add("--assetsDir")
             arguments.add(assetsDir.path)
         }
 
-        if (!arguments.contains("--gameDir") && gameDir != null) {
+        if (gameDir != null && !arguments.contains("--gameDir")) {
             arguments.add("--gameDir")
             arguments.add(gameDir.path)
         }
@@ -72,11 +72,7 @@ open class MinecraftApiDevelopmentTweaker : ITweaker {
         classLoader.addClassLoaderExclusion("org.apache.logging.log4j.")
     }
 
-    override fun getLaunchTarget(): String {
-        return "net.minecraft.client.main.Main"
-    }
+    override fun getLaunchTarget() = "net.minecraft.client.main.Main"
 
-    override fun getLaunchArguments(): Array<String> {
-        return arguments.toTypedArray()
-    }
+    override fun getLaunchArguments() = arguments.toTypedArray()
 }

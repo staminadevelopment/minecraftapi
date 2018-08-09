@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.event.render
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.client.Minecraft
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
-}
+/**
+ * This is essentially pre world render, and HandRenderEvent
+ * is post world render.
+ *
+ * @see HandRenderEvent
+ */
+class WorldRenderEvent(val minecraft: Minecraft, val partialRenderTick: Float)

@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network.outgoing
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.network.PacketAdapter
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface PositionLookPacket : PositionPacket, LookPacket {
+
+    interface Adapter : PacketAdapter<PositionLookPacket> {
+
+        fun create(x: Double, y: Double, z: Double,
+                   yaw: Float, pitch: Float, onGround: Boolean): PositionLookPacket
+    }
 }

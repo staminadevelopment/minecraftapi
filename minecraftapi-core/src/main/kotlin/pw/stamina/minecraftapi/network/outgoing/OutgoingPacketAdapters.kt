@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network.outgoing
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface OutgoingPacketAdapters {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    fun chat(): ChatPacket.Adapter
+
+    fun onGround(): OnGroundPacket.Adapter
+
+    fun position(): PositionPacket.Adapter
+
+    fun look(): LookPacket.Adapter
+
+    fun positionLook(): PositionLookPacket.Adapter
 }

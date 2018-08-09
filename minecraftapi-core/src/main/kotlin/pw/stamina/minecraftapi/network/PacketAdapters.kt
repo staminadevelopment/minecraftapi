@@ -22,11 +22,35 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.MinecraftApi
+import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters
+import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+class PacketAdapters private constructor() {
+
+    init {
+        throw Error()
+    }
+
+    companion object {
+        private val INCOMING_ADAPTERS: IncomingPacketAdapters
+        private val OUTGOING_ADAPTERS: OutgoingPacketAdapters
+
+        init {
+            val adapter = MinecraftApi.adapter
+
+            INCOMING_ADAPTERS = adapter.incomingPacketAdapters
+            OUTGOING_ADAPTERS = adapter.outingPacketAdapters
+        }
+
+        fun incoming(): IncomingPacketAdapters {
+            return INCOMING_ADAPTERS
+        }
+
+        fun outgoing(): OutgoingPacketAdapters {
+            return OUTGOING_ADAPTERS
+        }
+    }
 }

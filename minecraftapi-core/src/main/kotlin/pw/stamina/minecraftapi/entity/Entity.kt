@@ -22,11 +22,55 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.entity
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.util.BoundingBox
+import pw.stamina.minecraftapi.util.Rotation
+import java.util.*
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface Entity {
+
+    val entityId: Int
+    val uniqueId: UUID
+
+    val riddenByEntities: List<Entity>
+
+    var rotation: Rotation
+        get() = Rotation(yaw, pitch)
+        set(rotation) {
+            yaw = rotation.yaw
+            pitch = rotation.pitch
+        }
+
+    val boundingBox: BoundingBox
+
+    val isDead: Boolean
+
+    val eyeHeight: Float
+
+    var isNoClipping: Boolean
+
+    val ticksExisted: Int
+
+    var posX: Double
+    var posY: Double
+    var posZ: Double
+
+    val prevPosX: Double
+    val prevPosY: Double
+    val prevPosZ: Double
+
+    var motionX: Double
+    var motionY: Double
+    var motionZ: Double
+
+    var yaw: Float
+    var pitch: Float
+
+    var onGround: Boolean
+
+    val width: Float
+    val height: Float
+
+    fun getDistanceToEntity(other: Entity): Float
 }

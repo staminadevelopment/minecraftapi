@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.client
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface ScaledResolution {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    val scaledWidth: Int
+
+    val scaledHeight: Int
+
+    val scaledWidthAsDouble: Double
+
+    val scaledHeightAsDouble: Double
+
+    val scaleFactor: Int
 }

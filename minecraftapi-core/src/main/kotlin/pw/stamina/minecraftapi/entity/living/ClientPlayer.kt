@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.entity.living
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.network.NetHandlerPlayClient
+import pw.stamina.minecraftapi.util.Hand
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface ClientPlayer : Player {
+
+    val sendQueue: NetHandlerPlayClient
+
+    fun swingArm(hand: Hand? = null)
 }

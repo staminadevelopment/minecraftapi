@@ -22,11 +22,24 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.util
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.MinecraftApi
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface Hand {
+
+    interface Adapter {
+
+        val mainHand: Hand
+
+        val offHand: Hand
+    }
+
+    companion object {
+        private val adapter = MinecraftApi.adapter.handAdapter
+
+        val main = adapter.mainHand
+
+        val off = adapter.offHand
+    }
 }

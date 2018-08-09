@@ -22,11 +22,18 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.event.render
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.entity.living.Player
+import pw.stamina.minecraftapi.util.ResourceLocation
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+class CapeRenderEvent(val player: Player) {
+    private var overridingCapeLocation: ResourceLocation? = null
+
+    val isCapeLocationOverridden: Boolean
+        get() = overridingCapeLocation != null
+
+    fun overrideCapeLocation(capeLocation: ResourceLocation) {
+        this.overridingCapeLocation = capeLocation
+    }
 }

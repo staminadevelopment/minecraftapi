@@ -22,11 +22,30 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network.outgoing
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.network.PacketAdapter
+import pw.stamina.minecraftapi.util.Rotation
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface LookPacket : OnGroundPacket {
+
+    var rotation: Rotation
+        get() = Rotation.from(yaw(), pitch())
+        set(rotation) {
+            yaw(rotation.yaw)
+            pitch(rotation.pitch)
+        }
+
+    val isRotating: Boolean
+
+    fun yaw(): Float
+    fun yaw(yaw: Float)
+
+    fun pitch(): Float
+    fun pitch(pitch: Float)
+
+    interface Adapter : PacketAdapter<LookPacket> {
+
+        fun create(yaw: Float, pitch: Float, onGround: Boolean): LookPacket
+    }
 }

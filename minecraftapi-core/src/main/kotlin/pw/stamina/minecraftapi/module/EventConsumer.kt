@@ -22,11 +22,23 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.module
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import java.util.Objects
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface EventConsumer {
+
+    fun <T> consumeEvent(event: T)
+
+    companion object {
+
+        fun empty(): EventConsumer {
+            return EmptyEventConsumer.INSTANCE
+        }
+
+        fun compound(consumers: Iterable<EventConsumer>): EventConsumer {
+            Objects.requireNonNull(consumers, "consumers")
+            return CompoundEventConsumer(consumers)
+        }
+    }
 }

@@ -22,11 +22,26 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.event.render
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+class LightmapUpdateEvent {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    private var calculator: LightmapCalculator? = null
+
+    var isLightUpdateForced: Boolean = false
+        private set
+
+    fun forceLightUpdate() {
+        isLightUpdateForced = true
+    }
+
+    fun setCalculator(calculator: LightmapCalculator) {
+        this.calculator = calculator
+    }
+
+    fun calculate(red: Int, green: Int, blue: Int, color: Int): Int {
+        return calculator?.invoke(red, green, blue, color) ?: color
+    }
 }
+
+typealias LightmapCalculator = (red: Int, green: Int, blue: Int, color: Int) -> Int

@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.network
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface NetHandlerPlayClient {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    fun queuePacket(packet: Packet)
 }

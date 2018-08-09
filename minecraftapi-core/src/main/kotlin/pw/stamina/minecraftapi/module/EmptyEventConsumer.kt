@@ -22,11 +22,12 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.module
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+internal enum class EmptyEventConsumer : EventConsumer {
+    INSTANCE;
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    override fun <T> consumeEvent(event: T) {
+        // No action
+    }
 }

@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.event.input
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+class KeyInputEvent(val key: Int, val inputType: KeyInputType)
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+enum class KeyInputType {
+    PRESS,
+    REPEAT,
+    RELEASE
 }
+
+class MouseInputEvent(val button: Int, val isPressed: Boolean)

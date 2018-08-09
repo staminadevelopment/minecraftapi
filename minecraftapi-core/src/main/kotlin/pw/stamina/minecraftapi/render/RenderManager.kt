@@ -22,11 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.render
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+interface RenderManager {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    val originYOffset: Float
+
+    val renderPosX: Double
+    val renderPosY: Double
+    val renderPosZ: Double
+
+    val viewerPosX: Double
+    val viewerPosY: Double
+    val viewerPosZ: Double
 }

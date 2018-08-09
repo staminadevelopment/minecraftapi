@@ -22,11 +22,40 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.client
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.MinecraftApi
+import pw.stamina.minecraftapi.entity.living.ClientPlayer
+import pw.stamina.minecraftapi.render.FontRenderer
+import pw.stamina.minecraftapi.render.RenderManager
+import pw.stamina.minecraftapi.world.World
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface Minecraft {
+
+    val player: ClientPlayer
+
+    val world: World
+
+    val playerController: PlayerController
+
+    val fontRenderer: FontRenderer
+
+    val renderManager: RenderManager
+
+    val scaledResolution: ScaledResolution
+
+    val displayWidth: Int
+
+    val displayHeight: Int
+
+    var rightClickDelay: Int
+
+    // TODO: Add ChatComponent based alternative when that API has been implemented
+    fun printChatMessage(message: String)
+
+    companion object {
+
+        val minecraft: Minecraft
+            get() = MinecraftApi.adapter.minecraft
+    }
 }

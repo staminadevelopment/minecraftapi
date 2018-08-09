@@ -22,11 +22,26 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+import pw.stamina.minecraftapi.client.Minecraft
+import pw.stamina.minecraftapi.item.ItemRegistry
+import pw.stamina.minecraftapi.network.incoming.IncomingPacketAdapters
+import pw.stamina.minecraftapi.network.outgoing.OutgoingPacketAdapters
+import pw.stamina.minecraftapi.util.BoundingBox
+import pw.stamina.minecraftapi.util.Hand
+import pw.stamina.minecraftapi.util.ResourceLocation
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+interface MinecraftApiAdapter {
+
+    val minecraft: Minecraft
+
+    val boundingBoxFactory: BoundingBox.Factory
+    val handAdapter: Hand.Adapter
+    val resourceLocationFactory: ResourceLocation.Factory
+
+    val incomingPacketAdapters: IncomingPacketAdapters
+    val outingPacketAdapters: OutgoingPacketAdapters
+
+    val itemRegistry: ItemRegistry
 }

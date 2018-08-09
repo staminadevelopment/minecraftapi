@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak
+package pw.stamina.minecraftapi.module
 
-class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
+internal class CompoundEventConsumer(private val consumers: Iterable<EventConsumer>) : EventConsumer {
 
-    // These methods are supposed to be empty, to prevent issues
-    // with duplicate arguments when running from the launcher
-    override fun getLaunchArguments(): Array<String> = emptyArray()
+    override fun <T> consumeEvent(event: T) {
+        consumers.forEach { consumer -> consumer.consumeEvent(event) }
+    }
 }
