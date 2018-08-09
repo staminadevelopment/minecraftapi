@@ -22,8 +22,14 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraftapi'
+plugins {
+    kotlin("jvm")
+}
 
-include 'minecraftapi-core',
-        'minecraftapi-events',
-        'minecraftapi-tweaker'
+version = "1.0.0-SNAPSHOT"
+
+applyStandardDependencies()
+
+dependencies {
+    implementation("pw.stamina.causam:causam:1.0.0-SNAPSHOT")
+}

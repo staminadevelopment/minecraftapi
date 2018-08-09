@@ -22,8 +22,35 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraftapi'
+plugins {
+    kotlin("jvm")
+}
 
-include 'minecraftapi-core',
-        'minecraftapi-events',
-        'minecraftapi-tweaker'
+version = "1.0.0-SNAPSHOT"
+
+applyStandardDependencies()
+
+repositories {
+    maven {
+        name = "sponge"
+        setUrl("http://repo.spongepowered.org/maven")
+    }
+
+    maven {
+        name = "minecraft"
+        setUrl("https://libraries.minecraft.net/")
+    }
+}
+version = "1.0.0-SNAPSHOT"
+
+dependencies {
+    implementation(Dependencies.launchwrapper) {
+        isTransitive = false
+    }
+
+    // Fixes an issue with Mixin"s transitive dependencies
+    compileOnly(Dependencies.mixin)
+    implementation(Dependencies.mixin) {
+        isTransitive = false
+    }
+}

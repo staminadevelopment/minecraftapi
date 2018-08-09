@@ -22,8 +22,29 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'minecraftapi'
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-include 'minecraftapi-core',
-        'minecraftapi-events',
-        'minecraftapi-tweaker'
+plugins {
+    kotlin("jvm") version Versions.kotlin apply false
+}
+
+subprojects {
+    group = "pw.stamina.minecraftapi"
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+}
+
+/*
+if (project.name != 'minecraftapi-core') {
+        dependencies {
+            compile project(':minecraftapi-core')
+        }
+    }
+    */
