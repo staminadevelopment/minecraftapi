@@ -24,10 +24,16 @@
 
 package pw.stamina.minecraftapi.module
 
-internal enum class EmptyEventConsumer : EventConsumer {
-    INSTANCE;
+import java.util.*
 
-    override fun <T> consumeEvent(event: T) {
-        // No action
+object MinecraftApiModuleLoader {
+
+    fun loadModule(): MinecraftApiModule {
+        val moduleServiceLoader = createModuleServiceLoader()
+        return moduleServiceLoader.single()
+    }
+
+    private fun createModuleServiceLoader(): ServiceLoader<MinecraftApiModule> {
+        return ServiceLoader.load(MinecraftApiModule::class.java)
     }
 }

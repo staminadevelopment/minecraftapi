@@ -28,7 +28,7 @@ import pw.stamina.minecraftapi.MinecraftApiAdapter
 
 interface MinecraftApiModule {
 
-    val eventConsumer: EventConsumer?
-
     fun bootstrap(adapter: MinecraftApiAdapter)
+
+    fun <T> consumeEvent(event: T)
 }
