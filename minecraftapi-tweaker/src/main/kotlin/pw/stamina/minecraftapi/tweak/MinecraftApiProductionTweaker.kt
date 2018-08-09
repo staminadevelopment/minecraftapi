@@ -22,15 +22,13 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.tweak;
+package pw.stamina.minecraftapi.tweak
 
-public final class MinecraftApiProductionTweaker extends MinecraftApiDevelopmentTweaker {
+class MinecraftApiProductionTweaker : MinecraftApiDevelopmentTweaker() {
 
     // These methods are supposed to be empty, to prevent issues
     // with duplicate arguments when running from the launcher
-
-    @Override
-    public String[] getLaunchArguments() {
-        return new String[0];
+    override fun getLaunchArguments(): Array<String> {
+        return emptyArray()
     }
 }
