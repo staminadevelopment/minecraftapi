@@ -143,6 +143,7 @@ public abstract class MixinMotionUpdateEvent extends AbstractClientPlayer {
         rotationPitch = originalPitch;
         onGround = originalOnGround;
 
+        event.performActions();
         event.sendPackets(((NetHandlerPlayClient) connection)::queuePacket);
     }
 }

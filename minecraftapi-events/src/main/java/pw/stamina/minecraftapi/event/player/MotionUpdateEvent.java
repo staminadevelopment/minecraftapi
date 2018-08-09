@@ -48,6 +48,8 @@ public final class MotionUpdateEvent extends AbstractCancellable {
     private boolean sneaking, sprinting, onGround;
 
     private List<Packet> packets;
+    private List<Runnable> actions;
+
     private final NetHandlerPlayClient netHandler;
 
     public MotionUpdateEvent(ClientPlayer player,
@@ -231,7 +233,7 @@ public final class MotionUpdateEvent extends AbstractCancellable {
         netHandler.queuePacket(packet);
     }
 
-    public void addPacket(Packet packet) {
+    public void sendAfter(Packet packet) {
         if (packets == null) {
             packets = new LinkedList<>();
         }
@@ -246,5 +248,22 @@ public final class MotionUpdateEvent extends AbstractCancellable {
 
         packets.forEach(sender);
         packets.clear();
+    }
+
+    public void doAfter(Runnable action) {
+        if (actions == null) {
+            actions = new LinkedList<>();
+        }
+
+        actions.add(action);
+    }
+
+    public void performActions() {
+        if (actions == null) {
+            return;
+        }
+
+        actions.forEach(Runnable::run);
+        actions.clear();
     }
 }
