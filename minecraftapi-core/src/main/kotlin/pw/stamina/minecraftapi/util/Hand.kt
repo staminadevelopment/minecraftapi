@@ -36,7 +36,7 @@ interface Hand {
     }
 
     companion object {
-        private val adapter = MinecraftApi.adapter.handAdapter
+        private val adapter = MinecraftApi.getAdapter().handAdapter
 
         val main = adapter.mainHand
 

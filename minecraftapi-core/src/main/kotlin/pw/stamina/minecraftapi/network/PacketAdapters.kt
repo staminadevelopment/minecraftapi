@@ -39,7 +39,7 @@ class PacketAdapters private constructor() {
         private val OUTGOING_ADAPTERS: OutgoingPacketAdapters
 
         init {
-            val adapter = MinecraftApi.adapter
+            val adapter = MinecraftApi.getAdapter()
 
             INCOMING_ADAPTERS = adapter.incomingPacketAdapters
             OUTGOING_ADAPTERS = adapter.outingPacketAdapters

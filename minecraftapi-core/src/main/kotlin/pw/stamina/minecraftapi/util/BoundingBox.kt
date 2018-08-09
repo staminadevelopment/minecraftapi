@@ -65,7 +65,7 @@ interface BoundingBox {
 
         fun fromBounds(x1: Double, y1: Double, z1: Double,
                        x2: Double, y2: Double, z2: Double): BoundingBox {
-            return MinecraftApi.adapter.boundingBoxFactory.create(x1, y1, z1, x2, y2, z2)
+            return MinecraftApi.getAdapter().boundingBoxFactory.create(x1, y1, z1, x2, y2, z2)
         }
 
         fun builder(): BoundingBoxBuilder {

@@ -240,7 +240,7 @@ object Items {
     val KNOWLEDGE_BOOK: Item
 
     init {
-        val registry = MinecraftApi.adapter.itemRegistry
+        val registry = MinecraftApi.getAdapter().itemRegistry
 
         AIR = registry.getRegisteredItemOrAir("air")
         IRON_SHOVEL = registry.getRegisteredItemOrAir("iron_shovel")

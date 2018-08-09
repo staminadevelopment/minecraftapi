@@ -31,9 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 object MinecraftApi {
     private val BOOTSTRAPPED = AtomicBoolean()
 
-    lateinit var adapter: MinecraftApiAdapter
-        private set
-
+    private lateinit var adapter: MinecraftApiAdapter
     private lateinit var modules: MinecraftApiModuleManager
 
     fun bootstrap(adapter: MinecraftApiAdapter) {
@@ -41,11 +39,13 @@ object MinecraftApi {
             throw Error("MinecraftApi has already been bootstrapped")
         }
 
-        MinecraftApi.adapter = adapter
+        this.adapter = adapter
 
         modules = MinecraftApiModuleManager.loadModules()
         modules.bootstrap(adapter)
     }
+
+    fun getAdapter() = adapter
 
     fun bootstrapModules() {
         modules.bootstrap(adapter)

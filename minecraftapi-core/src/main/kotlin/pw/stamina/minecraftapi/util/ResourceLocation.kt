@@ -40,13 +40,14 @@ interface ResourceLocation {
     }
 
     companion object {
+        private val resourceLocationFactory = MinecraftApi.getAdapter().resourceLocationFactory
 
         fun from(resourceName: String): ResourceLocation {
-            return MinecraftApi.adapter.resourceLocationFactory.create(resourceName)
+            return resourceLocationFactory.create(resourceName)
         }
 
         fun from(resourceDomain: String, resourcePath: String): ResourceLocation {
-            return MinecraftApi.adapter.resourceLocationFactory.create(resourceDomain, resourcePath)
+            return resourceLocationFactory.create(resourceDomain, resourcePath)
         }
     }
 }
