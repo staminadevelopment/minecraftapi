@@ -25,16 +25,90 @@
 package pw.stamina.minecraftapi.entity
 
 import pw.stamina.minecraftapi.util.BoundingBox
+import pw.stamina.minecraftapi.util.Position
 import pw.stamina.minecraftapi.util.Rotation
 import java.util.*
 
+/**
+ * Represents any entity in the game
+ */
 interface Entity {
 
+    /**
+     * Returns the world specific id of the entity.
+     */
     val entityId: Int
+
+    /**
+     * Returns the unique id of the entity.
+     */
     val uniqueId: UUID
 
-    val riddenByEntities: List<Entity>
+    /**
+     * The current position of the entity.
+     */
+    var position: Position
+        get() = Position(posX, posY, posZ)
+        set(position) {
+            posX = position.x
+            posY = position.y
+            posZ = position.z
+        }
 
+    /**
+     * The center x position of the entity.
+     */
+    var posX: Double
+
+    /**
+     * The feet y position of the entity.
+     */
+    var posY: Double
+
+    /**
+     * The center z position of the entity.
+     */
+    var posZ: Double
+
+    /**
+     * The previous position of the entity.
+     */
+    val previousPosition: Position
+        get() = Position(previousPosX, previousPosY, previousPosZ)
+
+    /**
+     * The previous center x position of the entity.
+     */
+    val previousPosX: Double
+
+    /**
+     * The previous feet y position of the entity.
+     */
+    val previousPosY: Double
+
+    /**
+     * The previous center z position of the entity.
+     */
+    val previousPosZ: Double
+
+    /**
+     * The x-axis motion of the entity.
+     */
+    var motionX: Double
+
+    /**
+     * The y-axis motion of the entity.
+     */
+    var motionY: Double
+
+    /**
+     * The z-axis motion of the entity.
+     */
+    var motionZ: Double
+
+    /**
+     * The yaw and pitch rotations of the entity.
+     */
     var rotation: Rotation
         get() = Rotation(yaw, pitch)
         set(rotation) {
@@ -42,35 +116,58 @@ interface Entity {
             pitch = rotation.pitch
         }
 
-    val boundingBox: BoundingBox
-
-    val isDead: Boolean
-
-    val eyeHeight: Float
-
-    var isNoClipping: Boolean
-
-    val ticksExisted: Int
-
-    var posX: Double
-    var posY: Double
-    var posZ: Double
-
-    val prevPosX: Double
-    val prevPosY: Double
-    val prevPosZ: Double
-
-    var motionX: Double
-    var motionY: Double
-    var motionZ: Double
-
+    /**
+     * The yaw rotation of the entity.
+     */
     var yaw: Float
+
+    /**
+     * The pitch rotation of the entity.
+     */
     var pitch: Float
 
+    /**
+     * The on ground state of the entity.
+     */
     var onGround: Boolean
 
-    val width: Float
-    val height: Float
+    /**
+     * Returns the bounding box of the entity.
+     */
+    val boundingBox: BoundingBox
 
-    fun getDistanceToEntity(other: Entity): Float
+    /**
+     * Returns a list of the entities the entity is ridden by.
+     */
+    val riddenByEntities: List<Entity>
+
+    /**
+     * Returns `true` if the entity is dead, otherwise `false`.
+     */
+    val isDead: Boolean
+
+    /**
+     * Returns the height between the feet and eyes of the entity.
+     */
+    val eyeHeight: Double
+
+    /**
+     * Returns the amount of in-game ticks the entity has existed for.
+     */
+    val ticksExisted: Int
+
+    /**
+     * Returns the width of the entity
+     */
+    val width: Double
+
+    /**
+     * Returns the height of the entity
+     */
+    val height: Double
+
+    /**
+     * Returns the distance between the entity and [other]
+     */
+    fun getDistanceToEntity(other: Entity): Double
 }
