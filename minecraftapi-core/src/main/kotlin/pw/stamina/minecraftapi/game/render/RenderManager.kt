@@ -22,26 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.render
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+interface RenderManager {
 
-interface MinecraftApiAdapter {
+    val originYOffset: Float
 
-    val minecraft: Minecraft
+    val renderPosX: Double
+    val renderPosY: Double
+    val renderPosZ: Double
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
-
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-
-    val itemRegistry: ItemRegistry
+    val viewerPosX: Double
+    val viewerPosY: Double
+    val viewerPosZ: Double
 }

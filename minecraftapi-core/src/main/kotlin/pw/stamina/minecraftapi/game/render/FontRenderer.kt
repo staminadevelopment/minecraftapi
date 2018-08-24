@@ -22,26 +22,15 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.render
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+interface FontRenderer {
 
-interface MinecraftApiAdapter {
+    fun drawString(text: String, x: Float, y: Float, color: Int)
 
-    val minecraft: Minecraft
+    fun drawStringWithShadow(text: String, x: Float, y: Float, color: Int)
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    fun getStringWidth(text: String): Int
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-
-    val itemRegistry: ItemRegistry
+    fun getCharacterWidth(character: Char): Int
 }

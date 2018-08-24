@@ -22,26 +22,40 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.client
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.MinecraftApi
+import pw.stamina.minecraftapi.game.entity.living.ClientPlayer
+import pw.stamina.minecraftapi.game.render.FontRenderer
+import pw.stamina.minecraftapi.game.render.RenderManager
+import pw.stamina.minecraftapi.game.world.World
 
-interface MinecraftApiAdapter {
+interface Minecraft {
 
-    val minecraft: Minecraft
+    val player: ClientPlayer
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    val world: World
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+    val playerController: PlayerController
 
-    val itemRegistry: ItemRegistry
+    val fontRenderer: FontRenderer
+
+    val renderManager: RenderManager
+
+    val scaledResolution: ScaledResolution
+
+    val displayWidth: Int
+
+    val displayHeight: Int
+
+    var rightClickDelay: Int
+
+    // TODO: Add ChatComponent based alternative when that API has been implemented
+    fun printChatMessage(message: String)
+
+    companion object {
+
+        val minecraft: Minecraft
+            get() = MinecraftApi.getAdapter().minecraft
+    }
 }

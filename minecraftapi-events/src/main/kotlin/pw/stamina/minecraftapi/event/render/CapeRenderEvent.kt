@@ -24,8 +24,8 @@
 
 package pw.stamina.minecraftapi.event.render
 
-import pw.stamina.minecraftapi.entity.living.Player
-import pw.stamina.minecraftapi.util.ResourceLocation
+import pw.stamina.minecraftapi.game.entity.living.Player
+import pw.stamina.minecraftapi.game.util.ResourceLocation
 
 class CapeRenderEvent(val player: Player) {
     private var overridingCapeLocation: ResourceLocation? = null

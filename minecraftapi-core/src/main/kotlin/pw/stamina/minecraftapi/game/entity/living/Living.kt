@@ -22,26 +22,24 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.entity.living
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.entity.Entity
 
-interface MinecraftApiAdapter {
+/**
+ * Represents a living entity.
+ */
+interface Living : Entity {
 
-    val minecraft: Minecraft
+    /**
+     * Returns the health of a living entity.
+     */
+    val health: Float
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
-
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-
-    val itemRegistry: ItemRegistry
+    /**
+     * Returns true if the [health] of the entity is less
+     * than or equal to `0`, otherwise `false`.
+     */
+    override val isDead: Boolean
+        get() = health <= 0
 }

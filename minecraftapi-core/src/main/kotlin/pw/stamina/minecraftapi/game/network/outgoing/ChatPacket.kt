@@ -22,26 +22,19 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.PacketAdapter
 
-interface MinecraftApiAdapter {
+interface ChatPacket : Packet {
 
-    val minecraft: Minecraft
+    val message: String
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    fun setMessage(message: String): String
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+    interface Adapter : PacketAdapter<ChatPacket> {
 
-    val itemRegistry: ItemRegistry
+        fun create(message: String): ChatPacket
+    }
 }

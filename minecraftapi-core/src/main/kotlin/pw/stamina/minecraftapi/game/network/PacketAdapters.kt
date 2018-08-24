@@ -22,26 +22,35 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.network
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
+import pw.stamina.minecraftapi.MinecraftApi
 import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
 import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
 
-interface MinecraftApiAdapter {
+class PacketAdapters private constructor() {
 
-    val minecraft: Minecraft
+    init {
+        throw Error()
+    }
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    companion object {
+        private val INCOMING_ADAPTERS: IncomingPacketAdapters
+        private val OUTGOING_ADAPTERS: OutgoingPacketAdapters
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+        init {
+            val adapter = MinecraftApi.getAdapter()
 
-    val itemRegistry: ItemRegistry
+            INCOMING_ADAPTERS = adapter.incomingPacketAdapters
+            OUTGOING_ADAPTERS = adapter.outingPacketAdapters
+        }
+
+        fun incoming(): IncomingPacketAdapters {
+            return INCOMING_ADAPTERS
+        }
+
+        fun outgoing(): OutgoingPacketAdapters {
+            return OUTGOING_ADAPTERS
+        }
+    }
 }

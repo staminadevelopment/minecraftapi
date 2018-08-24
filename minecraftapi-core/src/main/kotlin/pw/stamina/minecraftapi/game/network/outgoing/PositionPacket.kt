@@ -22,26 +22,25 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.network.PacketAdapter
 
-interface MinecraftApiAdapter {
+interface PositionPacket : OnGroundPacket {
 
-    val minecraft: Minecraft
+    val isMoving: Boolean
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    fun x(): Double
+    fun x(x: Double)
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+    fun y(): Double
+    fun y(y: Double)
 
-    val itemRegistry: ItemRegistry
+    fun z(): Double
+    fun z(z: Double)
+
+    interface Adapter : PacketAdapter<PositionPacket> {
+
+        fun create(x: Double, y: Double, z: Double, onGround: Boolean): PositionPacket
+    }
 }

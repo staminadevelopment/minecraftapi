@@ -22,26 +22,22 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.network.incoming
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.PacketAdapter
 
-interface MinecraftApiAdapter {
+interface VelocityPacket : Packet {
 
-    val minecraft: Minecraft
+    val entityId: Int
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    var motionX: Int
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+    var motionY: Int
 
-    val itemRegistry: ItemRegistry
+    var motionZ: Int
+
+    fun multiplyMotion(multiplier: Double)
+
+    interface Adapter : PacketAdapter<VelocityPacket>
 }

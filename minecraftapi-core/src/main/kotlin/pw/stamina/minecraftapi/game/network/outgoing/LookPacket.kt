@@ -22,26 +22,27 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.network.PacketAdapter
+import pw.stamina.minecraftapi.util.Rotation
 
-interface MinecraftApiAdapter {
+interface LookPacket : OnGroundPacket {
 
-    val minecraft: Minecraft
+    var rotation: Rotation
+        get() = Rotation(yaw, pitch)
+        set(rotation) {
+            yaw = rotation.yaw
+            pitch = rotation.pitch
+        }
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val handAdapter: Hand.Adapter
-    val resourceLocationFactory: ResourceLocation.Factory
+    val isRotating: Boolean
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
+    var yaw: Float
+    var pitch: Float
 
-    val itemRegistry: ItemRegistry
+    interface Adapter : PacketAdapter<LookPacket> {
+
+        fun create(yaw: Float, pitch: Float, onGround: Boolean): LookPacket
+    }
 }

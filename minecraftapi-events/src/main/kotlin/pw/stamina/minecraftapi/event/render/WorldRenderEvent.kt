@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.event.render
 
-import pw.stamina.minecraftapi.client.Minecraft
+import pw.stamina.minecraftapi.game.client.Minecraft
 
 /**
  * This is essentially pre world render, and HandRenderEvent

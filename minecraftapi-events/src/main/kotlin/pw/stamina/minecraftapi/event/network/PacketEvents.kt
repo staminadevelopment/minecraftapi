@@ -25,8 +25,8 @@
 package pw.stamina.minecraftapi.event.network
 
 import pw.stamina.causam.event.AbstractCancellable
-import pw.stamina.minecraftapi.network.NetworkManager
-import pw.stamina.minecraftapi.network.Packet
+import pw.stamina.minecraftapi.game.network.NetworkManager
+import pw.stamina.minecraftapi.game.network.Packet
 import java.util.*
 
 sealed class PacketEvent(val packet: Packet, private val networkManager: NetworkManager) : AbstractCancellable() {
