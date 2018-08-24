@@ -24,6 +24,3 @@ build/
 *ipr
 out/
 classes/
-
-### ForgeGradle
-run/

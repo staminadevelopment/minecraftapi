@@ -26,4 +26,7 @@ package pw.stamina.minecraftapi.entity.monster
 
 import pw.stamina.minecraftapi.entity.living.Living
 
+/**
+ * Represents any monster in the game.
+ */
 interface Monster : Living

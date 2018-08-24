@@ -25,12 +25,13 @@
 package pw.stamina.minecraftapi.entity
 
 import pw.stamina.minecraftapi.util.BoundingBox
+import pw.stamina.minecraftapi.util.Motion
 import pw.stamina.minecraftapi.util.Position
 import pw.stamina.minecraftapi.util.Rotation
 import java.util.*
 
 /**
- * Represents any entity in the game
+ * Represents any entity in the game.
  */
 interface Entity {
 
@@ -43,17 +44,6 @@ interface Entity {
      * Returns the unique id of the entity.
      */
     val uniqueId: UUID
-
-    /**
-     * The current position of the entity.
-     */
-    var position: Position
-        get() = Position(posX, posY, posZ)
-        set(position) {
-            posX = position.x
-            posY = position.y
-            posZ = position.z
-        }
 
     /**
      * The center x position of the entity.
@@ -71,10 +61,15 @@ interface Entity {
     var posZ: Double
 
     /**
-     * The previous position of the entity.
+     * The current position of the entity.
      */
-    val previousPosition: Position
-        get() = Position(previousPosX, previousPosY, previousPosZ)
+    var position: Position
+        get() = Position(posX, posY, posZ)
+        set(position) {
+            posX = position.x
+            posY = position.y
+            posZ = position.z
+        }
 
     /**
      * The previous center x position of the entity.
@@ -92,6 +87,12 @@ interface Entity {
     val previousPosZ: Double
 
     /**
+     * The previous position of the entity.
+     */
+    val previousPosition: Position
+        get() = Position(previousPosX, previousPosY, previousPosZ)
+
+    /**
      * The x-axis motion of the entity.
      */
     var motionX: Double
@@ -107,13 +108,14 @@ interface Entity {
     var motionZ: Double
 
     /**
-     * The yaw and pitch rotations of the entity.
+     * The motion of the entity.
      */
-    var rotation: Rotation
-        get() = Rotation(yaw, pitch)
-        set(rotation) {
-            yaw = rotation.yaw
-            pitch = rotation.pitch
+    var motion: Motion
+        get() = Motion(motionX, motionY, motionZ)
+        set(motion) {
+            motionX = motion.x
+            motionY = motion.y
+            motionZ = motion.z
         }
 
     /**
@@ -125,6 +127,16 @@ interface Entity {
      * The pitch rotation of the entity.
      */
     var pitch: Float
+
+    /**
+     * The yaw and pitch rotations of the entity.
+     */
+    var rotation: Rotation
+        get() = Rotation(yaw, pitch)
+        set(rotation) {
+            yaw = rotation.yaw
+            pitch = rotation.pitch
+        }
 
     /**
      * The on ground state of the entity.
@@ -157,17 +169,17 @@ interface Entity {
     val ticksExisted: Int
 
     /**
-     * Returns the width of the entity
+     * Returns the width of the entity.
      */
     val width: Double
 
     /**
-     * Returns the height of the entity
+     * Returns the height of the entity.
      */
     val height: Double
 
     /**
-     * Returns the distance between the entity and [other]
+     * Returns the distance between the entity and [other].
      */
     fun getDistanceToEntity(other: Entity): Double
 }

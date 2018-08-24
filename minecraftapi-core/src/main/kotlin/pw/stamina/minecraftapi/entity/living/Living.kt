@@ -26,7 +26,20 @@ package pw.stamina.minecraftapi.entity.living
 
 import pw.stamina.minecraftapi.entity.Entity
 
+/**
+ * Represents a living entity.
+ */
 interface Living : Entity {
 
+    /**
+     * Returns the health of a living entity.
+     */
     val health: Float
+
+    /**
+     * Returns true if the [health] of the entity is less
+     * than or equal to `0`, otherwise `false`.
+     */
+    override val isDead: Boolean
+        get() = health <= 0
 }

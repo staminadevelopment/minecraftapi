@@ -22,24 +22,6 @@
  * SOFTWARE.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package pw.stamina.minecraftapi.util
 
-plugins {
-    kotlin("jvm") version Versions.kotlin apply false
-}
-
-subprojects {
-    group = "pw.stamina.minecraftapi"
-
-    // apply<MavenPublishPlugin>()
-    apply(plugin = "maven")
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-}
+data class Motion(val x: Double, val y: Double, val z: Double)
