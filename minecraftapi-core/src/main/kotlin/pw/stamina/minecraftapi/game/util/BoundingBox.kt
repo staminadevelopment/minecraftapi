@@ -25,6 +25,7 @@
 package pw.stamina.minecraftapi.game.util
 
 import pw.stamina.minecraftapi.MinecraftApi
+import pw.stamina.minecraftapi.util.Position
 
 interface BoundingBox {
 
@@ -62,14 +63,15 @@ interface BoundingBox {
     }
 
     companion object {
+        private val boundingBoxFactory = MinecraftApi.getAdapter().boundingBoxFactory
 
         fun fromBounds(x1: Double, y1: Double, z1: Double,
-                       x2: Double, y2: Double, z2: Double): BoundingBox {
-            return MinecraftApi.getAdapter().boundingBoxFactory.create(x1, y1, z1, x2, y2, z2)
-        }
+                       x2: Double, y2: Double, z2: Double) =
+                boundingBoxFactory.create(x1, y1, z1, x2, y2, z2)
 
-        fun builder(): BoundingBoxBuilder {
-            return BoundingBoxBuilder()
-        }
+        fun fromPositions(position1: Position, position2: Position) =
+                fromBounds(
+                        position1.x, position1.y, position1.z,
+                        position2.x, position2.y, position2.z)
     }
 }
