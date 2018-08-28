@@ -29,9 +29,7 @@ import pw.stamina.minecraftapi.game.network.PacketAdapter
 
 interface ChatPacket : Packet {
 
-    val message: String
-
-    fun setMessage(message: String): String
+    var message: String
 
     interface Adapter : PacketAdapter<ChatPacket> {
 

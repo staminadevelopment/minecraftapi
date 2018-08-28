@@ -25,19 +25,23 @@
 package pw.stamina.minecraftapi.game.network.outgoing
 
 import pw.stamina.minecraftapi.game.network.PacketAdapter
+import pw.stamina.minecraftapi.util.Position
 
 interface PositionPacket : OnGroundPacket {
 
-    val isMoving: Boolean
+    var x: Double
+    var y: Double
+    var z: Double
 
-    fun x(): Double
-    fun x(x: Double)
+    var position: Position
+        get() = Position(x, y, z)
+        set(position) {
+            x = position.x
+            y = position.y
+            z = position.z
+        }
 
-    fun y(): Double
-    fun y(y: Double)
-
-    fun z(): Double
-    fun z(z: Double)
+    var isMoving: Boolean
 
     interface Adapter : PacketAdapter<PositionPacket> {
 

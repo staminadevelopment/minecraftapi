@@ -40,6 +40,7 @@ interface Living : Entity {
      * Returns true if the [health] of the entity is less
      * than or equal to `0`, otherwise `false`.
      */
+    @JvmDefault
     override val isDead: Boolean
         get() = health <= 0
 }

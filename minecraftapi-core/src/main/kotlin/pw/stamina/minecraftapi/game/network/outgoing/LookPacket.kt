@@ -29,6 +29,10 @@ import pw.stamina.minecraftapi.util.Rotation
 
 interface LookPacket : OnGroundPacket {
 
+    var yaw: Float
+    var pitch: Float
+
+    @JvmDefault
     var rotation: Rotation
         get() = Rotation(yaw, pitch)
         set(rotation) {
@@ -37,9 +41,6 @@ interface LookPacket : OnGroundPacket {
         }
 
     val isRotating: Boolean
-
-    var yaw: Float
-    var pitch: Float
 
     interface Adapter : PacketAdapter<LookPacket> {
 

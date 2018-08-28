@@ -63,6 +63,7 @@ interface Entity {
     /**
      * The current position of the entity.
      */
+    @JvmDefault
     var position: Position
         get() = Position(posX, posY, posZ)
         set(position) {
@@ -89,6 +90,7 @@ interface Entity {
     /**
      * The previous position of the entity.
      */
+    @JvmDefault
     val previousPosition: Position
         get() = Position(previousPosX, previousPosY, previousPosZ)
 
@@ -110,6 +112,7 @@ interface Entity {
     /**
      * The motion of the entity.
      */
+    @JvmDefault
     var motion: Motion
         get() = Motion(motionX, motionY, motionZ)
         set(motion) {
@@ -131,6 +134,7 @@ interface Entity {
     /**
      * The yaw and pitch rotations of the entity.
      */
+    @JvmDefault
     var rotation: Rotation
         get() = Rotation(yaw, pitch)
         set(rotation) {

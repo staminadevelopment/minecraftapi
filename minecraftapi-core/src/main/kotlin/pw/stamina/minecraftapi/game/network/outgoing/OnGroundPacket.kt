@@ -29,8 +29,7 @@ import pw.stamina.minecraftapi.game.network.PacketAdapter
 
 interface OnGroundPacket : Packet {
 
-    fun onGround(): Boolean
-    fun onGround(onGround: Boolean)
+    var onGround: Boolean
 
     interface Adapter : PacketAdapter<OnGroundPacket> {
 

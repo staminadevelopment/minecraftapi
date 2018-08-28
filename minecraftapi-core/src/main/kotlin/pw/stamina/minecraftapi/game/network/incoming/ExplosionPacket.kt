@@ -30,12 +30,15 @@ import pw.stamina.minecraftapi.game.network.PacketAdapter
 interface ExplosionPacket : Packet {
 
     var motionX: Float
-
     var motionY: Float
-
     var motionZ: Float
 
-    fun multiplyMotion(multiplier: Double)
+    @JvmDefault
+    fun multiplyMotion(multiplier: Double) {
+        motionX *= multiplier.toFloat()
+        motionY *= multiplier.toFloat()
+        motionZ *= multiplier.toFloat()
+    }
 
     interface Adapter : PacketAdapter<ExplosionPacket>
 }

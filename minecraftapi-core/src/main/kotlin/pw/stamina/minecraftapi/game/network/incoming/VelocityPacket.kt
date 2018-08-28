@@ -32,12 +32,15 @@ interface VelocityPacket : Packet {
     val entityId: Int
 
     var motionX: Int
-
     var motionY: Int
-
     var motionZ: Int
 
-    fun multiplyMotion(multiplier: Double)
+    @JvmDefault
+    fun multiplyMotion(multiplier: Double) {
+        motionX = (motionX / multiplier).toInt()
+        motionY = (motionY / multiplier).toInt()
+        motionZ = (motionZ / multiplier).toInt()
+    }
 
     interface Adapter : PacketAdapter<VelocityPacket>
 }

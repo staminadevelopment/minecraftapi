@@ -24,4 +24,7 @@
 
 package pw.stamina.minecraftapi.util
 
+/**
+ * A pair used to represent current and previous states.
+ */
 data class CurrentPreviousPair<T>(val current: T, val previous: T)
