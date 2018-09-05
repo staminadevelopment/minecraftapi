@@ -44,6 +44,10 @@ interface LookPacket : OnGroundPacket {
 
     interface Adapter : PacketAdapter<LookPacket> {
 
+        @JvmDefault
+        fun create(rotation: Rotation, onGround: Boolean): LookPacket =
+                create(rotation.yaw, rotation.pitch, onGround)
+
         fun create(yaw: Float, pitch: Float, onGround: Boolean): LookPacket
     }
 }

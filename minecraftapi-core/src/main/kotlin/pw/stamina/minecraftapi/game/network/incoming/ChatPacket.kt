@@ -30,7 +30,7 @@ import pw.stamina.minecraftapi.game.network.PacketAdapter
 //TODO: Add getMessage when a ChatComponent API has been implemented
 interface ChatPacket : Packet {
 
-    val textMessage: String
+    var textMessage: String
 
     interface Adapter : PacketAdapter<ChatPacket>
 }

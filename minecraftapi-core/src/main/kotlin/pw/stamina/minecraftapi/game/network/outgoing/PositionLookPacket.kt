@@ -25,10 +25,16 @@
 package pw.stamina.minecraftapi.game.network.outgoing
 
 import pw.stamina.minecraftapi.game.network.PacketAdapter
+import pw.stamina.minecraftapi.util.Position
+import pw.stamina.minecraftapi.util.Rotation
 
 interface PositionLookPacket : PositionPacket, LookPacket {
 
     interface Adapter : PacketAdapter<PositionLookPacket> {
+
+        @JvmDefault
+        fun create(position: Position, rotation: Rotation, onGround: Boolean): PositionLookPacket =
+                create(position.x, position.y, position.z, rotation.yaw, rotation.pitch, onGround)
 
         fun create(x: Double, y: Double, z: Double,
                    yaw: Float, pitch: Float, onGround: Boolean): PositionLookPacket

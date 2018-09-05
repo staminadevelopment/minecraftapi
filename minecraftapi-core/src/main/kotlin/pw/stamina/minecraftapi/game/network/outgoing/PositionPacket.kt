@@ -45,6 +45,10 @@ interface PositionPacket : OnGroundPacket {
 
     interface Adapter : PacketAdapter<PositionPacket> {
 
+        @JvmDefault
+        fun create(position: Position, onGround: Boolean): PositionPacket =
+                create(position.x, position.y, position.x, onGround)
+
         fun create(x: Double, y: Double, z: Double, onGround: Boolean): PositionPacket
     }
 }

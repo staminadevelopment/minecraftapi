@@ -35,9 +35,11 @@ interface ExplosionPacket : Packet {
 
     @JvmDefault
     fun multiplyMotion(multiplier: Double) {
-        motionX *= multiplier.toFloat()
-        motionY *= multiplier.toFloat()
-        motionZ *= multiplier.toFloat()
+        val floatMultiplier = multiplier.toFloat()
+
+        motionX *= floatMultiplier
+        motionY *= floatMultiplier
+        motionZ *= floatMultiplier
     }
 
     interface Adapter : PacketAdapter<ExplosionPacket>
