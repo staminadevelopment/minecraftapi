@@ -26,7 +26,7 @@ package pw.stamina.minecraftapi.game.network
 
 abstract class AbstractPacketAdapter<T : Packet> protected constructor(private val packetType: Class<T>) : PacketAdapter<T> {
 
-    override fun `is`(packet: Packet): Boolean {
+    override fun matches(packet: Packet): Boolean {
         return packetType.isInstance(packet)
     }
 

@@ -26,7 +26,7 @@ package pw.stamina.minecraftapi.game.network
 
 interface PacketAdapter<T : Packet> {
 
-    fun `is`(packet: Packet): Boolean
+    fun matches(packet: Packet): Boolean
 
     fun cast(packet: Packet): T
 }
