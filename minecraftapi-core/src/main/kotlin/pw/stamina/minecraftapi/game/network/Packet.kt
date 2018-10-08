@@ -24,13 +24,18 @@
 
 package pw.stamina.minecraftapi.game.network
 
-interface Packet {
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
-    fun <T : Packet> `is`(adapter: PacketAdapter<T>): Boolean {
-        return adapter.`is`(this)
+interface Packet
+
+inline fun <reified T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }
 
-    fun <T : Packet> cast(adapter: PacketAdapter<T>): T {
-        return adapter.cast(this)
+    if (adapter.matches(this)) {
+        val castedPacket = adapter.cast(this)
+        castedPacket.block()
     }
 }
