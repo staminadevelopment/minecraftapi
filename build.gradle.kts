@@ -35,15 +35,12 @@ subprojects {
     apply(plugin = "maven")
 
     repositories {
+        maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
         mavenCentral()
         mavenLocal()
     }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
-
-        kotlinOptions.freeCompilerArgs = listOf(
-                "-Xjvm-default=enable"
-        )
     }
 }

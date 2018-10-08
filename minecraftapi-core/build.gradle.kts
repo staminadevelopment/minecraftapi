@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /*
  * MIT License
  *
@@ -29,3 +31,10 @@ plugins {
 version = "1.0.0-SNAPSHOT"
 
 applyStandardDependencies()
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.freeCompilerArgs = listOf(
+            "-Xjvm-default=enable",
+            "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
+    )
+}
