@@ -29,13 +29,13 @@ import kotlin.contracts.contract
 
 interface Packet
 
-inline fun <reified T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() -> Unit) {
+inline fun <T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }
 
     if (adapter.matches(this)) {
-        val castedPacket = adapter.cast(this)
+        val castedPacket = adapter.packetType.cast(this)
         castedPacket.block()
     }
 }
