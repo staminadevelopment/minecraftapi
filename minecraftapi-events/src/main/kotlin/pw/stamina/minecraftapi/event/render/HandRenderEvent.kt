@@ -24,6 +24,6 @@
 
 package pw.stamina.minecraftapi.event.render
 
-import pw.stamina.causam.event.AbstractCancellable
+import pw.stamina.minecraftapi.event.AbstractCancellable
 
 class HandRenderEvent(val partialRenderTick: Float) : AbstractCancellable()

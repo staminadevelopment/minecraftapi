@@ -22,10 +22,17 @@
  * SOFTWARE.
  */
 
-plugins {
-    kotlin("jvm")
+package pw.stamina.minecraftapi.event
+
+interface Cancellable {
+
+    /**
+     * Indicates the cancelled state of the event.
+     */
+    var cancelled: Boolean
+
+    /**
+     * Cancels the event.
+     */
+    fun cancel()
 }
-
-version = "1.0.0-SNAPSHOT"
-
-applyStandardDependencies()

@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.event.network
 
-import pw.stamina.causam.event.AbstractCancellable
+import pw.stamina.minecraftapi.event.AbstractCancellable
 import pw.stamina.minecraftapi.game.network.IncomingPacket
 import pw.stamina.minecraftapi.game.network.NetworkManager
 import pw.stamina.minecraftapi.game.network.OutgoingPacket

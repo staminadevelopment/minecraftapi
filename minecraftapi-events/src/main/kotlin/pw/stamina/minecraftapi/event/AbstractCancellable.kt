@@ -22,10 +22,13 @@
  * SOFTWARE.
  */
 
-plugins {
-    kotlin("jvm")
+package pw.stamina.minecraftapi.event
+
+abstract class AbstractCancellable : Cancellable {
+
+    override var cancelled: Boolean = false
+
+    override fun cancel() {
+        cancelled = true
+    }
 }
-
-version = "1.0.0-SNAPSHOT"
-
-applyStandardDependencies()

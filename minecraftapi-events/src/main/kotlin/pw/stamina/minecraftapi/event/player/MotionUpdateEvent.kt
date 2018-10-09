@@ -24,10 +24,9 @@
 
 package pw.stamina.minecraftapi.event.player
 
-import pw.stamina.causam.event.AbstractCancellable
+import pw.stamina.minecraftapi.event.AbstractCancellable
 import pw.stamina.minecraftapi.game.entity.living.ClientPlayer
 import pw.stamina.minecraftapi.game.network.OutgoingPacket
-import pw.stamina.minecraftapi.game.network.Packet
 import pw.stamina.minecraftapi.util.CurrentPreviousPair
 import pw.stamina.minecraftapi.util.Position
 import pw.stamina.minecraftapi.util.Rotation
