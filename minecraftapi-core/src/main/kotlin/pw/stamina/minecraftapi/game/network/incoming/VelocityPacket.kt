@@ -25,7 +25,6 @@
 package pw.stamina.minecraftapi.game.network.incoming
 
 import pw.stamina.minecraftapi.game.network.Packet
-import pw.stamina.minecraftapi.game.network.PacketAdapter
 
 interface VelocityPacket : Packet {
 
@@ -41,6 +40,4 @@ interface VelocityPacket : Packet {
         motionY = (motionY / multiplier).toInt()
         motionZ = (motionZ / multiplier).toInt()
     }
-
-    interface Adapter : PacketAdapter<VelocityPacket>
 }

@@ -25,7 +25,6 @@
 package pw.stamina.minecraftapi.game.network.incoming
 
 import pw.stamina.minecraftapi.game.network.Packet
-import pw.stamina.minecraftapi.game.network.PacketAdapter
 
 interface ExplosionPacket : Packet {
 
@@ -41,6 +40,4 @@ interface ExplosionPacket : Packet {
         motionY *= floatMultiplier
         motionZ *= floatMultiplier
     }
-
-    interface Adapter : PacketAdapter<ExplosionPacket>
 }

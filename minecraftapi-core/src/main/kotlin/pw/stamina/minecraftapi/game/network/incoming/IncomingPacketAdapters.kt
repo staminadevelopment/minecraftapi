@@ -24,11 +24,13 @@
 
 package pw.stamina.minecraftapi.game.network.incoming
 
+import pw.stamina.minecraftapi.game.network.PacketAdapter
+
 interface IncomingPacketAdapters {
 
-    fun chat(): ChatPacket.Adapter
+    fun chat(): PacketAdapter<ChatPacket>
 
-    fun velocity(): VelocityPacket.Adapter
+    fun velocity(): PacketAdapter<VelocityPacket>
 
-    fun explosion(): ExplosionPacket.Adapter
+    fun explosion(): PacketAdapter<ExplosionPacket>
 }
