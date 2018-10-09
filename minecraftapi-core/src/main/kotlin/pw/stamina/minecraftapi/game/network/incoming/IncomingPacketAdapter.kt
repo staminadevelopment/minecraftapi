@@ -24,11 +24,7 @@
 
 package pw.stamina.minecraftapi.game.network.incoming
 
-interface IncomingPacketAdapters {
+import pw.stamina.minecraftapi.game.network.IncomingPacket
+import pw.stamina.minecraftapi.game.network.SimplePacketAdapter
 
-    fun chat(): IncomingPacketAdapter<ChatPacket>
-
-    fun velocity(): IncomingPacketAdapter<VelocityPacket>
-
-    fun explosion(): IncomingPacketAdapter<ExplosionPacket>
-}
+open class IncomingPacketAdapter<T : IncomingPacket>(packetType: Class<T>) : SimplePacketAdapter<T>(packetType)
