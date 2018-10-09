@@ -24,4 +24,4 @@
 
 package pw.stamina.minecraftapi.event.render
 
-object ScreenRenderEvent
+class ScreenRenderEvent(val partialRenderTick: Float)
