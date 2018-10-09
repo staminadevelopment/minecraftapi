@@ -26,9 +26,9 @@ package pw.stamina.minecraftapi.game.network.incoming
 
 interface IncomingPacketAdapters {
 
-    fun chat(): IncomingPacketAdapter<ChatPacket>
+    val chat: IncomingPacketAdapter<ChatPacket>
 
-    fun velocity(): IncomingPacketAdapter<VelocityPacket>
+    val velocity: IncomingPacketAdapter<VelocityPacket>
 
-    fun explosion(): IncomingPacketAdapter<ExplosionPacket>
+    val explosion: IncomingPacketAdapter<ExplosionPacket>
 }

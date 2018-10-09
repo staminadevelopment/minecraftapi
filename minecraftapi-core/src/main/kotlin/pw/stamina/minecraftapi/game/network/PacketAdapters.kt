@@ -28,29 +28,14 @@ import pw.stamina.minecraftapi.MinecraftApi
 import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
 import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
 
-class PacketAdapters private constructor() {
+object PacketAdapters {
+    val incoming: IncomingPacketAdapters
+    val outgoing: OutgoingPacketAdapters
 
     init {
-        throw Error()
-    }
+        val adapter = MinecraftApi.getAdapter()
 
-    companion object {
-        private val INCOMING_ADAPTERS: IncomingPacketAdapters
-        private val OUTGOING_ADAPTERS: OutgoingPacketAdapters
-
-        init {
-            val adapter = MinecraftApi.getAdapter()
-
-            INCOMING_ADAPTERS = adapter.incomingPacketAdapters
-            OUTGOING_ADAPTERS = adapter.outingPacketAdapters
-        }
-
-        fun incoming(): IncomingPacketAdapters {
-            return INCOMING_ADAPTERS
-        }
-
-        fun outgoing(): OutgoingPacketAdapters {
-            return OUTGOING_ADAPTERS
-        }
+        incoming = adapter.incomingPacketAdapters
+        outgoing = adapter.outingPacketAdapters
     }
 }

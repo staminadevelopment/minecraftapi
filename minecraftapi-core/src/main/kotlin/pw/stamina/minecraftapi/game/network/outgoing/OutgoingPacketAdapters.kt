@@ -26,13 +26,10 @@ package pw.stamina.minecraftapi.game.network.outgoing
 
 interface OutgoingPacketAdapters {
 
-    fun chat(): ChatPacket.Adapter
+    val chat: ChatPacket.Adapter
 
-    fun onGround(): OnGroundPacket.Adapter
-
-    fun position(): PositionPacket.Adapter
-
-    fun look(): LookPacket.Adapter
-
-    fun positionLook(): PositionLookPacket.Adapter
+    val onGround: OnGroundPacket.Adapter
+    val position: PositionPacket.Adapter
+    val look: LookPacket.Adapter
+    val positionLook: PositionLookPacket.Adapter
 }
