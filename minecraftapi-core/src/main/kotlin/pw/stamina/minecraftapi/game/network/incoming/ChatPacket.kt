@@ -24,10 +24,10 @@
 
 package pw.stamina.minecraftapi.game.network.incoming
 
-import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.IncomingPacket
 
 //TODO: Add getMessage when a ChatComponent API has been implemented
-interface ChatPacket : Packet {
+interface ChatPacket : IncomingPacket {
 
     var textMessage: String
 }

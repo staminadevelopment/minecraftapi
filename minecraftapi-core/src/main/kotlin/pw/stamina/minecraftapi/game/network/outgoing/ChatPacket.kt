@@ -24,10 +24,10 @@
 
 package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.OutgoingPacket
 import pw.stamina.minecraftapi.game.network.PacketAdapter
 
-interface ChatPacket : Packet {
+interface ChatPacket : OutgoingPacket {
 
     var message: String
 

@@ -24,9 +24,9 @@
 
 package pw.stamina.minecraftapi.game.network.incoming
 
-import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.IncomingPacket
 
-interface VelocityPacket : Packet {
+interface VelocityPacket : IncomingPacket {
 
     val entityId: Int
 

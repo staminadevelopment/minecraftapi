@@ -24,10 +24,10 @@
 
 package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.network.Packet
+import pw.stamina.minecraftapi.game.network.OutgoingPacket
 import pw.stamina.minecraftapi.game.network.PacketAdapter
 
-interface OnGroundPacket : Packet {
+interface OnGroundPacket : OutgoingPacket {
 
     var onGround: Boolean
 
