@@ -26,5 +26,5 @@ package pw.stamina.minecraftapi.game.network
 
 interface NetHandlerPlayClient {
 
-    fun queuePacket(packet: Packet)
+    fun queuePacket(packet: OutgoingPacket)
 }

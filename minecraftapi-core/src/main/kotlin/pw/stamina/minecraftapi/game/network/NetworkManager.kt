@@ -26,5 +26,5 @@ package pw.stamina.minecraftapi.game.network
 
 interface NetworkManager {
 
-    fun sendPacket(packet: Packet)
+    fun sendPacket(packet: OutgoingPacket)
 }

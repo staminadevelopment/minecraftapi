@@ -26,6 +26,7 @@ package pw.stamina.minecraftapi.event.player
 
 import pw.stamina.causam.event.AbstractCancellable
 import pw.stamina.minecraftapi.game.entity.living.ClientPlayer
+import pw.stamina.minecraftapi.game.network.OutgoingPacket
 import pw.stamina.minecraftapi.game.network.Packet
 import pw.stamina.minecraftapi.util.CurrentPreviousPair
 import pw.stamina.minecraftapi.util.Position
@@ -45,7 +46,7 @@ class MotionUpdateEvent(
         sneaking: CurrentPreviousPair<Boolean>,
 
         var onGround: Boolean,
-        private val packetSender: (Packet) -> Unit
+        private val packetSender: (OutgoingPacket) -> Unit
 ) : AbstractCancellable() {
 
     var offsetX: Double = 0.0
@@ -55,7 +56,7 @@ class MotionUpdateEvent(
     var offsetZ: Double = 0.0
         private set
 
-    private val packetsDelegate = lazy { LinkedList<Packet>() }
+    private val packetsDelegate = lazy { LinkedList<OutgoingPacket>() }
     private val actionsDelegate = lazy { LinkedList<() -> Unit>() }
 
     private val packets by packetsDelegate
@@ -121,15 +122,15 @@ class MotionUpdateEvent(
     var sneaking = sneaking.current
     val wasSneaking = sneaking.previous
 
-    fun sendPacket(packet: Packet) {
+    fun sendPacket(packet: OutgoingPacket) {
         packetSender(packet)
     }
 
-    fun sendAfter(packet: Packet) {
+    fun sendAfter(packet: OutgoingPacket) {
         packets.add(packet)
     }
 
-    fun sendPackets(sender: (Packet) -> Unit) {
+    fun sendPackets(sender: (OutgoingPacket) -> Unit) {
         if (!packetsDelegate.isInitialized()) {
             return
         }

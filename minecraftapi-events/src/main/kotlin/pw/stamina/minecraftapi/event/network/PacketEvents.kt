@@ -25,24 +25,26 @@
 package pw.stamina.minecraftapi.event.network
 
 import pw.stamina.causam.event.AbstractCancellable
+import pw.stamina.minecraftapi.game.network.IncomingPacket
 import pw.stamina.minecraftapi.game.network.NetworkManager
+import pw.stamina.minecraftapi.game.network.OutgoingPacket
 import pw.stamina.minecraftapi.game.network.Packet
 import java.util.*
 
-sealed class PacketEvent(val packet: Packet, private val networkManager: NetworkManager) : AbstractCancellable() {
+sealed class PacketEvent<T : Packet>(val packet: T, private val networkManager: NetworkManager) : AbstractCancellable() {
 
-    private val packetsDelegate = lazy { LinkedList<Packet>() }
+    private val packetsDelegate = lazy { LinkedList<OutgoingPacket>() }
     private val packets by packetsDelegate
 
-    fun sendPacket(packet: Packet) {
+    fun sendPacket(packet: OutgoingPacket) {
         networkManager.sendPacket(packet)
     }
 
-    fun addPacket(packet: Packet) {
+    fun addPacket(packet: OutgoingPacket) {
         packets.add(packet)
     }
 
-    fun sendPackets(sender: (Packet) -> Unit) {
+    fun sendPackets(sender: (OutgoingPacket) -> Unit) {
         if (!packetsDelegate.isInitialized()) {
             return
         }
@@ -52,6 +54,5 @@ sealed class PacketEvent(val packet: Packet, private val networkManager: Network
     }
 }
 
-class IncomingPacketEvent(packet: Packet, networkManager: NetworkManager) : PacketEvent(packet, networkManager)
-
-class OutgoingPacketEvent(packet: Packet, networkManager: NetworkManager) : PacketEvent(packet, networkManager)
+class IncomingPacketEvent(packet: IncomingPacket, networkManager: NetworkManager) : PacketEvent<IncomingPacket>(packet, networkManager)
+class OutgoingPacketEvent(packet: OutgoingPacket, networkManager: NetworkManager) : PacketEvent<OutgoingPacket>(packet, networkManager)
