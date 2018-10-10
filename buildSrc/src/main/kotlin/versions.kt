@@ -24,7 +24,4 @@
 
 object Versions {
     const val kotlin = "1.3.0-rc-146"
-
-    const val launchwrapper = "1.12"
-    const val mixin = "0.7.10-SNAPSHOT"
 }
