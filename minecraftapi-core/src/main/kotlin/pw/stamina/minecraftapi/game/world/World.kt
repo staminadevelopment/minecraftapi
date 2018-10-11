@@ -25,8 +25,11 @@
 package pw.stamina.minecraftapi.game.world
 
 import pw.stamina.minecraftapi.game.entity.Entity
+import pw.stamina.minecraftapi.game.entity.living.Player
 
 interface World {
 
     val loadedEntities: List<Entity>
+
+    val loadedPlayers: List<Player>
 }

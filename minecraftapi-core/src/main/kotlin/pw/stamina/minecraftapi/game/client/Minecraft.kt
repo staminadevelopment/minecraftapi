@@ -53,9 +53,12 @@ interface Minecraft {
     // TODO: Add ChatComponent based alternative when that API has been implemented
     fun printChatMessage(message: String)
 
+    fun setTitle(title: String)
+
     companion object {
 
         val minecraft: Minecraft
             get() = MinecraftApi.getAdapter().minecraft
     }
+
 }
