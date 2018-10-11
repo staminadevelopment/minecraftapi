@@ -22,9 +22,13 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.game.network.incoming
+package pw.stamina.minecraftapi.game.network.adapter
 
-import pw.stamina.minecraftapi.game.network.IncomingPacket
-import pw.stamina.minecraftapi.game.network.SimplePacketAdapter
+import pw.stamina.minecraftapi.game.network.Packet
 
-open class IncomingPacketAdapter<T : IncomingPacket>(packetType: Class<T>) : SimplePacketAdapter<T>(packetType)
+open class SimplePacketAdapter<T : Packet>(override val packetType: Class<T>) : PacketAdapter<T> {
+
+    override fun matches(packet: Packet): Boolean {
+        return packetType.isInstance(packet)
+    }
+}

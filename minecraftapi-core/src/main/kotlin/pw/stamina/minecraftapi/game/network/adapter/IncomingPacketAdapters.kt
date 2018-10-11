@@ -22,14 +22,17 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.game.network.outgoing
+package pw.stamina.minecraftapi.game.network.adapter
 
-interface OutgoingPacketAdapters {
+import pw.stamina.minecraftapi.game.network.incoming.ChatPacket
+import pw.stamina.minecraftapi.game.network.incoming.ExplosionPacket
+import pw.stamina.minecraftapi.game.network.incoming.VelocityPacket
 
-    val chat: ChatPacket.Adapter
+interface IncomingPacketAdapters {
 
-    val onGround: OnGroundPacket.Adapter
-    val position: PositionPacket.Adapter
-    val look: LookPacket.Adapter
-    val positionLook: PositionLookPacket.Adapter
+    val chat: IncomingPacketAdapter<ChatPacket>
+
+    val velocity: IncomingPacketAdapter<VelocityPacket>
+
+    val explosion: IncomingPacketAdapter<ExplosionPacket>
 }

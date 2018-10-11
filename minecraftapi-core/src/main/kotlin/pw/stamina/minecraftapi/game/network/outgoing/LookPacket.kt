@@ -24,7 +24,7 @@
 
 package pw.stamina.minecraftapi.game.network.outgoing
 
-import pw.stamina.minecraftapi.game.network.PacketAdapter
+import pw.stamina.minecraftapi.game.network.adapter.PacketAdapter
 import pw.stamina.minecraftapi.util.Rotation
 
 interface LookPacket : OnGroundPacket {

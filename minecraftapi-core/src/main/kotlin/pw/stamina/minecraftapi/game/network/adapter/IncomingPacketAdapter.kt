@@ -22,13 +22,8 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.game.network.incoming
+package pw.stamina.minecraftapi.game.network.adapter
 
-interface IncomingPacketAdapters {
+import pw.stamina.minecraftapi.game.network.IncomingPacket
 
-    val chat: IncomingPacketAdapter<ChatPacket>
-
-    val velocity: IncomingPacketAdapter<VelocityPacket>
-
-    val explosion: IncomingPacketAdapter<ExplosionPacket>
-}
+open class IncomingPacketAdapter<T : IncomingPacket>(packetType: Class<T>) : SimplePacketAdapter<T>(packetType)

@@ -24,6 +24,7 @@
 
 package pw.stamina.minecraftapi.game.network
 
+import pw.stamina.minecraftapi.game.network.adapter.PacketAdapter
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 

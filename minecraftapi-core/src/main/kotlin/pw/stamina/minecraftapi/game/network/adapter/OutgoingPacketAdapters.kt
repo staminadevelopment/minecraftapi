@@ -22,20 +22,16 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.game.network
+package pw.stamina.minecraftapi.game.network.adapter
 
-import pw.stamina.minecraftapi.MinecraftApi
-import pw.stamina.minecraftapi.game.network.incoming.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.outgoing.OutgoingPacketAdapters
+import pw.stamina.minecraftapi.game.network.outgoing.*
 
-object PacketAdapters {
-    val incoming: IncomingPacketAdapters
-    val outgoing: OutgoingPacketAdapters
+interface OutgoingPacketAdapters {
 
-    init {
-        val adapter = MinecraftApi.getAdapter()
+    val chat: ChatPacket.Adapter
 
-        incoming = adapter.incomingPacketAdapters
-        outgoing = adapter.outingPacketAdapters
-    }
+    val onGround: OnGroundPacket.Adapter
+    val position: PositionPacket.Adapter
+    val look: LookPacket.Adapter
+    val positionLook: PositionLookPacket.Adapter
 }

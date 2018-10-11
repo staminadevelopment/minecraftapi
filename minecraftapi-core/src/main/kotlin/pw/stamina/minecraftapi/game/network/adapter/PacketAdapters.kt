@@ -22,11 +22,18 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi.game.network
+package pw.stamina.minecraftapi.game.network.adapter
 
-interface PacketAdapter<T : Packet> {
+import pw.stamina.minecraftapi.MinecraftApi
 
-    fun matches(packet: Packet): Boolean
+object PacketAdapters {
+    val incoming: IncomingPacketAdapters
+    val outgoing: OutgoingPacketAdapters
 
-    val packetType: Class<T>
+    init {
+        val adapter = MinecraftApi.adapter
+
+        incoming = adapter.incomingPacketAdapters
+        outgoing = adapter.outingPacketAdapters
+    }
 }
