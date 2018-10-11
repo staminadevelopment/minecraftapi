@@ -31,15 +31,18 @@ interface Hand {
     interface Adapter {
 
         val mainHand: Hand
-
         val offHand: Hand
     }
 
     companion object {
-        private val adapter = MinecraftApi.getAdapter().handAdapter
+        val main: Hand
+        val off: Hand
 
-        val main = adapter.mainHand
+        init {
+            val handAdapter = MinecraftApi.getAdapter().handAdapter
 
-        val off = adapter.offHand
+            main = handAdapter.mainHand
+            off = handAdapter.offHand
+        }
     }
 }
