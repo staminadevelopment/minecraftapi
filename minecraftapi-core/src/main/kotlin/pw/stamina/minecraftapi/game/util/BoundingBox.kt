@@ -58,20 +58,21 @@ interface BoundingBox {
     fun calculateZOffset(other: BoundingBox, distance: Double): Double
 
     interface Factory {
-        fun create(x1: Double, y1: Double, z1: Double,
-                   x2: Double, y2: Double, z2: Double): BoundingBox
+        fun create(x: AxisPointPair, y: AxisPointPair, z: AxisPointPair): BoundingBox
     }
 
     companion object {
         private val boundingBoxFactory = MinecraftApi.getAdapter().boundingBoxFactory
 
-        fun fromBounds(x1: Double, y1: Double, z1: Double,
-                       x2: Double, y2: Double, z2: Double) =
-                boundingBoxFactory.create(x1, y1, z1, x2, y2, z2)
+        fun fromBounds(x: AxisPointPair, y: AxisPointPair, z: AxisPointPair) =
+                boundingBoxFactory.create(x, y, z)
 
-        fun fromPositions(position1: Position, position2: Position) =
+        fun fromPositions(first: Position, second: Position) =
                 fromBounds(
-                        position1.x, position1.y, position1.z,
-                        position2.x, position2.y, position2.z)
+                        x = first.x to second.x,
+                        y = first.y to second.y,
+                        z = first.z to second.z)
     }
 }
+
+private typealias AxisPointPair = Pair<Double, Double>
