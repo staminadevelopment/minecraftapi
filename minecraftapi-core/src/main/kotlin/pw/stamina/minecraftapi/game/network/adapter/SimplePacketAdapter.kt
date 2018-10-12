@@ -26,9 +26,13 @@ package pw.stamina.minecraftapi.game.network.adapter
 
 import pw.stamina.minecraftapi.game.network.Packet
 
-open class SimplePacketAdapter<T : Packet>(override val packetType: Class<T>) : PacketAdapter<T> {
+open class SimplePacketAdapter<T : Packet>(private val packetType: Class<T>) : PacketAdapter<T> {
 
     override fun matches(packet: Packet): Boolean {
         return packetType.isInstance(packet)
+    }
+
+    override fun cast(packet: Packet): T {
+        return packetType.cast(packet)
     }
 }

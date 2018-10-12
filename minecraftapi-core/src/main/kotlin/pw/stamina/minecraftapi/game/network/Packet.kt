@@ -39,7 +39,7 @@ inline fun <T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() 
     }
 
     if (adapter.matches(this)) {
-        val castedPacket = adapter.packetType.cast(this)
+        val castedPacket = adapter.cast(this)
         castedPacket.block()
     }
 }

@@ -30,5 +30,5 @@ interface PacketAdapter<T : Packet> {
 
     fun matches(packet: Packet): Boolean
 
-    val packetType: Class<T>
+    fun cast(packet: Packet): T
 }
