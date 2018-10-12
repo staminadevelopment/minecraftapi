@@ -22,32 +22,16 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.adapter.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.adapter.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
-import pw.stamina.minecraftapi.game.util.text.TextFormatting
+interface TextStyle {
 
-interface MinecraftApiAdapter {
+    var parentStyle: TextStyle?
+    var color: TextFormatting?
 
-    val minecraft: Minecraft
-    val itemRegistry: ItemRegistry
-
-    // Factories
-
-    val boundingBoxFactory: BoundingBox.Factory
-    val resourceLocationFactory: ResourceLocation.Factory
-
-    // Adapters
-
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-    val handAdapter: Hand.Adapter
-
-    val textFormattingAdapter: TextFormatting.Adapter
+    var bold: Boolean?
+    var italic: Boolean?
+    var underlined: Boolean?
+    var strikethrough: Boolean?
+    var obfuscated: Boolean?
 }

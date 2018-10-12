@@ -22,32 +22,36 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.adapter.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.adapter.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
-import pw.stamina.minecraftapi.game.util.text.TextFormatting
+interface TextComponent {
 
-interface MinecraftApiAdapter {
+    var style: TextStyle
 
-    val minecraft: Minecraft
-    val itemRegistry: ItemRegistry
+    // Internally belongs to the style component
+    //var clickEvent: ClickEvent? todo
+    //var hoverEvent: HoverEvent? todo
+    var insertion: String?
 
-    // Factories
+    fun append(component: TextComponent)
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val resourceLocationFactory: ResourceLocation.Factory
+    fun getSiblings(): List<TextComponent>
 
-    // Adapters
+    /**
+     * Gets the raw content of this component (but not its
+     * sibling components), without any formatting codes.
+     */
+    fun getUnformattedComponentText(): String
 
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-    val handAdapter: Hand.Adapter
+    /**
+     * Gets the text of this component and all sibling
+     * components, without any formatting codes.
+     */
+    fun getUnformattedText(): String
 
-    val textFormattingAdapter: TextFormatting.Adapter
+    /**
+     * Gets the text of this component and all sibling
+     * components, with formatting codes added for rendering.
+     */
+    fun getFormattedText(): String
 }
