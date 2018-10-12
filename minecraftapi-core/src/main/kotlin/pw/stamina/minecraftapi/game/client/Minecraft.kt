@@ -53,7 +53,7 @@ interface Minecraft {
     // TODO: Add ChatComponent based alternative when that API has been implemented
     fun printChatMessage(message: String)
 
-    fun setTitle(title: String)
+    fun setWindowTitle(title: String)
 
     companion object {
 
