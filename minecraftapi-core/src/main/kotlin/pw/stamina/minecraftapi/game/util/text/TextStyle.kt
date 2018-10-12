@@ -24,9 +24,10 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
+@TextComponentDslMarker
 interface TextStyle {
 
-    var parentStyle: TextStyle?
+    val parentStyle: TextStyle?
     var color: TextFormatting?
 
     var bold: Boolean?

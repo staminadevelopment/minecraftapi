@@ -24,9 +24,18 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
+import pw.stamina.minecraftapi.MinecraftApi
+
+@TextComponentDslMarker
 interface TextComponent {
 
-    var style: TextStyle
+    var style: TextStyle?
+
+    @JvmDefault
+    @TextComponentDslMarker
+    fun style(init: TextStyle.() -> Unit) {
+        style = (style ?: newStyle()).apply(init)
+    }
 
     // Internally belongs to the style component
     //var clickEvent: ClickEvent? todo
@@ -35,7 +44,10 @@ interface TextComponent {
 
     fun append(component: TextComponent)
 
-    fun getSiblings(): List<TextComponent>
+    @JvmDefault
+    operator fun TextComponent.unaryPlus() = append(this)
+
+    val siblings: List<TextComponent>
 
     /**
      * Gets the raw content of this component (but not its
@@ -54,4 +66,22 @@ interface TextComponent {
      * components, with formatting codes added for rendering.
      */
     fun getFormattedText(): String
+
+    interface Factory {
+        fun newText(text: String): TextComponent
+
+        fun newEmptyText(): TextComponent
+
+        fun newStyle(): TextStyle
+    }
+
+    companion object {
+        private val textComponentFactory = MinecraftApi.getAdapter().textComponentFactory
+
+        fun newText(text: String) = textComponentFactory.newText(text)
+
+        fun newEmptyText() = textComponentFactory.newEmptyText()
+
+        fun newStyle() = textComponentFactory.newStyle()
+    }
 }

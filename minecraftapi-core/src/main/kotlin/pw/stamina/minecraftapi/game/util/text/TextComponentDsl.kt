@@ -22,34 +22,26 @@
  * SOFTWARE.
  */
 
-package pw.stamina.minecraftapi
+package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.client.Minecraft
-import pw.stamina.minecraftapi.game.item.ItemRegistry
-import pw.stamina.minecraftapi.game.network.adapter.IncomingPacketAdapters
-import pw.stamina.minecraftapi.game.network.adapter.OutgoingPacketAdapters
-import pw.stamina.minecraftapi.game.util.BoundingBox
-import pw.stamina.minecraftapi.game.util.Hand
-import pw.stamina.minecraftapi.game.util.ResourceLocation
-import pw.stamina.minecraftapi.game.util.text.TextComponent
-import pw.stamina.minecraftapi.game.util.text.TextFormatting
+@DslMarker
+annotation class TextComponentDslMarker
 
-interface MinecraftApiAdapter {
+@TextComponentDslMarker
+fun textComponent(init: TextComponent.() -> Unit)
+        = TextComponent.newEmptyText().apply(init)
 
-    val minecraft: Minecraft
-    val itemRegistry: ItemRegistry
+@TextComponentDslMarker
+fun TextComponent.text(text: String, init: (TextComponent.() -> Unit)? = null)
+        = initAndAppendComponent(TextComponent.newText(text), init)
 
-    // Factories
+@TextComponentDslMarker
+fun TextComponent.section(init: TextComponent.() -> Unit)
+        = initAndAppendComponent(TextComponent.newEmptyText(), init)
 
-    val boundingBoxFactory: BoundingBox.Factory
-    val resourceLocationFactory: ResourceLocation.Factory
-    val textComponentFactory: TextComponent.Factory
+private fun TextComponent.initAndAppendComponent(
+        text: TextComponent,
+        init: (TextComponent.() -> Unit)? = null
+) = text.apply { init?.invoke(this) }.also(::append)
 
-    // Adapters
-
-    val incomingPacketAdapters: IncomingPacketAdapters
-    val outingPacketAdapters: OutgoingPacketAdapters
-
-    val handAdapter: Hand.Adapter
-    val textFormattingAdapter: TextFormatting.Adapter
-}
+operator fun String.not() = TextComponent.newText(this)
