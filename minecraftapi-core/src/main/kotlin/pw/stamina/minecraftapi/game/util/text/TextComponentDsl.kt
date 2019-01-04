@@ -24,24 +24,58 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
+import pw.stamina.minecraftapi.game.client.Minecraft
+
 @DslMarker
 annotation class TextComponentDslMarker
 
 @TextComponentDslMarker
-fun textComponent(init: TextComponent.() -> Unit)
-        = TextComponent.newEmptyText().apply(init)
-
-@TextComponentDslMarker
-fun TextComponent.text(text: String, init: (TextComponent.() -> Unit)? = null)
-        = initAndAppendComponent(TextComponent.newText(text), init)
-
-@TextComponentDslMarker
-fun TextComponent.section(init: TextComponent.() -> Unit)
-        = initAndAppendComponent(TextComponent.newEmptyText(), init)
-
-private fun TextComponent.initAndAppendComponent(
-        text: TextComponent,
-        init: (TextComponent.() -> Unit)? = null
-) = text.apply { init?.invoke(this) }.also(::append)
+fun textComponent(init: (TextComponentBuilder.() -> Unit)): TextComponent =
+        TextComponentBuilder().apply(init).build()
 
 operator fun String.not() = TextComponent.newText(this)
+
+fun main(args: Array<String>) {
+    val prefix = textComponent {
+        style { color = TextFormatting.gray }
+
+        prepend(!"[")
+        append(!"]: ")
+
+        text("Stamina") {
+            style {
+                color = TextFormatting.gold
+            }
+        }
+    }
+
+    val featuresEnableText = textComponent {
+        text("Features: ")
+
+        val featureIterator = listOf<String>().iterator()
+
+        while (featureIterator.hasNext()) {
+            val feature = featureIterator.next()
+
+            text(feature) {
+                style {
+                    color = when (feature.isNotBlank()) {
+                        true -> TextFormatting.green
+                        false -> TextFormatting.red
+                    }
+                }
+            }
+
+            if (featureIterator.hasNext()) {
+                text(", ")
+            }
+        }
+
+        text(".")
+    }
+
+    Minecraft.minecraft.printChatMessage(textComponent {
+        +prefix
+        +featuresEnableText
+    })
+}

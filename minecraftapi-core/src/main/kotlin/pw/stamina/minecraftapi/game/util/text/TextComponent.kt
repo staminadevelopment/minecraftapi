@@ -31,27 +31,20 @@ interface TextComponent {
 
     var style: TextStyle?
 
-    @JvmDefault
-    @TextComponentDslMarker
-    fun style(init: TextStyle.() -> Unit) {
-        style = (style ?: newStyle()).apply(init)
-    }
-
-    // Internally belongs to the style component
-    //var clickEvent: ClickEvent? todo
-    //var hoverEvent: HoverEvent? todo
+    var clickEvent: Any?
+    var hoverEvent: Any?
     var insertion: String?
 
     fun append(component: TextComponent)
 
     @JvmDefault
-    operator fun TextComponent.unaryPlus() = append(this)
+    operator fun unaryPlus() = append(this)
 
     val siblings: List<TextComponent>
 
     /**
-     * Gets the raw content of this component (but not its
-     * sibling components), without any formatting codes.
+     * Gets the raw content of this component, not including
+     * sibling components, without any formatting codes.
      */
     fun getUnformattedComponentText(): String
 
@@ -63,7 +56,7 @@ interface TextComponent {
 
     /**
      * Gets the text of this component and all sibling
-     * components, with formatting codes added for rendering.
+     * components, with formatting codes.
      */
     fun getFormattedText(): String
 
