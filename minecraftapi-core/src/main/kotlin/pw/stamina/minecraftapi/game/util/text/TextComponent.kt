@@ -28,7 +28,7 @@ import pw.stamina.minecraftapi.MinecraftApi
 
 interface TextComponent {
 
-    var style: TextStyle?
+    var style: TextStyle
 
     var clickEvent: Any?
     var hoverEvent: Any?
@@ -56,12 +56,16 @@ interface TextComponent {
      */
     fun getFormattedText(): String
 
+    /**
+     * Creates a copy of this component. The copy is almost
+     * deep, except styles which are shallow-copied.
+     */
+    fun copy(): TextComponent
+
     interface Factory {
         fun newText(text: String): TextComponentString
 
-        fun newEmptyText(): TextComponent
-
-        fun newStyle(): TextStyle
+        fun newComponent(): TextComponent
     }
 
     companion object {
@@ -69,8 +73,6 @@ interface TextComponent {
 
         fun newText(text: String) = textComponentFactory.newText(text)
 
-        fun newEmptyText() = textComponentFactory.newEmptyText()
-
-        fun newStyle() = textComponentFactory.newStyle()
+        fun newComponent() = textComponentFactory.newComponent()
     }
 }

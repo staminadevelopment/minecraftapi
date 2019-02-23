@@ -24,8 +24,7 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newEmptyText
-import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newStyle
+import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newComponent
 import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newText
 
 @DslMarker
@@ -42,19 +41,19 @@ fun newText(
     val component: TextComponent
 
     if (prefix != null || suffix != null) {
-        component = newEmptyText()
+        component = newComponent()
 
         prefix?.run(component::append)
         text?.run { component.append(!text) }
         init?.run(component::apply)
         suffix?.run(component::append)
     } else {
-        component = text?.let(::newText) ?: newEmptyText()
+        component = text?.let(::newText) ?: newComponent()
 
         init?.run(component::apply)
     }
 
-    style?.run { component.style = newStyle().apply(this) }
+    style?.run(component.style::apply)
 
     return component
 }
@@ -70,5 +69,5 @@ fun TextComponent.addText(
     append(newText(text, prefix, suffix, style, init))
 }
 
-operator fun String.not() = if (this.isEmpty()) newEmptyText() else newText(this)
-operator fun TextComponent.plus(other: TextComponent) = newEmptyText().append(this).append(other)
+operator fun String.not() = if (this.isEmpty()) newComponent() else newText(this)
+operator fun TextComponent.plus(other: TextComponent) = newComponent().append(this).append(other)
