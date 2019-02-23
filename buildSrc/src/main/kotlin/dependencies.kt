@@ -25,7 +25,6 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.repositories
 
 object Dependencies {
     const val minecraftApiCore = ":minecraftapi-core"
@@ -35,11 +34,5 @@ fun Project.applyStandardDependencies() {
 
     dependencies {
         "implementation"(kotlin("stdlib-jdk8"))
-
-        val minecraftApiCoreProject = project(Dependencies.minecraftApiCore)
-
-        if (project != minecraftApiCoreProject) {
-            "implementation"(minecraftApiCoreProject)
-        }
     }
 }

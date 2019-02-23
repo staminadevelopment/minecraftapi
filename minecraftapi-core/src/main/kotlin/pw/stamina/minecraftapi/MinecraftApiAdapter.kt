@@ -38,12 +38,10 @@ interface MinecraftApiAdapter {
     val itemRegistry: ItemRegistry
 
     // Factories
-
     val boundingBoxFactory: BoundingBox.Factory
     val resourceLocationFactory: ResourceLocation.Factory
 
     // Adapters
-
     val incomingPacketAdapters: IncomingPacketAdapters
     val outingPacketAdapters: OutgoingPacketAdapters
     val handAdapter: Hand.Adapter

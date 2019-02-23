@@ -24,11 +24,9 @@
 
 package pw.stamina.minecraftapi.module
 
-import pw.stamina.minecraftapi.MinecraftApiAdapter
+import pw.stamina.minecraftapi.MinecraftApi
 
 interface MinecraftApiModule {
 
-    fun bootstrap(adapter: MinecraftApiAdapter)
-
-    fun <T> consumeEvent(event: T)
+    fun bootstrap(api: MinecraftApi)
 }

@@ -25,14 +25,14 @@
 package pw.stamina.minecraftapi
 
 import pw.stamina.minecraftapi.module.MinecraftApiModule
-import pw.stamina.minecraftapi.module.MinecraftApiModuleLoader
+import java.util.ServiceLoader
 import java.util.concurrent.atomic.AtomicBoolean
 
 object MinecraftApi {
     private val BOOTSTRAPPED = AtomicBoolean()
 
-    private lateinit var adapter: MinecraftApiAdapter
-    private lateinit var module: MinecraftApiModule
+    lateinit var adapter: MinecraftApiAdapter
+        private set
 
     fun bootstrap(adapter: MinecraftApiAdapter) {
         if (!BOOTSTRAPPED.compareAndSet(false, true)) {
@@ -40,18 +40,12 @@ object MinecraftApi {
         }
 
         this.adapter = adapter
-
-        module = MinecraftApiModuleLoader.loadModule()
-        module.bootstrap(adapter)
+        bootstrapModules(ServiceLoader.load(MinecraftApiModule::class.java))
     }
 
-    fun getAdapter() = adapter
-
-    fun bootstrapModule() {
-        module.bootstrap(adapter)
-    }
-
-    fun <T> emitEvent(event: T) {
-        module.consumeEvent(event)
+    private fun bootstrapModules(modules: Iterable<MinecraftApiModule>) {
+        for (module in modules) {
+            module.bootstrap(this)
+        }
     }
 }

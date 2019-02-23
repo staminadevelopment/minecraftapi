@@ -29,3 +29,7 @@ plugins {
 version = "1.0.0-SNAPSHOT"
 
 applyStandardDependencies()
+
+dependencies {
+    implementation(project(Dependencies.minecraftApiCore))
+}
