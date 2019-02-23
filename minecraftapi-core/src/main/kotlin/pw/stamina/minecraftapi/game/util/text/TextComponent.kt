@@ -35,12 +35,9 @@ interface TextComponent {
     var hoverEvent: Any?
     var insertion: String?
 
-    fun append(component: TextComponent)
-
-    @JvmDefault
-    operator fun unaryPlus() = append(this)
-
     val siblings: List<TextComponent>
+
+    fun append(component: TextComponent): TextComponent
 
     /**
      * Gets the raw content of this component, not including

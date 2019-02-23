@@ -24,13 +24,51 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.client.Minecraft
+import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newEmptyText
+import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newStyle
+import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newText
 
 @DslMarker
 annotation class TextComponentDslMarker
 
 @TextComponentDslMarker
-fun textComponent(init: (TextComponentBuilder.() -> Unit)): TextComponent =
-        TextComponentBuilder().apply(init).build()
+fun newText(
+        text: String? = null,
+        prefix: TextComponent? = null,
+        suffix: TextComponent? = null,
+        style: (TextStyle.() -> Unit)? = null,
+        init: (TextComponent.() -> Unit)? = null
+): TextComponent {
+    val component: TextComponent
 
-operator fun String.not() = TextComponent.newText(this)
+    if (prefix != null || suffix != null) {
+        component = newEmptyText()
+
+        prefix?.run(component::append)
+        text?.run { component.append(!text) }
+        init?.run(component::apply)
+        suffix?.run(component::append)
+    } else {
+        component = text?.let(::newText) ?: newEmptyText()
+
+        init?.run(component::apply)
+    }
+
+    style?.run { component.style = newStyle().apply(this) }
+
+    return component
+}
+
+@TextComponentDslMarker
+fun TextComponent.addText(
+        text: String? = null,
+        prefix: TextComponent? = null,
+        suffix: TextComponent? = null,
+        style: (TextStyle.() -> Unit)? = null,
+        init: (TextComponent.() -> Unit)? = null
+): TextComponent = this.also {
+    append(newText(text, prefix, suffix, style, init))
+}
+
+operator fun String.not() = if (this.isEmpty()) newEmptyText() else newText(this)
+operator fun TextComponent.plus(other: TextComponent) = newEmptyText().append(this).append(other)
