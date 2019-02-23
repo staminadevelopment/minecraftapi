@@ -30,19 +30,19 @@ interface TextFormatting {
 
     interface Adapter {
         val black: TextFormatting
-        val dark_blue: TextFormatting
-        val dark_green: TextFormatting
-        val dark_aqua: TextFormatting
-        val dark_red: TextFormatting
-        val dark_purple: TextFormatting
+        val darkBlue: TextFormatting
+        val darkGreen: TextFormatting
+        val darkAqua: TextFormatting
+        val darkRed: TextFormatting
+        val darkPurple: TextFormatting
         val gold: TextFormatting
         val gray: TextFormatting
-        val dark_gray: TextFormatting
+        val darkGray: TextFormatting
         val blue: TextFormatting
         val green: TextFormatting
         val aqua: TextFormatting
         val red: TextFormatting
-        val light_purple: TextFormatting
+        val lightPurple: TextFormatting
         val yellow: TextFormatting
         val white: TextFormatting
         val obfuscated: TextFormatting
@@ -56,27 +56,27 @@ interface TextFormatting {
     companion object {
         private val formattingAdapter = MinecraftApi.getAdapter().textFormattingAdapter
 
-        val black = formattingAdapter.black
-        val dark_blue = formattingAdapter.dark_blue
-        val dark_green = formattingAdapter.dark_green
-        val dark_aqua = formattingAdapter.dark_aqua
-        val dark_red = formattingAdapter.dark_red
-        val dark_purple = formattingAdapter.dark_purple
-        val gold = formattingAdapter.gold
-        val gray = formattingAdapter.gray
-        val dark_gray = formattingAdapter.dark_gray
-        val blue = formattingAdapter.blue
-        val green = formattingAdapter.green
-        val aqua = formattingAdapter.aqua
-        val red = formattingAdapter.red
-        val light_purple = formattingAdapter.light_purple
-        val yellow = formattingAdapter.yellow
-        val white = formattingAdapter.white
-        val obfuscated = formattingAdapter.obfuscated
-        val bold = formattingAdapter.bold
-        val strikethrough = formattingAdapter.strikethrough
-        val underline = formattingAdapter.underline
-        val italic = formattingAdapter.italic
-        val reset = formattingAdapter.reset
+        val BLACK = formattingAdapter.black
+        val DARK_BLUE = formattingAdapter.darkBlue
+        val DARK_GREEN = formattingAdapter.darkGreen
+        val DARK_AQUA = formattingAdapter.darkAqua
+        val DARK_RED = formattingAdapter.darkRed
+        val DARK_PURPLE = formattingAdapter.darkPurple
+        val GOLD = formattingAdapter.gold
+        val GRAY = formattingAdapter.gray
+        val DARK_GRAY = formattingAdapter.darkGray
+        val BLUE = formattingAdapter.blue
+        val GREEN = formattingAdapter.green
+        val AQUA = formattingAdapter.aqua
+        val RED = formattingAdapter.red
+        val LIGHT_PURPLE = formattingAdapter.lightPurple
+        val YELLOW = formattingAdapter.yellow
+        val WHITE = formattingAdapter.white
+        val OBFUSCATED = formattingAdapter.obfuscated
+        val BOLD = formattingAdapter.bold
+        val STRIKETHROUGH = formattingAdapter.strikethrough
+        val UNDERLINE = formattingAdapter.underline
+        val ITALIC = formattingAdapter.italic
+        val RESET = formattingAdapter.reset
     }
 }
