@@ -30,15 +30,12 @@ import pw.stamina.minecraftapi.util.Position
 interface BoundingBox {
 
     val minX: Double
-
     val maxX: Double
 
     val minY: Double
-
     val maxY: Double
 
     val minZ: Double
-
     val maxZ: Double
 
     fun expand(x: Double, y: Double, z: Double): BoundingBox

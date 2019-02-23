@@ -56,8 +56,7 @@ interface Minecraft {
 
     companion object {
 
-        val minecraft: Minecraft
+        val instance: Minecraft
             get() = MinecraftApi.adapter.minecraft
     }
-
 }

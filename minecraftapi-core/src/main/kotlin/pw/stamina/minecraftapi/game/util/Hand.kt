@@ -35,14 +35,14 @@ interface Hand {
     }
 
     companion object {
-        val main: Hand
-        val off: Hand
+        val MAIN: Hand
+        val OFF: Hand
 
         init {
             val handAdapter = MinecraftApi.adapter.handAdapter
 
-            main = handAdapter.mainHand
-            off = handAdapter.offHand
+            MAIN = handAdapter.mainHand
+            OFF = handAdapter.offHand
         }
     }
 }
