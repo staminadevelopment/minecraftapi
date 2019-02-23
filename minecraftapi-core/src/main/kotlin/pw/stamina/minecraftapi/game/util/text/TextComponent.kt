@@ -26,7 +26,6 @@ package pw.stamina.minecraftapi.game.util.text
 
 import pw.stamina.minecraftapi.MinecraftApi
 
-@TextComponentDslMarker
 interface TextComponent {
 
     var style: TextStyle?
@@ -58,7 +57,7 @@ interface TextComponent {
     fun getFormattedText(): String
 
     interface Factory {
-        fun newText(text: String): TextComponent
+        fun newText(text: String): TextComponentString
 
         fun newEmptyText(): TextComponent
 
