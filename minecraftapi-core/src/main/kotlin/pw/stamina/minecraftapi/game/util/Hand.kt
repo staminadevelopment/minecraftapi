@@ -39,7 +39,7 @@ interface Hand {
         val off: Hand
 
         init {
-            val handAdapter = MinecraftApi.getAdapter().handAdapter
+            val handAdapter = MinecraftApi.adapter.handAdapter
 
             main = handAdapter.mainHand
             off = handAdapter.offHand

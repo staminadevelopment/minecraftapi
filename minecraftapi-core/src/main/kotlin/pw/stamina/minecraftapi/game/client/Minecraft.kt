@@ -45,7 +45,6 @@ interface Minecraft {
     val scaledResolution: ScaledResolution
 
     val displayWidth: Int
-
     val displayHeight: Int
 
     var rightClickDelay: Int
@@ -58,7 +57,7 @@ interface Minecraft {
     companion object {
 
         val minecraft: Minecraft
-            get() = MinecraftApi.getAdapter().minecraft
+            get() = MinecraftApi.adapter.minecraft
     }
 
 }

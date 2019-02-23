@@ -31,7 +31,7 @@ object PacketAdapters {
     val outgoing: OutgoingPacketAdapters
 
     init {
-        val packetAdapters = MinecraftApi.getAdapter()
+        val packetAdapters = MinecraftApi.adapter
 
         incoming = packetAdapters.incomingPacketAdapters
         outgoing = packetAdapters.outingPacketAdapters

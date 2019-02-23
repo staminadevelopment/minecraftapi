@@ -24,4 +24,7 @@
 
 package pw.stamina.minecraftapi.util
 
+/**
+ * Utility class that represents the position of an entity.
+ */
 data class Position(val x: Double, val y: Double, val z: Double)

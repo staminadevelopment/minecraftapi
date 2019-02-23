@@ -33,7 +33,7 @@ interface Packet
 interface IncomingPacket : Packet
 interface OutgoingPacket : Packet
 
-inline fun <T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() -> Unit) {
+fun <T : Packet> Packet.ifMatches(adapter: PacketAdapter<T>, block: T.() -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }

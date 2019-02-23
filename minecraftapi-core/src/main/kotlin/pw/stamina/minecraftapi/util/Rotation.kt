@@ -24,4 +24,7 @@
 
 package pw.stamina.minecraftapi.util
 
+/**
+ * Utility class that represents the rotation of an entity.
+ */
 data class Rotation(val yaw: Float, val pitch: Float)

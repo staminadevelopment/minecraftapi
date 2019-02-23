@@ -24,4 +24,7 @@
 
 package pw.stamina.minecraftapi.util
 
+/**
+ * Utility class that represents the motion of an entity.
+ */
 data class Motion(val x: Double, val y: Double, val z: Double)

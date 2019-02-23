@@ -35,8 +35,8 @@ object MinecraftApi {
         private set
 
     fun bootstrap(adapter: MinecraftApiAdapter) {
-        if (!BOOTSTRAPPED.compareAndSet(false, true)) {
-            throw Error("MinecraftApi has already been bootstrapped")
+        check(BOOTSTRAPPED.compareAndSet(false, true)) {
+            "MinecraftApi has already been bootstrapped"
         }
 
         this.adapter = adapter

@@ -62,7 +62,7 @@ interface BoundingBox {
     }
 
     companion object {
-        private val boundingBoxFactory = MinecraftApi.getAdapter().boundingBoxFactory
+        private val boundingBoxFactory = MinecraftApi.adapter.boundingBoxFactory
 
         fun fromBounds(x: AxisPointPair, y: AxisPointPair, z: AxisPointPair) =
                 boundingBoxFactory.create(x, y, z)

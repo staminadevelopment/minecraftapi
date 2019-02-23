@@ -26,6 +26,7 @@ package pw.stamina.minecraftapi.game.item
 
 import pw.stamina.minecraftapi.MinecraftApi
 
+@Suppress("MemberVisibilityCanBePrivate")
 object Items {
 
     val AIR: Item
@@ -240,7 +241,7 @@ object Items {
     val KNOWLEDGE_BOOK: Item
 
     init {
-        val registry = MinecraftApi.getAdapter().itemRegistry
+        val registry = MinecraftApi.adapter.itemRegistry
 
         AIR = registry.getRegisteredItemOrAir("air")
         IRON_SHOVEL = registry.getRegisteredItemOrAir("iron_shovel")
