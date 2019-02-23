@@ -28,7 +28,7 @@ import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newCompone
 import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newText
 
 @DslMarker
-annotation class TextComponentDslMarker
+private annotation class TextComponentDslMarker
 
 @TextComponentDslMarker
 fun newText(

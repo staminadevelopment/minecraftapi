@@ -24,7 +24,6 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
-@TextComponentDslMarker
 interface TextStyle {
 
     val parentStyle: TextStyle?
