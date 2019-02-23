@@ -31,6 +31,8 @@ import pw.stamina.minecraftapi.game.network.adapter.OutgoingPacketAdapters
 import pw.stamina.minecraftapi.game.util.BoundingBox
 import pw.stamina.minecraftapi.game.util.Hand
 import pw.stamina.minecraftapi.game.util.ResourceLocation
+import pw.stamina.minecraftapi.game.util.text.TextComponent
+import pw.stamina.minecraftapi.game.util.text.TextFormatting
 
 interface MinecraftApiAdapter {
 
@@ -40,9 +42,12 @@ interface MinecraftApiAdapter {
     // Factories
     val boundingBoxFactory: BoundingBox.Factory
     val resourceLocationFactory: ResourceLocation.Factory
+    val textComponentFactory: TextComponent.Factory
 
     // Adapters
     val incomingPacketAdapters: IncomingPacketAdapters
     val outingPacketAdapters: OutgoingPacketAdapters
+
     val handAdapter: Hand.Adapter
+    val textFormattingAdapter: TextFormatting.Adapter
 }

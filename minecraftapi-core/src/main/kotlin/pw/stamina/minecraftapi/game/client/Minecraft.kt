@@ -28,6 +28,7 @@ import pw.stamina.minecraftapi.MinecraftApi
 import pw.stamina.minecraftapi.game.entity.living.ClientPlayer
 import pw.stamina.minecraftapi.game.render.FontRenderer
 import pw.stamina.minecraftapi.game.render.RenderManager
+import pw.stamina.minecraftapi.game.util.text.TextComponent
 import pw.stamina.minecraftapi.game.world.World
 
 interface Minecraft {
@@ -49,8 +50,7 @@ interface Minecraft {
 
     var rightClickDelay: Int
 
-    // TODO: Add ChatComponent based alternative when that API has been implemented
-    fun printChatMessage(message: String)
+    fun printChatMessage(message: TextComponent)
 
     fun setWindowTitle(title: String)
 
