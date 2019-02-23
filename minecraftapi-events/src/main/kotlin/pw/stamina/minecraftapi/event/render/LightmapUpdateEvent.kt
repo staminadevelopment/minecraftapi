@@ -26,7 +26,7 @@ package pw.stamina.minecraftapi.event.render
 
 class LightmapUpdateEvent {
 
-    private var calculator: LightmapCalculator? = null
+    var calculator: LightmapCalculator? = null
 
     var isLightUpdateForced: Boolean = false
         private set
@@ -34,14 +34,9 @@ class LightmapUpdateEvent {
     fun forceLightUpdate() {
         isLightUpdateForced = true
     }
-
-    fun setCalculator(calculator: LightmapCalculator) {
-        this.calculator = calculator
-    }
-
-    fun calculate(red: Int, green: Int, blue: Int, color: Int): Int {
-        return calculator?.invoke(red, green, blue, color) ?: color
-    }
 }
 
-typealias LightmapCalculator = (red: Int, green: Int, blue: Int, color: Int) -> Int
+interface LightmapCalculator {
+
+    fun calculate(red: Int, green: Int, blue: Int, color: Int): Int
+}

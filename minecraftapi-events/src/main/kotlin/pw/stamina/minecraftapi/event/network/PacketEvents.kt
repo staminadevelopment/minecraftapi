@@ -29,12 +29,10 @@ import pw.stamina.minecraftapi.game.network.IncomingPacket
 import pw.stamina.minecraftapi.game.network.NetworkManager
 import pw.stamina.minecraftapi.game.network.OutgoingPacket
 import pw.stamina.minecraftapi.game.network.Packet
-import java.util.*
 
 sealed class PacketEvent<T : Packet>(val packet: T, private val networkManager: NetworkManager) : AbstractCancellable() {
 
-    private val packetsDelegate = lazy { LinkedList<OutgoingPacket>() }
-    private val packets by packetsDelegate
+    private val packets by lazy { mutableListOf<OutgoingPacket>() }
 
     fun sendPacket(packet: OutgoingPacket) {
         networkManager.sendPacket(packet)
@@ -45,12 +43,7 @@ sealed class PacketEvent<T : Packet>(val packet: T, private val networkManager: 
     }
 
     fun sendPackets(sender: (OutgoingPacket) -> Unit) {
-        if (!packetsDelegate.isInitialized()) {
-            return
-        }
-
         packets.forEach(sender)
-        packets.clear()
     }
 }
 

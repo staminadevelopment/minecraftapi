@@ -30,10 +30,9 @@ import pw.stamina.minecraftapi.game.util.ResourceLocation
 class CapeRenderEvent(val player: Player) {
     private var overridingCapeLocation: ResourceLocation? = null
 
-    val isCapeLocationOverridden: Boolean
-        get() = overridingCapeLocation != null
+    fun isCapeLocationOverridden() = overridingCapeLocation != null
 
-    fun overrideCapeLocation(capeLocation: ResourceLocation) {
-        this.overridingCapeLocation = capeLocation
+    fun overrideCapeLocation(location: ResourceLocation) {
+        overridingCapeLocation = location
     }
 }

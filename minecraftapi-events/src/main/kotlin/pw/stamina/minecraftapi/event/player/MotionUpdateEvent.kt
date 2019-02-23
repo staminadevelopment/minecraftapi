@@ -27,22 +27,17 @@ package pw.stamina.minecraftapi.event.player
 import pw.stamina.minecraftapi.event.AbstractCancellable
 import pw.stamina.minecraftapi.game.entity.living.ClientPlayer
 import pw.stamina.minecraftapi.game.network.OutgoingPacket
-import pw.stamina.minecraftapi.util.CurrentPreviousPair
 import pw.stamina.minecraftapi.util.Position
 import pw.stamina.minecraftapi.util.Rotation
-import java.util.*
 
 class MotionUpdateEvent(
         val player: ClientPlayer,
 
-        position: Position,
-        rotation: Rotation,
+        position: Position, val oldPosition: Position,
+        rotation: Rotation, val oldRotation: Rotation,
 
-        val oldPosition: Position,
-        val oldRotation: Rotation,
-
-        sprinting: CurrentPreviousPair<Boolean>,
-        sneaking: CurrentPreviousPair<Boolean>,
+        var sprinting: Boolean, val wasSprinting: Boolean,
+        var sneaking: Boolean, val wasSneaking: Boolean,
 
         var onGround: Boolean,
         private val packetSender: (OutgoingPacket) -> Unit
@@ -55,11 +50,8 @@ class MotionUpdateEvent(
     var offsetZ: Double = 0.0
         private set
 
-    private val packetsDelegate = lazy { LinkedList<OutgoingPacket>() }
-    private val actionsDelegate = lazy { LinkedList<() -> Unit>() }
-
-    private val packets by packetsDelegate
-    private val actions by actionsDelegate
+    private val packets by lazy { mutableListOf<OutgoingPacket>() }
+    private val actions by lazy { mutableListOf<(ClientPlayer) -> Unit>() }
 
     var yaw = rotation.yaw
     var pitch = rotation.pitch
@@ -72,21 +64,21 @@ class MotionUpdateEvent(
         }
 
     var x = position.x
-        set(x) {
-            offsetX += (x - field)
-            field = x
+        set(value) {
+            offsetX += (value - field)
+            field = value
         }
 
     var y = position.y
-        set(y) {
-            offsetY += (y - field)
-            field = y
+        set(value) {
+            offsetY += (value - field)
+            field = value
         }
 
     var z = position.z
-        set(z) {
-            offsetY += (z - field)
-            field = z
+        set(value) {
+            offsetZ += (value - field)
+            field = value
         }
 
     var position: Position
@@ -97,7 +89,7 @@ class MotionUpdateEvent(
             z = position.z
         }
 
-    fun offset(x: Double, y: Double, z: Double) {
+    fun offsetBy(x: Double, y: Double, z: Double) {
         this.x += x
         this.y += y
         this.z += z
@@ -115,12 +107,6 @@ class MotionUpdateEvent(
     val isRotating: Boolean
         get() = rotation != oldRotation
 
-    var sprinting = sprinting.current
-    val wasSprinting = sprinting.previous
-
-    var sneaking = sneaking.current
-    val wasSneaking = sneaking.previous
-
     fun sendPacket(packet: OutgoingPacket) {
         packetSender(packet)
     }
@@ -130,24 +116,14 @@ class MotionUpdateEvent(
     }
 
     fun sendPackets(sender: (OutgoingPacket) -> Unit) {
-        if (!packetsDelegate.isInitialized()) {
-            return
-        }
-
         packets.forEach(sender)
-        packets.clear()
     }
 
-    fun doAfter(action: () -> Unit) {
+    fun doAfter(action: (ClientPlayer) -> Unit) {
         actions.add(action)
     }
 
     fun performActions() {
-        if (!packetsDelegate.isInitialized()) {
-            return
-        }
-
-        actions.forEach { it() }
-        actions.clear()
+        actions.forEach { action -> action(player) }
     }
 }
