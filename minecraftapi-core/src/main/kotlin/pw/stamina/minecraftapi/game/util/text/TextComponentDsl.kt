@@ -24,12 +24,23 @@
 
 package pw.stamina.minecraftapi.game.util.text
 
-import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newComponent
-import pw.stamina.minecraftapi.game.util.text.TextComponent.Companion.newText
-
 @DslMarker
 private annotation class TextComponentDslMarker
 
+/**
+ * Creates a new text component with the specified parameters. The
+ * [prefix] is always added before the [text], and the [suffix] is
+ * always added after the [text]. The [init] block always runs
+ * immediately after the [text]. Last the [style] block is applied
+ * to the component's style. The order remains unchanged, even if
+ * some parameters are not provided.
+ *
+ * @param text text the new component will contain
+ * @param prefix prefix is added before the [text]
+ * @param suffix suffix is added after the [text]
+ * @param style the style initializes the style of the component
+ * @param init initializer block runs on the component returned
+ */
 @TextComponentDslMarker
 fun newText(
         text: String? = null,
@@ -41,14 +52,14 @@ fun newText(
     val component: TextComponent
 
     if (prefix != null || suffix != null) {
-        component = newComponent()
+        component = TextComponent.newComponent()
 
         prefix?.run(component::append)
         text?.run { component.append(!text) }
         init?.run(component::apply)
         suffix?.run(component::append)
     } else {
-        component = text?.let(::newText) ?: newComponent()
+        component = text?.let { TextComponent.newText(it) } ?: TextComponent.newComponent()
 
         init?.run(component::apply)
     }
@@ -58,6 +69,12 @@ fun newText(
     return component
 }
 
+/**
+ * Creates a new component as described in [newText] and
+ * appends it to this component.
+ *
+ * @see [newText]
+ */
 @TextComponentDslMarker
 fun TextComponent.addText(
         text: String? = null,
@@ -69,5 +86,12 @@ fun TextComponent.addText(
     append(newText(text, prefix, suffix, style, init))
 }
 
-operator fun String.not() = if (this.isEmpty()) newComponent() else newText(this)
-operator fun TextComponent.plus(other: TextComponent) = newComponent().append(this).append(other)
+/**
+ * Converts a string to a text component.
+ */
+operator fun String.not() = if (this.isEmpty()) TextComponent.newComponent() else newText(this)
+
+/**
+ * Combines two text components into one.
+ */
+operator fun TextComponent.plus(other: TextComponent) = TextComponent.newComponent().append(this).append(other)

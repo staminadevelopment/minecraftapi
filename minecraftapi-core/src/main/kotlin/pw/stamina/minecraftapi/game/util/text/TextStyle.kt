@@ -26,12 +26,39 @@ package pw.stamina.minecraftapi.game.util.text
 
 interface TextStyle {
 
-    val parentStyle: TextStyle?
+    /**
+     * The parent style of this style. If this style does not override
+     * a value, it will be retrieved from this parent style.
+     */
+    val parentStyle: TextStyle
+
+    /**
+     * Gets the effective color of this style.
+     */
     var color: TextFormatting?
 
+    /**
+     * Whether or not text of this style should be in bold.
+     */
     var bold: Boolean?
+
+    /**
+     * Whether or not text of this style should be italicized.
+     */
     var italic: Boolean?
-    var underlined: Boolean?
+
+    /**
+     * Whether or not to format text of this style using strikethrough.
+     */
     var strikethrough: Boolean?
+
+    /**
+     * Whether or not text of this style should be underlined.
+     */
+    var underlined: Boolean?
+    
+    /**
+     * Whether or not text of this style should be obfuscated.
+     */
     var obfuscated: Boolean?
 }

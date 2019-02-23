@@ -26,6 +26,9 @@ package pw.stamina.minecraftapi.game.util.text
 
 import pw.stamina.minecraftapi.MinecraftApi
 
+/**
+ * Formatting codes for [TextStyle].
+ */
 interface TextFormatting {
 
     interface Adapter {

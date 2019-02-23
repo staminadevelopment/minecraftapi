@@ -28,14 +28,19 @@ import pw.stamina.minecraftapi.MinecraftApi
 
 interface TextComponent {
 
+    /**
+     * The style of this component.
+     */
     var style: TextStyle
 
-    var clickEvent: Any?
-    var hoverEvent: Any?
-    var insertion: String?
-
+    /**
+     * The siblings of this components.
+     */
     val siblings: List<TextComponent>
 
+    /**
+     * Appends the specified component to the list of siblings.
+     */
     fun append(component: TextComponent): TextComponent
 
     /**
